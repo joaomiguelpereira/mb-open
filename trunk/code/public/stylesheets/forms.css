@@ -1,0 +1,189 @@
+/* form.css */
+/*Start forms stuff*/
+.view-data tr.view-field td.field-name {
+	padding: 0;
+	margin: 0;
+	text-align: left;
+	font-weight: bold;
+	padding-top: 3px;
+	vertical-align: top;
+}
+
+.view-data tr.view-field td.field-value {
+	padding-top: 3px;
+}
+
+.view-data {
+	max-width: 800px;
+	min-width: 288px;
+	float: left;
+	border: solid 1px #ccc;
+	padding: 5px;
+	background-color: #fff;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.view-data .not-editable {
+	background-color: #ecf7dc;
+	border: solid 1px #becfd4;
+	margin: 4px;
+	padding: 4px;
+}
+
+.view-data form {
+	background-color: #ecf7dc;
+	margin: 4px;
+	padding: 4px;
+	border: solid 1px #becfd4;
+}
+
+.view-data form fieldset div.buttons input[type='submit'],.view-data form fieldset div.buttons input[type='button']
+	{
+	padding: 5px;
+	padding-left: 7px;
+	padding-right: 7px;
+	cursor: pointer;
+}
+
+.view-data form fieldset div.buttons a {
+	padding: 5px;
+	padding-left: 7px;
+	padding-right: 7px;
+	cursor: pointer;
+}
+
+.view-data form fieldset {
+	clear: both;
+	font-size: 100%;
+	border-color: #000000;
+	border-width: 1px 0 0 0;
+	border-style: solid none none none;
+	margin: 0 0 0 0;
+}
+
+.view-data form fieldset legend {
+	font-size: 100%;
+	font-weight: bold;
+	color: #000000;
+	margin: 0 0 0 0;
+	padding: 0 5px;
+}
+
+.view-data form fieldset div.info {
+	font-style: italic;
+	margin-top: -8px;
+	padding: 4px;
+	color: #888;
+	font-size: 0.9em;
+}
+
+.view-data h1 {
+	font-size: 1.2em;
+	border-bottom: solid 1px #becfd4;
+}
+
+.view-data div.question {
+	font-weight: bold;
+	margin-bottom: 2px;
+}
+
+.view-data ul.answer-multiple-choice {
+	list-style-type: none;
+	padding-left: 5px;
+	margin-top: 0px;
+}
+
+.view-data form div {
+	clear: left;
+	display: block;
+	margin: 10px 0 0 0;
+	padding: 1px 3px;
+}
+
+.view-data label {
+	font-weight: normal;
+}
+
+.view-data form div label {
+	display: block;
+	float: left;
+	width: 250px;
+	padding: 0;
+	margin: 0;
+	text-align: left;
+}
+
+.view-data form div label span.required-sybmol {
+	font-size: 0.9em;
+	vertical-align: top;
+	padding-left: 3px;
+}
+
+
+.field-value .fieldError {
+	vertical-align: top;
+	font-size: 0.9em;
+	color: #ff0000
+}
+	
+.view-data form div span.info, .view-data form div span.error{
+	display: block;
+	margin-left: 250px;
+	vertical-align: top;
+	font-size: 0.8em;
+}
+
+.view-data form div span.info {
+	color: #888;
+}
+
+.view-data form div span.error {
+	color: #ff0000
+}
+
+.view-data form div input[type='text'], .view-data table tr.view-field input[type='text']{
+	width: 300px;
+	padding: 3px 4px;
+	border: solid 1px #000;
+	margin: 0 0 0 0;
+}
+
+.view-data form div textarea, .view-data table tr.view-field textarea {
+	width: 300px;
+	padding: 3px 4px;
+	margin: 0 0 0 0;
+	border: solid 1px #000;
+}
+
+form div.hasError input[type='text'],form div.hasError textarea, .view-data table tr.view-field textarea.hasError, .view-data table tr.view-field input[type='text'].hasError {
+	border-color: red;
+}
+
+.view-data form div input[type='checkbox'] {
+	padding: 3px 4px;
+	margin: 0 0 0 0;
+	margin-left: 250px;
+	float: left;
+}
+
+.view-data form div input[disabled='true'] {
+	width: 300px;
+	padding: 3px 4px;
+	border: solid 1px #000;
+	margin: 0 0 0 0;
+	border: none;
+	color: black;
+	background-color: transparent;
+}
+
+
+
+
+
+.view-data form div label.checkbox {
+	padding: 0;
+	margin-left: 10px;
+	text-align: left;
+	width: auto;
+}

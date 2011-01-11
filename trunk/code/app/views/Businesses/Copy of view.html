@@ -1,0 +1,160 @@
+#{extends 'main.html' /}
+
+#{set title:play.i18n.Messages.get('views.businesses.view.title') /}
+
+#{include 'Businesses/businessOptions.html'/}
+
+<div class="view-data">
+	<div class="not-editable"">
+		
+		 <h1>Informação Básica sobre Clínica/Consultório</h1>
+		 <table id='businessBasicInfo'>
+		 	
+		 	<tr class="view-field">
+		 		<td class="field-name">Nome:</td>
+		 		<td class="field-value" >
+		 			<span data-bind="text: business().name"></span>
+		 			<input style="display:none" data-bind="value: business().name" type="text" name="business.name" id="business.name" size="20" maxlength="60" value="" />
+		 			<div class="error" data-bind="template: { name: 'fieldErrorTemplate' ,data: errors().name}"></div>
+		 		</td>	
+		 	</tr>
+		 			 
+			 <tr class="view-field">
+			 	<td class="field-name">Morada:</td>
+			 	<td class="field-value">
+			 		<span data-bind="text: business().address().addressLineOne"></span>
+			 		<textarea style="display:none" data-bind="value: business().address().addressLineOne" name="business[address[addressLine1]]" id="business[address[addressLine1]]"></textarea>
+			 		<div class="error" data-bind="template: { name: 'fieldErrorTemplate' ,data: errors().address().addressLineOne}"></div>	 	
+			 	</td>
+			 </tr>
+		
+			 <tr class="view-field">
+			 	<td class="field-name">Código Postal:</td>
+			 	<td class="field-value">
+			 		<span data-bind="text: business().address().postalCode"></span>
+			 		<input style="display:none" data-bind="value: business().address().postalCode" type="text" name="business[address[postalCode]]" id="business[address[postalCode]]" size="20" maxlength="60" value="" />
+			 		<div class="error" data-bind="template: { name: 'fieldErrorTemplate' ,data: errors().address().postalCode}"></div>	 	
+			 	</td>	 	
+			 </tr>
+		
+			 <tr class="view-field">
+			 	<td class="field-name">Localidade:</td>
+			 	<td class="field-value">
+			 		<span data-bind="text: business().address().city"></span>
+			 		<input style="display:none" data-bind="value: business().address().city" type="text" name="business[address[postalCode]]" id="city" size="20" maxlength="60" value="" />
+			 		<div class="error" data-bind="template: { name: 'fieldErrorTemplate' ,data: errors().address().city}"></div>	 	
+			 	</td>	 	
+			 </tr>
+		
+			 
+		</table>
+		<div class="inlineOption" id="businessBasicInfoOptions">
+		 	<a href="#" class="editOption">Editar</a>
+		 	<a href="#" class="saveOption" style="display:none">Guardar</a>
+		 	<a href="#" class="cancelOption" style="display:none">Cancelar</a>
+		 </div>
+		
+		<h1>Informação Adicional</h1>
+	
+		<table>
+		
+		 	<tr class="view-field">
+		 		<td class="field-name" colspan="2">Apresentação:</td>	
+		 	</tr>
+		 	<tr class="view-field">
+		 		<td class="field-value" colspan="2">${business.shortIntroduction}</td>	
+		 	</tr>
+			 
+		</table>
+	</div>
+</div>
+
+
+
+<script id="fieldErrorTemplate" type="text/x-jquery-tmpl">
+ {{each(i, error) $data}}
+	<div data-bind="text: error"></div>
+{{/each}}
+
+</script>
+
+
+<script type="text/javascript">
+
+	//Create model
+	var businessViewModel = {
+			
+			business : ko.observable({
+				name: ko.observable('${business.name}'),
+				address : ko.observable({
+					addressLineOne: ko.observable('${business.address.addressLineOne}'), 
+					postalCode: ko.observable('${business.address.postalCode}'),
+					city: ko.observable('${business.address.city}')
+				})				
+			}),
+			errors : ko.observable({
+				name: ko.observableArray([]),
+				address : ko.observable({
+					addressLineOne: ko.observableArray([]), 
+					postalCode: ko.observableArray([]),
+					city: ko.observableArray([])
+				})
+				
+			})
+	};
+	//Bind element
+	var elBasicInfo = document.getElementById('businessBasicInfo');	
+	ko.applyBindings(businessViewModel,elBasicInfo);
+	
+	
+	var businessBasicInfoOptionsUtils = {
+		
+		toggle : function() {
+			//get all span elements within the table
+			//set them invisible
+			$('#businessBasicInfo span').toggle();
+			//get all input, textarea elemens and set the, visible
+			$('#businessBasicInfo input').toggle();
+			$('#businessBasicInfo textarea').toggle();
+			$('#businessBasicInfo input:first:visible').focus();	
+			//Toggle options
+			$('#businessBasicInfoOptions a.editOption').toggle();
+			$('#businessBasicInfoOptions a.cancelOption').toggle();
+			$('#businessBasicInfoOptions a.saveOption').toggle();
+		}	
+	};
+
+	$('#businessBasicInfoOptions a.saveOption').click(function() {
+		jsUtils.startWorkingStatus();
+		//jsUtils.showResultStatus('hey there', jsUtils.messageType.success);
+		//Make ajax call to edit
+		$.post('@{Businesses.save(business.id)}', ko.toJSON(businessViewModel.business), function(data) {
+			jsUtils.endWorkingStatus();
+			//Handle response
+			responseBus.handle(data);
+			if (data.success) {
+				businessBasicInfoOptionsUtils.toggle();
+			} else if ( data.error ) {
+				businessViewModel.errors(data.errors);
+			}
+		} );
+		return false;
+		
+	});
+	
+	
+	//Associate events
+	//BusinessBasicInfoOptions edit
+	$('#businessBasicInfoOptions a.editOption').click(function() {
+		businessBasicInfoOptionsUtils.toggle();
+		return false;
+		
+	});
+	
+	//BusinessBasicInfoOptions cancel
+	$('#businessBasicInfoOptions a.cancelOption').click(function() {
+		businessBasicInfoOptionsUtils.toggle();
+		return false;
+	});
+</script>
+
