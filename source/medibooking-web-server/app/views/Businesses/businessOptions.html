@@ -1,0 +1,37 @@
+%{
+	currentAction = request.action;
+}%
+<div id="data-left-menu">
+	<ul>
+		<li class="${currentAction.equals('Businesses.view')?"selected":""}"><a href="@{Businesses.view(business.id)}">Consultar</a></li>
+		
+		<li><a id="removeBusinessLink" href="#">Remover</a></li>
+		<li><a href="">Médicos</a></li>
+		<li class="separator"></li>
+		<li><a href="@{Businesses.list}">Voltar à lista</a></li>
+	</ul>
+</div>
+
+#{form @Businesses.delete(business.id), method:'DELETE', id:'deleteBusinessForm'}
+#{/form}
+
+
+
+<script>
+
+	$('deleteBusinessForm').submit(function() {
+		window.alert("Submiting");
+	});
+	
+	$('#removeBusinessLink').click(function() {
+		if ( window.confirm("${play.i18n.Messages.get('views.businesses.options.delete.confirmation', business.name)}") ) {
+			$('#deleteBusinessForm').submit();
+			return false;
+			
+		}
+		
+		
+	});
+
+
+</script>
