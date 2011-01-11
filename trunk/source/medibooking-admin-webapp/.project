@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <projectDescription>
-   <name>AdminApp</name>
-   <comment>AdminApp project</comment>
+   <name>medibooking-admin-webapp</name>
+   <comment>medibooking-admin-webapp project</comment>
    <projects/>
    <buildSpec>
        <buildCommand>
