@@ -1,0 +1,64 @@
+
+#{form _postUrl, id:_formId}
+
+       <fieldset>
+       
+           <legend>Informação sobre negócio</legend>
+           <div class="info">Todos os campos marcados com <span class="required-sybmol">*</span> são de preenchimento obrigatório</div>
+           
+           #{field 'business.name'}
+               <div class="${field.errorClass}">
+                   <label for="${field.name}">Nome :<span class="required-sybmol">*</span></label>
+                   <input type="text" name="${field.name}" id="${field.name}" size="20" maxlength="60" value="${_business?.name}" />
+                   #{ifErrors}
+                       <span class="error">${field.error}</span>
+                   #{/ifErrors}
+                   <span class="info">O nome pelo qual o seu negócio vai é conhecido.</span>
+               </div>
+           #{/field}
+
+           #{field 'business.address.addressLineOne'}
+               <div class="${field.errorClass}">
+                   <label for="${field.name}">Morada :<span class="required-sybmol">*</span></label>
+                   <textarea  name="${field.name}" id="${field.name}">${_business?.address?.addressLineOne}</textarea>
+                   
+                   #{ifErrors}
+                       <span class="error">${field.error}</span>
+                   #{/ifErrors}
+                   
+               </div>
+           #{/field}
+
+
+           #{field 'business.address.postalCode'}
+               <div class="${field.errorClass}">
+                   <label for="${field.name}">Código Postal :<span class="required-sybmol">*</span></label>
+                   <input type="text" name="${field.name}" id="${field.name}" size="20" maxlength="60" value="${_business?.address?.postalCode}" />
+                   
+                   #{ifErrors}
+                       <span class="error">${field.error}</span>
+                   #{/ifErrors}                   
+               </div>
+           #{/field}
+
+           #{field 'business.address.city'}
+               <div class="${field.errorClass}">
+                   <label for="${field.name}">Localidade :<span class="required-sybmol">*</span></label>
+                   <input type="text" name="${field.name}" id="${field.name}" size="20" maxlength="60" value="${_business?.address?.city}" />
+                   
+                   #{ifErrors}
+                       <span class="error">${field.error}</span>
+                   #{/ifErrors}                    
+               </div>
+           #{/field}
+           
+                   
+           
+           <div class="buttons">
+	            <input type="submit" value="&{_i18nSubmit}"> 
+	            <a href="${_cancelAction}">&{'forms.cancel.label'}</a>    
+	        </div>
+	        
+           
+	</fieldset>
+#{/form}
