@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="/home/jpereira/development/tools/gwt-2.1.1/gwt-user.jar"/>
-	<classpathentry kind="lib" path="/home/jpereira/development/tools/gwt-2.1.1/gwt-dev.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/aopalliance.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/gin-1.0.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/guice-2.0.jar"/>
+	<classpathentry kind="lib" path="/home/jpereira/development/tools/eclipse/plugins/com.google.gwt.eclipse.sdkbundle.2.1.1_2.1.1.v201012170127/gwt-2.1.1/gwt-user.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/home/jpereira/development/tools/eclipse/plugins/com.google.gwt.eclipse.sdkbundle.2.1.1_2.1.1.v201012170127/gwt-2.1.1/doc/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/home/jpereira/development/tools/eclipse/plugins/com.google.gwt.eclipse.sdkbundle.2.1.1_2.1.1.v201012170127/gwt-2.1.1/gwt-dev.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/home/jpereira/development/tools/eclipse/plugins/com.google.gwt.eclipse.sdkbundle.2.1.1_2.1.1.v201012170127/gwt-2.1.1/doc/javadoc/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

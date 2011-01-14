@@ -4,7 +4,7 @@
 	<property name="gwt.args" value="" />
 
 	<!-- Configure path to GWT SDK -->
-	<property name="gwt.sdk" location="/home/joao/development/tools/gwt-2.1.1" />
+	<property name="gwt.sdk" location="/home/jpereira/development/tools/gwt-2.1.1" />
 	
 	
 
