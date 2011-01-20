@@ -1,0 +1,97 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+
+	<ui:style field='editor' src='editor.css' />
+		
+	<g:HTMLPanel ui:styleName="{editor.editorContainer}">
+
+
+		<table border="0" class="{editor.editorTable}">
+			<tr>
+				<td class="{editor.labelContainer}">
+					<g:Label>Nome</g:Label>
+				</td>
+				<td class="{editor.leftAligned}">
+					<g:TextBox ui:field="name" />
+				</td>
+			</tr>
+
+			<tr>
+				<td class="{editor.labelContainer}">
+					<g:Label>Email:</g:Label>
+				</td>
+				<td class="{editor.leftAligned}">
+					<g:TextBox ui:field="email" />
+				</td>
+			</tr>
+
+			<tr>
+				<td class="{editor.labelContainer}">
+					<g:Label>Confirmação do email:</g:Label>
+				</td>
+				<td class="{editor.leftAligned}">
+					<g:TextBox ui:field="emailConfirmation" />
+				</td>
+			</tr>
+
+			<tr>
+				<td class="{editor.labelContainer}">
+					<g:Label>Morada:</g:Label>
+				</td>
+				<td class="{editor.leftAligned}">
+					<g:TextArea ui:field="address" />
+				</td>
+			</tr>
+
+
+			<tr>
+				<td class="{editor.labelContainer}">
+					<g:Label>Telefone:</g:Label>
+				</td>
+				<td class="{editor.leftAligned}">
+					<g:TextBox ui:field="phone" />
+				</td>
+			</tr>
+
+			<tr>
+				<td class="{editor.labelContainer}">
+					<g:Label>Password:</g:Label>
+				</td>
+				<td class="{editor.leftAligned}">
+					<g:PasswordTextBox ui:field="password" />
+				</td>
+			</tr>
+			<tr>
+				<td class="{editor.labelContainer}">
+					<g:Label>Confirmação de password:</g:Label>
+				</td>
+				<td class="{editor.leftAligned}">
+					<g:PasswordTextBox ui:field="passwordConfirmation" />
+				</td>
+			</tr>
+			<tr>
+				<td class="{editor.labelContainer}">
+
+
+				</td>
+				<td class="{editor.leftAligned}">
+					<g:CheckBox ui:field="termsAgreement">
+						Li e aceito os termos e condições
+					</g:CheckBox>
+				</td>
+			</tr>
+			<tr>
+				<td class="{editor.labelContainer}">
+
+				</td>
+				<td class="{editor.leftAligned} {editor.buttonArea} ">
+
+
+						<g:Button>Registar</g:Button>
+				</td>
+			</tr>
+
+		</table>
+	</g:HTMLPanel>
+</ui:UiBinder> 
