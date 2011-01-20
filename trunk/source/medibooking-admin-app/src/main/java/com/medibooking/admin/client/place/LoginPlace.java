@@ -10,7 +10,7 @@ public class LoginPlace extends Place {
 	
 	private static final Logger log = Logger.getLogger(LoginPlace.class.getName());
 	
-	@Prefix("login")
+	@Prefix("!login")
 	public static class Tokenizer implements PlaceTokenizer<LoginPlace> {
 
 		@Override

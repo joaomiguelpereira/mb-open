@@ -1,15 +1,14 @@
 package com.medibooking.admin.client.place;
 
-import java.util.logging.Logger;
 
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;
 import com.google.gwt.place.shared.Prefix;
 
+
 public class HomePlace extends Place {
-	private static final Logger log = Logger.getLogger(HomePlace.class.getName());
-	
-	@Prefix("home")
+	//the ! ensures it will be crawlable by google
+	@Prefix("!home")
 	public static class Tokenizer implements PlaceTokenizer<HomePlace> {
 
 		@Override
