@@ -1,0 +1,19 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+
+	<g:HTMLPanel>
+		<span ui:field="userName"></span>
+		<g:Anchor ui:field="logoutLink">logout</g:Anchor>
+		<g:Anchor ui:field="loginLink">login</g:Anchor>
+		<g:Anchor ui:field="registerLink">register</g:Anchor>
+	</g:HTMLPanel>
+
+
+
+
+
+
+
+</ui:UiBinder>

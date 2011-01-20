@@ -1,0 +1,11 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:mbe='urn:import:com.medibooking.admin.client.view.editor'>
+
+	<ui:style field='editor' src='editor/editor.css' />
+		
+	<g:ScrollPanel>
+		<mbe:UserEditor ui:field="userEditor" />
+	</g:ScrollPanel>
+
+</ui:UiBinder>

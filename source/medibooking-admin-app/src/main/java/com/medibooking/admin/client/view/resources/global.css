@@ -1,0 +1,29 @@
+body {
+	font-size: 1em;
+}
+
+a {
+	cursor: pointer;
+}
+
+.gwt-TextArea {
+	width: 17em;
+	padding: 0.2em;
+	font-size: 1.2em;
+	border: 1px solid #ccc;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.gwt-PasswordTextBox,.gwt-TextBox {
+	width: 16em;
+	padding: 0.4em;
+	font-size: 1em;
+	border: 1px solid #ccc;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.gwt-Label {
+	font-size: 1em;
+}
