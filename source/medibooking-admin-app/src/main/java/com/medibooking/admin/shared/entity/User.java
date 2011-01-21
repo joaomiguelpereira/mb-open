@@ -4,6 +4,12 @@ public class User {
 	
 	String name;
 	String email;
+	String emailConfirmation;
+	String phone;
+	String password;
+	String passwordConfirmation;
+	String address;
+	
 	public String getName() {
 		return name;
 	}
