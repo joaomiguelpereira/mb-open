@@ -16,7 +16,7 @@ a {
 }
 
 .gwt-PasswordTextBox,.gwt-TextBox {
-	width: 16em;
+	width: 16em !important;
 	padding: 0.4em;
 	font-size: 1em;
 	border: 1px solid #ccc;
