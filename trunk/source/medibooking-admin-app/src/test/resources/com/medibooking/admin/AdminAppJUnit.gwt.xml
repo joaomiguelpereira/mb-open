@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module>
   <!-- Inherit our applications main module.                      -->
-  <inherits name='com.medibooking.admin.medibooking-admin-app'/>
+  <inherits name='com.medibooking.admin.AdminApp'/>
 
   <!-- Specify the path to any remote services.                   -->
   <servlet path="/AdminApp/greet" class="com.medibooking.admin.server.GreetingServiceImpl" />

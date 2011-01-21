@@ -85,6 +85,7 @@ public class WebAppImpl implements WebApp {
 		GWT.<GlobalResources> create(GlobalResources.class).css()
 				.ensureInjected();
 
+		GWT.<GlobalResources> create(GlobalResources.class).editorCss().ensureInjected();
 		// TODO: Configure remote handler for logging. For dev, everything is
 		// dumped in jetty console
 		/**
