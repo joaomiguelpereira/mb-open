@@ -84,13 +84,11 @@
 						ui:label="Concordo com os termos e condições" />
 				</td>
 			</tr>
+
 			<tr>
 				<td class="{res.editorCss.labelContainer}">
-
 				</td>
 				<td class="{res.editorCss.leftAligned} {res.editorCss.buttonArea} ">
-
-
 					<g:Button ui:field="submit">Registar</g:Button>
 				</td>
 			</tr>
