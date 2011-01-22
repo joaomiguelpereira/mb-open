@@ -1,6 +1,7 @@
 .labelContainer {
 	text-align: right;
 	padding-right: 2em;
+	vertical-align: top;
 }
 
 .leftAligned {
@@ -9,7 +10,13 @@
 
 .errorMsg {
 	color: red;
-	font-size: 1em;	
+	font-size: 1em;
+}
+
+.errorMsg ul {
+	padding: 0px;
+	padding-left: 20px;
+	margin: 0px;
 }
 
 .editorContainer {
@@ -19,14 +26,13 @@
 	text-align: center;
 	padding: 1em;
 	border: 1px solid #ccc;
-	
 }
 
-.fieldWithErrors {
-	
+input.fieldWithErrors[type='text'],input.fieldWithErrors[type='password'],textarea.fieldWithErrors
+	{
 	border: 1px solid red !important;
-			
 }
+
 
 .errorIndicator {
 	vertical-align: middle;
