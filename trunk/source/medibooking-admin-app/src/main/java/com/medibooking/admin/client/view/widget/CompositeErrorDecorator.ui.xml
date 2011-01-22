@@ -8,7 +8,7 @@
 
 
 	<g:HTMLPanel>
-		<g:CheckBox ui:field="checkBoxDelegate"/>
+		
 		<div ui:field="errorMessagesContainer" class="{res.editorCss.errorMsg}"></div>
 	</g:HTMLPanel>
 
