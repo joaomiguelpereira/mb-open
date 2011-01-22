@@ -1,0 +1,19 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+
+
+	<ui:with type="com.medibooking.admin.client.view.resources.GlobalResources"
+		field="res"></ui:with>
+
+
+	<g:HTMLPanel>
+	
+		<g:CheckBox ui:field="checkBoxDelegate"/>
+	
+	
+		
+		<div ui:field="errorMessagesContainer" class="{res.editorCss.errorMsg}"></div>
+	</g:HTMLPanel>
+
+</ui:UiBinder>
