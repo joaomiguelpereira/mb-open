@@ -6,29 +6,29 @@ import com.google.gwt.resources.client.CssResource.NotStrict;
 import com.google.gwt.resources.client.ImageResource;
 
 public interface GlobalResources extends ClientBundle {
-	
+
 	public GlobalResources INSTANCE = GWT.create(GlobalResources.class);
-	
+
 	@Source("medibooking.logo.png")
 	ImageResource logoHeader();
-	
+
 	@Source("attention.png")
 	ImageResource attentionIcon();
-	
+
+	//@Source("warning-icon.png")
+	//ImageResource warningIcon();
+
+	@Source("list-warning-icon.png")
+	ImageResource warningIcon();
+
 	@NotStrict
-    @Source("global.css")
-    GlobalCss css();
-	
+	@Source("global.css")
+	GlobalCss css();
+
 	@NotStrict
 	@Source("editor.css")
 	EditorCss editorCss();
-	
-	
-	
-	
-	
-	
-	
+
 	
 
 }

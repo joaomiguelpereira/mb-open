@@ -1,10 +1,11 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-	xmlns:g="urn:import:com.google.gwt.user.client.ui">
-	
-	<ui:with type="com.medibooking.admin.client.view.resources.GlobalResources" field="res"></ui:with>
-			
-		<g:HTMLPanel ui:styleName="{res.editorCss.editorContainer}">
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:mbw="urn:import:com.medibooking.admin.client.view.widget">
+
+	<ui:with type="com.medibooking.admin.client.view.resources.GlobalResources"
+		field="res"></ui:with>
+
+	<g:HTMLPanel ui:styleName="{res.editorCss.editorContainer}">
 
 
 		<table border="0" class="{res.editorCss.editorTable}">
@@ -12,10 +13,9 @@
 				<td class="{res.editorCss.labelContainer}">
 					<g:Label>Nome:*</g:Label>
 				</td>
+
 				<td class="{res.editorCss.leftAligned}">
-					<g:TextBox ui:field="name" />
-					<g:Image styleName="{res.editorCss.errorIndicator}" resource="{res.attentionIcon}"/>
-					<div class="{res.editorCss.errorMsg}">teste error message</div>
+					<mbw:TextBoxEditor ui:field="name" />
 				</td>
 			</tr>
 
@@ -24,7 +24,7 @@
 					<g:Label>Email:</g:Label>
 				</td>
 				<td class="{res.editorCss.leftAligned}">
-					<g:TextBox ui:field="email" />
+					<mbw:TextBoxEditor ui:field="email" />
 				</td>
 			</tr>
 
@@ -33,7 +33,8 @@
 					<g:Label>Confirmação do email:</g:Label>
 				</td>
 				<td class="{res.editorCss.leftAligned}">
-					<g:TextBox ui:field="emailConfirmation" />
+
+					<mbw:TextBoxEditor ui:field="emailConfirmation" />
 				</td>
 			</tr>
 
@@ -42,7 +43,7 @@
 					<g:Label>Morada:</g:Label>
 				</td>
 				<td class="{res.editorCss.leftAligned}">
-					<g:TextArea ui:field="address" />
+					<mbw:TextAreaEditor ui:field="address" />
 				</td>
 			</tr>
 
@@ -52,7 +53,7 @@
 					<g:Label>Telefone:</g:Label>
 				</td>
 				<td class="{res.editorCss.leftAligned}">
-					<g:TextBox ui:field="phone" />
+					<mbw:TextBoxEditor ui:field="phone" />
 				</td>
 			</tr>
 
@@ -61,7 +62,8 @@
 					<g:Label>Password:</g:Label>
 				</td>
 				<td class="{res.editorCss.leftAligned}">
-					<g:PasswordTextBox ui:field="password" />
+
+					<mbw:PasswordTextBoxEditor ui:field="password" />
 				</td>
 			</tr>
 			<tr>
@@ -69,7 +71,7 @@
 					<g:Label>Confirmação de password:</g:Label>
 				</td>
 				<td class="{res.editorCss.leftAligned}">
-					<g:PasswordTextBox ui:field="passwordConfirmation" />
+					<mbw:PasswordTextBoxEditor ui:field="passwordConfirmation" />
 				</td>
 			</tr>
 			<tr>
@@ -78,9 +80,8 @@
 
 				</td>
 				<td class="{res.editorCss.leftAligned}">
-					<g:CheckBox ui:field="termsAgreement">
-						Li e aceito os termos e condições
-					</g:CheckBox>
+					<mbw:CheckBoxEditor ui:field="termsAgreement"
+						ui:label="Concordo com os termos e condições" />
 				</td>
 			</tr>
 			<tr>

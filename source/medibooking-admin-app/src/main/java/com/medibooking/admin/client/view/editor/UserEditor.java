@@ -8,14 +8,14 @@ import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextArea;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
-import com.medibooking.admin.client.view.resources.GlobalResources;
+import com.medibooking.admin.client.view.widget.CheckBoxEditor;
+import com.medibooking.admin.client.view.widget.PasswordTextBoxEditor;
+import com.medibooking.admin.client.view.widget.TextAreaEditor;
+import com.medibooking.admin.client.view.widget.TextBoxEditor;
 import com.medibooking.admin.shared.entity.User;
 
 public class UserEditor extends Composite implements Editor<User> {
@@ -23,30 +23,30 @@ public class UserEditor extends Composite implements Editor<User> {
 	private static UserEditor1UiBinder uiBinder = GWT
 			.create(UserEditor1UiBinder.class);
 
-	GlobalResources resourecs = GlobalResources.INSTANCE;
-	@UiField
-	TextBox name;
 	
 	@UiField
-	TextBox email;
+	TextBoxEditor name;
 	
 	@UiField
-	TextBox emailConfirmation;
+	TextBoxEditor email;
 	
 	@UiField
-	TextBox phone;
+	TextBoxEditor emailConfirmation;
 	
 	@UiField
-	TextArea address;
+	TextBoxEditor phone;
 	
 	@UiField
-	PasswordTextBox password;
+	TextAreaEditor address;
 	
 	@UiField
-	PasswordTextBox passwordConfirmation;
+	PasswordTextBoxEditor password;
 	
 	@UiField
-	CheckBox termsAgreement;
+	PasswordTextBoxEditor passwordConfirmation;
+	
+	@UiField
+	CheckBoxEditor termsAgreement;
 	
 	@UiField
 	HasClickHandlers submit;
@@ -71,16 +71,30 @@ public class UserEditor extends Composite implements Editor<User> {
 	@UiHandler("submit") 
 	void onSubmit(ClickEvent event) {
 		//validate just to test the errors
-		if ( name.getValue().isEmpty() ) {
-			//showErrorFor(name);
+		if (name.hasErrors() ) {
+			name.clearErrors();
+			email.clearErrors();
+			emailConfirmation.clearErrors();
+			password.clearErrors();
+			passwordConfirmation.clearErrors();
+			address.clearErrors();
+			phone.clearErrors();
+			termsAgreement.clearErrors();
+		} else {
 			
-			name.addStyleName(resourecs.editorCss().fieldWithErrors());
+			//name.setErrors(new String[] {"Error Message 1","Error Message 2", "Error Message 3"});
+			name.setError("One error");
+			email.setErrors(new String[] {"error 1", "error 2"});
+			emailConfirmation.setErrors(new String[] {"error 3", "error 4"});
+			password.setError("One fucking error");
+			passwordConfirmation.setErrors(new String[] {"error pass", "error pass21"});
+			address.setError("teste");
+			phone.setError("Hello");
+			termsAgreement.setErrors(new String[] {"ahsgdjas", "aasd"});
+			
 		}
-		
 	}
-	private void showErrorFor() {
-		
-	}
+	
 	interface UserEditor1UiBinder extends UiBinder<Widget, UserEditor> {
 	}
 
