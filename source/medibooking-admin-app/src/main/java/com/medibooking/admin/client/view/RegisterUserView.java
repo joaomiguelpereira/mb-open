@@ -43,7 +43,7 @@ public class RegisterUserView extends Composite implements IRegisterUserView{
 			Window.alert("errore");
 		}
 		//lets say the name has an error list... how to get back to editor???
-		//userEditor.getName().setErrors(new String[] {"error 1", "error 3"});
+		userEditor.getName().setErrors(new String[] {"error 1", "error 3"});
 		
 		
 		
@@ -64,6 +64,7 @@ public class RegisterUserView extends Composite implements IRegisterUserView{
 		//Initialize driver.
 		driver.initialize(userEditor);
 		driver.edit(this.user);
+		userEditor.clearErrors();
 		//register submit handle
 		this.userEditor.getSubmit().addClickHandler(new ClickHandler() {
 			
