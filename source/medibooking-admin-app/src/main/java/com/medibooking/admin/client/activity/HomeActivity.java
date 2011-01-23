@@ -23,7 +23,6 @@ public class HomeActivity extends WebAppActivity implements
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
 		this.eventBus = eventBus;
 		panel.setWidget(this.view);
-
 	}
 
 	

@@ -16,9 +16,13 @@
 	<inherits name="com.google.gwt.inject.Inject" />
 	<inherits name='com.google.gwt.logging.Logging' />
 	<inherits name="com.google.gwt.resources.Resources" />
+
 	<!-- Specify the app entry point class. -->
 	<entry-point class='com.medibooking.admin.client.AdminApp' />
 
+
+	<!-- Specify the Validator for the Validation bootstrap to use. -->
+		
 	<!-- Specify the paths for translatable code -->
 	<source path='client' />
 	<source path='shared' />
@@ -37,9 +41,9 @@
 		value="DISABLED" />
 
 	<!-- Uncomment if you are enabling server side deobfuscation of StackTraces -->
-	
+
 	<set-property name="compiler.emulatedStack" value="true" />
-	
+
 	<set-configuration-property name="compiler.emulatedStack.recordLineNumbers"
 		value="true" />
 	<set-configuration-property name="compiler.emulatedStack.recordFileNames"

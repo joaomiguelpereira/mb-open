@@ -24,7 +24,7 @@ public class WebAppImpl implements WebApp {
 	// Flag is if run method was alreadyCalled
 	private boolean isRunning = false;
 
-	private final Messages messages;
+	
 	private final EventBus eventBus;
 	private final PlaceController placeController;
 	private final UserSessionManager userSessionManager;
@@ -33,15 +33,15 @@ public class WebAppImpl implements WebApp {
 
 	private final ActivityMapper activityMapper;
 	private final WebAppController webAppController;
+	
 	@Inject
 	public WebAppImpl(IMainView shell, EventBus eventBus,
 			PlaceController placeController,
-			UserSessionManager userSessionManager, Messages messages,
+			UserSessionManager userSessionManager,
 			WebAppPlaceHistoryMapper placeHistoryMapper, ActivityMapper activityMapper, WebAppController webAppController) {
 		this.eventBus = eventBus;
 		this.placeController = placeController;
 		this.userSessionManager = userSessionManager;
-		this.messages = messages;
 		this.mainView = shell;
 		this.placeHistoryMapper = placeHistoryMapper;
 		

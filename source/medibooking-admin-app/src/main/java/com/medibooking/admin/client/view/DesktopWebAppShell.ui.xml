@@ -66,17 +66,6 @@
 		</g:center>
 
 
-		<!-- <b:SlidingPanel ui:field="contentPanel" ui:styleName="{style.scrollable}"> 
-			<b:HomeView ui:field="homeView" /> <b:LoginView ui:field="loginView" /> <b:RegisterUserView 
-			ui:field="registerUserView" /> </b:SlidingPanel> -->
-
-
-		<!-- <g:SplitLayoutPanel> <g:west size='192'> <g:HTMLPanel> <div>Hello</div> 
-			</g:HTMLPanel> </g:west> <g:north size='200'> <g:HTMLPanel> <div>Hello 2</div> 
-			</g:HTMLPanel> </g:north> <g:center> <g:HTMLPanel> <div>He.lo</div> </g:HTMLPanel> 
-			</g:center> </g:SplitLayoutPanel> -->
-
-
 	</g:DockLayoutPanel>
 
 </ui:UiBinder>

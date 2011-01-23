@@ -12,6 +12,8 @@ import com.medibooking.admin.client.activity.HomeActivity;
 import com.medibooking.admin.client.activity.LoginActivity;
 import com.medibooking.admin.client.activity.RegisterUserActivity;
 import com.medibooking.admin.client.place.HomePlace;
+import com.medibooking.admin.client.place.LoginPlace;
+import com.medibooking.admin.client.place.RegisterUserPlace;
 
 public class WebAppActivityMapper implements ActivityMapper {
 
@@ -29,8 +31,8 @@ public class WebAppActivityMapper implements ActivityMapper {
 
 		this.eventBus = eventBus;
 		this.placeActivityMappings.put(HomePlace.class, homeActivity);
-		this.placeActivityMappings.put(LoginActivity.class, loginActivity);
-		this.placeActivityMappings.put(RegisterUserActivity.class, registerUserActivity);
+		this.placeActivityMappings.put(LoginPlace.class, loginActivity);
+		this.placeActivityMappings.put(RegisterUserPlace.class, registerUserActivity);
 		
 	}
 

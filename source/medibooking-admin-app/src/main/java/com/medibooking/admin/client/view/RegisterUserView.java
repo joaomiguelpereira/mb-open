@@ -20,41 +20,33 @@ public class RegisterUserView extends Composite implements IRegisterUserView{
 
 	interface Driver extends SimpleBeanEditorDriver<User, UserEditor> {}
 	Driver driver = GWT.create(Driver.class);
-	
 	private static final Binder BINDER = GWT.create(Binder.class);
 	private Presenter presenter;
+	private User user;
 	
+	public UserEditor getUserEditor() {
+		return this.userEditor;
+	}
 	
 	public RegisterUserView() {
 		initWidget(BINDER.createAndBindUi(this));
-		driver.initialize(userEditor);
-		driver.edit(new User());
-		//register submit handle
-		
-		
-		this.userEditor.getSubmit().addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				handleSubmitUser();
-			}
-		});
-		
-		
-		
+
 	}
 	
 	private void handleSubmitUser() {
-
+		//Delegate validation, save, etc to presenter
+		//presenter.saveUser(driver.flush());
+		
+		
 		User edited = driver.flush();
 		if ( driver.hasErrors() ){
 			Window.alert("errore");
 		}
-		Window.alert("Name:"+edited.getName());
-		Window.alert("email:"+edited.getEmail());
-		Window.alert("Password:"+edited.getPassword());
-		Window.alert("Address:"+edited.getAddress());
-		Window.alert("Terms:"+edited.getTermsAgreement());
+		//lets say the name has an error list... how to get back to editor???
+		//userEditor.getName().setErrors(new String[] {"error 1", "error 3"});
+		
+		
+		
 		
 	}
 	@Override
@@ -65,6 +57,29 @@ public class RegisterUserView extends Composite implements IRegisterUserView{
 	
 	interface Binder extends UiBinder<ScrollPanel, RegisterUserView> {
 		 
+	}
+
+	@Override
+	public void initialize() {
+		//Initialize driver.
+		driver.initialize(userEditor);
+		driver.edit(this.user);
+		//register submit handle
+		this.userEditor.getSubmit().addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				handleSubmitUser();
+			}
+		});
+		
+		
+	}
+
+	@Override
+	public void setUser(User user) {
+		this.user = user;
+		
 	}
 
 	
