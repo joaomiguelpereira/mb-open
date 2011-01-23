@@ -6,7 +6,6 @@ import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.inject.client.AbstractGinModule;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.inject.Singleton;
-import com.medibooking.admin.client.Messages;
 import com.medibooking.admin.client.WebApp;
 import com.medibooking.admin.client.WebAppController;
 import com.medibooking.admin.client.WebAppImpl;
@@ -17,7 +16,6 @@ import com.medibooking.admin.client.manager.UserSessionManager;
 import com.medibooking.admin.client.manager.UserSessionManagerImpl;
 import com.medibooking.admin.client.mvp.WebAppActivityMapper;
 import com.medibooking.admin.client.mvp.WebAppPlaceHistoryMapper;
-import com.medibooking.admin.client.place.HomePlace;
 import com.medibooking.admin.client.view.DesktopWebAppShell;
 import com.medibooking.admin.client.view.HomeView;
 import com.medibooking.admin.client.view.IHomeView;
@@ -33,6 +31,12 @@ public class WebAppGinModule extends AbstractGinModule {
 	protected void configure() {	
 		
 		
+
+		
+		bind(HomeActivity.class).in(Singleton.class);
+		bind(LoginActivity.class).in(Singleton.class);
+		bind(RegisterUserActivity.class).in(Singleton.class);
+		
 		bind(WebAppController.class).in(Singleton.class);
 		bind(IMainView.class).to(DesktopWebAppShell.class).in(Singleton.class);
 		
@@ -42,11 +46,6 @@ public class WebAppGinModule extends AbstractGinModule {
 		bind(ILoginView.class).to(LoginView.class).in(Singleton.class);
 		bind(IRegisterUserView.class).to(RegisterUserView.class).in(Singleton.class);
 		
-		
-		
-		bind(HomeActivity.class).in(Singleton.class);
-		bind(LoginActivity.class).in(Singleton.class);
-		bind(RegisterUserActivity.class).in(Singleton.class);
 		
 		//bind activityMapper
 		bind(ActivityMapper.class).to(WebAppActivityMapper.class).in(Singleton.class);
@@ -65,9 +64,6 @@ public class WebAppGinModule extends AbstractGinModule {
 		
 		//Bind the place Controller
 		bind(PlaceController.class).to(InjectablePlaceController.class).in(Singleton.class);
-		
-		//Bind messages
-		bind(Messages.class).in(Singleton.class);
 		
 		
 		

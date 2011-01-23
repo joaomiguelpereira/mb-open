@@ -5,10 +5,9 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.inject.client.GinModules;
 import com.google.gwt.inject.client.Ginjector;
 import com.google.gwt.place.shared.PlaceController;
-import com.medibooking.admin.client.Messages;
 import com.medibooking.admin.client.WebApp;
 import com.medibooking.admin.client.activity.HomeActivity;
-import com.medibooking.admin.client.activity.LoginActivity;
+
 import com.medibooking.admin.client.manager.UserSessionManager;
 import com.medibooking.admin.client.mvp.WebAppPlaceHistoryMapper;
 import com.medibooking.admin.client.place.HomePlace;
@@ -43,7 +42,6 @@ public interface WebAppGinjector extends Ginjector {
 	//Get the PlaceController
 	public PlaceController getPlaceController();
 	
-	//Get the WebApp Messages
-	public Messages getMessages();
+	
 
 }

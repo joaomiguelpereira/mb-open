@@ -1,5 +1,6 @@
 package com.medibooking.admin.shared.entity;
 
+
 public class User {
 	
 	String name;
@@ -10,6 +11,7 @@ public class User {
 	String passwordConfirmation;
 	String address;
 	Boolean termsAgreement;
+	
 	public String getName() {
 		return name;
 	}
