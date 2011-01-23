@@ -67,9 +67,14 @@ public class UserEditor extends Composite implements Editor<User> {
 		});
 		
 	}
-
+	
+	public HasClickHandlers getSubmit() {
+		return this.submit;
+	}
+	
 	@UiHandler("submit") 
 	void onSubmit(ClickEvent event) {
+		
 		//validate just to test the errors
 		if (name.hasErrors() ) {
 			name.clearErrors();

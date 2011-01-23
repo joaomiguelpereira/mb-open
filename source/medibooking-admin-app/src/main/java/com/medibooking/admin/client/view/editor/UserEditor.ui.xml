@@ -80,8 +80,9 @@
 
 				</td>
 				<td class="{res.editorCss.leftAligned}">
-					<mbw:CheckBoxEditor ui:field="termsAgreement"
-						ui:label="Concordo com os termos e condições" />
+					<mbw:CheckBoxEditor ui:field="termsAgreement">
+						Concordo com os termos e condições 
+					</mbw:CheckBoxEditor>
 				</td>
 			</tr>
 

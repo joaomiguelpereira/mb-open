@@ -1,5 +1,7 @@
 package com.medibooking.admin.client.view.widget;
 
+import com.google.gwt.editor.client.IsEditor;
+import com.google.gwt.editor.ui.client.adapters.ValueBoxEditor;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiField;
@@ -8,13 +10,16 @@ import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.TextBoxBase;
 
 public  abstract class AbstractErroableText extends AbstractErroableComposite implements
-		Focusable, HasValue<String>, Errorable {
+		Focusable, HasValue<String>, Errorable,  IsEditor<ValueBoxEditor<String>>{
 
 
 	@UiField
 	TextBoxBase textDelegate;
 
-	
+	@Override
+	public ValueBoxEditor<String> asEditor() {
+		return textDelegate.asEditor();
+	}
 
 	@Override
 	public int getTabIndex() {
