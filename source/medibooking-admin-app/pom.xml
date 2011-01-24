@@ -17,11 +17,9 @@
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
 		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
-		
-		
-<!-- 
-		<webappDirectory>src/main/webapp</webappDirectory>
- -->
+
+
+		<!-- <webappDirectory>src/main/webapp</webappDirectory> -->
 		<!-- <webappSrcDirectory>src/main/webapp</webappSrcDirectory> -->
 
 	</properties>
@@ -48,6 +46,7 @@
 			<groupId>com.googlecode.gwt.inject</groupId>
 			<artifactId>gin</artifactId>
 			<version>1.0</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -88,51 +87,71 @@
 
 	<build>
 		<!-- Generate compiled stuff in the folder used for developing mode -->
-		<outputDirectory>${webappDirectory}/WEB-INF/classes</outputDirectory>
+		<!-- <outputDirectory>${webappDirectory}/WEB-INF/classes</outputDirectory> -->
+		<outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.java</include>
+					<include>**/*.gwt.xml</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
 		<plugins>
 
 			<!-- GWT Maven Plugin -->
+
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
-				<version>2.1.0-1</version>
+				<configuration>
+					<logLevel>INFO</logLevel>
+					<style>PRETTY</style>
+					<gwtVersion>2.1.0</gwtVersion>
+					<runTarget>index.jsp</runTarget>
+					<modules>
+						<module>com.medibooking.admin.AdminApp</module>
+					</modules>
+					<copyWebapp>true</copyWebapp>
+					<webappDirectory>src/main/webapp</webappDirectory>
+
+				</configuration>
 				<executions>
 					<execution>
+						<id>gwtcompile</id>
+						<phase>prepare-package</phase>
 						<goals>
 							<goal>compile</goal>
-							<goal>test</goal>
-							<goal>i18n</goal>
-							<!-- <goal>generateAsync</goal> -->
+							<goal>resources</goal>
 						</goals>
 					</execution>
 				</executions>
-				<!-- Plugin configuration. There are many available options, see gwt-maven-plugin 
-					documentation at codehaus.org -->
-				<configuration>
-					<runTarget>index.jsp</runTarget>
-					<hostedWebapp>${webappDirectory}</hostedWebapp>
-					<i18nMessagesBundle>com.medibooking.admin.client.Messages</i18nMessagesBundle>
-
-				</configuration>
 			</plugin>
-
-			<!-- Copy static web files before executing gwt:run -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>2.1.1</version>
-				<executions>
-					<execution>
-						<phase>compile</phase>
-						<goals>
-							<goal>exploded</goal>
-						</goals>
-					</execution>
-				</executions>
 				<configuration>
-					<webappDirectory>${webappDirectory}</webappDirectory>
+					<!-- <packagingExcludes>WEB-INF/lib/*.jar</packagingExcludes>-->
+					
+					<webappDirectory>src/main/webapp</webappDirectory>
+					<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
 				</configuration>
 			</plugin>
+			<!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>gwt-maven-plugin</artifactId> 
+				<version>2.1.0-1</version> <executions> <execution> <goals> <goal>compile</goal> 
+				<goal>test</goal> <goal>i18n</goal> <goal>generateAsync</goal> </goals> </execution> 
+				</executions> <configuration> <runTarget>index.jsp</runTarget> <hostedWebapp>${webappDirectory}</hostedWebapp> 
+				<i18nMessagesBundle>com.medibooking.admin.client.Messages</i18nMessagesBundle> 
+				</configuration> </plugin> -->
+			<!-- Copy static web files before executing gwt:run -->
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-war-plugin</artifactId> 
+				<version>2.1.1</version> <executions> <execution> <phase>compile</phase> 
+				<goals> <goal>exploded</goal> </goals> </execution> </executions> <configuration> 
+				<webappDirectory>${webappDirectory}</webappDirectory> </configuration> </plugin> -->
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
