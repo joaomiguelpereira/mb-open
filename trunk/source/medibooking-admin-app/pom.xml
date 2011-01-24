@@ -8,7 +8,7 @@
 	<artifactId>medibooking-admin-app</artifactId>
 	<packaging>war</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<name>GWT Maven Archetype</name>
+	<name>Medibooking Admin App</name>
 
 	<properties>
 		<!-- Convenience property to set the GWT version -->
@@ -20,6 +20,7 @@
 	</properties>
 
 	<dependencies>
+		<!-- Start GWT Deps -->
 		<!-- GWT Stuff -->
 		<dependency>
 			<groupId>com.google.gwt</groupId>
@@ -27,18 +28,82 @@
 			<version>${gwtVersion}</version>
 			<scope>runtime</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
 			<version>${gwtVersion}</version>
 			<scope>provided</scope>
 		</dependency>
-		<!-- GIN -->
+
+		<!-- GIN Stuff -->
 		<dependency>
 			<groupId>com.googlecode.gwt.inject</groupId>
 			<artifactId>gin</artifactId>
 			<version>1.0</version>
 		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.1</version>
+            <scope>provided</scope>
+        </dependency>
+        
+		<!-- Pesristence stuff -->
+		<!-- <dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>3.6.0.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>3.6.0.Final</version>
+			<exclusions>
+				<exclusion>
+					<groupId>cglib</groupId>
+					<artifactId>cglib</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>dom4j</groupId>
+					<artifactId>dom4j</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+				<dependency>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.0-api</artifactId>
+			<version>1.0.0.Final</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>4.1.0.Final</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.xml.bind</groupId>
+					<artifactId>jaxb-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.xml.bind</groupId>
+					<artifactId>jaxb-impl</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.0.0.GA</version>
+		</dependency>
+ 		-->
 		<!-- Unit Testing stuff -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -51,7 +116,6 @@
 	<build>
 		<!-- Generate compiled stuff in the folder used for developing mode -->
 		<outputDirectory>${webappDirectory}/WEB-INF/classes</outputDirectory>
-
 		<plugins>
 
 			<!-- GWT Maven Plugin -->
@@ -65,16 +129,17 @@
 							<goal>compile</goal>
 							<goal>test</goal>
 							<goal>i18n</goal>
-							<goal>generateAsync</goal>
+							<!-- <goal>generateAsync</goal> -->
 						</goals>
 					</execution>
 				</executions>
 				<!-- Plugin configuration. There are many available options, see gwt-maven-plugin 
 					documentation at codehaus.org -->
 				<configuration>
-					<runTarget>AdminApp.html</runTarget>
+					<runTarget>index.jsp</runTarget>
 					<hostedWebapp>${webappDirectory}</hostedWebapp>
 					<i18nMessagesBundle>com.medibooking.admin.client.Messages</i18nMessagesBundle>
+
 				</configuration>
 			</plugin>
 
@@ -95,6 +160,8 @@
 					<webappDirectory>${webappDirectory}</webappDirectory>
 				</configuration>
 			</plugin>
+
+
 
 		</plugins>
 	</build>
