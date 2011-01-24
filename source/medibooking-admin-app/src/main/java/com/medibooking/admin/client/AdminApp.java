@@ -18,12 +18,6 @@ public class AdminApp implements EntryPoint {
 		WebAppGinjector injector = GWT.create(WebAppGinjector.class);
 		
 		injector.getWebApp().run();
-		
-		
-		//messages
-		//Messages messages = GWT.create(Messages.class);
-		//Injector
-		
-		//Window.alert("Is the user logged in? :"+injector.getUserSessionService().sessionExists()+ " -- "+messages.hello());
+
 	}
 }

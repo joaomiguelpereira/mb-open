@@ -11,6 +11,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.medibooking.admin.client.view.widget.CheckBoxEditor;
+import com.medibooking.admin.client.view.widget.Errorable;
 import com.medibooking.admin.client.view.widget.PasswordTextBoxEditor;
 import com.medibooking.admin.client.view.widget.TextAreaEditor;
 import com.medibooking.admin.client.view.widget.TextBoxEditor;
@@ -48,7 +49,9 @@ public class UserEditor extends Composite implements Editor<User> {
 	@UiField
 	HasClickHandlers submit;
 
-	
+	public Errorable getName() {
+		return this.name;
+	}
 
 	/**
 	 * Const.
