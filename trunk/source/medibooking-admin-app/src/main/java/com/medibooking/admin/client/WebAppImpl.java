@@ -24,7 +24,6 @@ public class WebAppImpl implements WebApp {
 	// Flag is if run method was alreadyCalled
 	private boolean isRunning = false;
 
-	
 	private final EventBus eventBus;
 	private final PlaceController placeController;
 	private final UserSessionManager userSessionManager;
@@ -33,18 +32,19 @@ public class WebAppImpl implements WebApp {
 
 	private final ActivityMapper activityMapper;
 	private final WebAppController webAppController;
-	
+
 	@Inject
 	public WebAppImpl(IMainView shell, EventBus eventBus,
 			PlaceController placeController,
 			UserSessionManager userSessionManager,
-			WebAppPlaceHistoryMapper placeHistoryMapper, ActivityMapper activityMapper, WebAppController webAppController) {
+			WebAppPlaceHistoryMapper placeHistoryMapper,
+			ActivityMapper activityMapper, WebAppController webAppController) {
 		this.eventBus = eventBus;
 		this.placeController = placeController;
 		this.userSessionManager = userSessionManager;
 		this.mainView = shell;
 		this.placeHistoryMapper = placeHistoryMapper;
-		
+
 		this.activityMapper = activityMapper;
 		this.webAppController = webAppController;
 	}
@@ -55,16 +55,16 @@ public class WebAppImpl implements WebApp {
 	public void run() {
 		if (!isRunning) {
 			init();
-			
+
 			ActivityManager activityManager = new ActivityManager(
 					activityMapper, eventBus);
-			
-			
+
 			activityManager.setDisplay(this.mainView.getContentPanel());
 			PlaceHistoryHandler historyHandler = new PlaceHistoryHandler(
 					this.placeHistoryMapper);
-			historyHandler.register(this.placeController, eventBus, new HomePlace());
-						
+			historyHandler.register(this.placeController, eventBus,
+					new HomePlace());
+
 			RootLayoutPanel.get().add(mainView);
 			historyHandler.handleCurrentHistory();
 
@@ -85,7 +85,8 @@ public class WebAppImpl implements WebApp {
 		GWT.<GlobalResources> create(GlobalResources.class).css()
 				.ensureInjected();
 
-		GWT.<GlobalResources> create(GlobalResources.class).editorCss().ensureInjected();
+		GWT.<GlobalResources> create(GlobalResources.class).editorCss()
+				.ensureInjected();
 		// TODO: Configure remote handler for logging. For dev, everything is
 		// dumped in jetty console
 		/**

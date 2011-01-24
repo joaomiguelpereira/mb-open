@@ -1,7 +1,9 @@
 package com.medibooking.admin.shared.entity;
 
 
-public class User {
+public class User implements ValueObject{
+
+	
 	
 	String name;
 	String email;
