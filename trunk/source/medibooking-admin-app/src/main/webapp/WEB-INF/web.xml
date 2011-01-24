@@ -6,19 +6,19 @@
 <web-app>
 
   <!-- Servlets -->
-  <servlet>
-    <servlet-name>greetServlet</servlet-name>
-    <servlet-class>com.medibooking.admin.server.GreetingServiceImpl</servlet-class>
+	<servlet>
+    <servlet-name>testServlet</servlet-name>
+    <servlet-class>com.medibooking.admin.server.TestServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>greetServlet</servlet-name>
-    <url-pattern>/AdminApp/greet</url-pattern>
+    <servlet-name>testServlet</servlet-name>
+    <url-pattern>/test</url-pattern>
   </servlet-mapping>
 
   <!-- Default page to serve -->
   <welcome-file-list>
-    <welcome-file>AdminApp.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
 
 </web-app>
