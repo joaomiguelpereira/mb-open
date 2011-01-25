@@ -38,6 +38,7 @@
 			<g:HTMLPanel styleName='{style.header}'>
 
 				<div class="{style.logoHeader}">
+					<div>HELLO</div>
 					<g:Image ui:field="logo" resource='{res.logoHeader}' />
 				</div>
 				<div class="{style.userSession}">
