@@ -5,20 +5,22 @@
 
 <web-app>
 
-  <!-- Servlets -->
-	<servlet>
-    <servlet-name>testServlet</servlet-name>
-    <servlet-class>com.medibooking.admin.server.TestServlet</servlet-class>
-  </servlet>
 
-  <servlet-mapping>
-    <servlet-name>testServlet</servlet-name>
-    <url-pattern>/test</url-pattern>
-  </servlet-mapping>
 
-  <!-- Default page to serve -->
-  <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
-  </welcome-file-list>
+	<!-- Servlets -->
+	<!-- <servlet>
+		<servlet-name>serverProxy</servlet-name>
+		<servlet-class>com.medibooking.admin.server.ProxyServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>serverProxy</servlet-name>
+		<url-pattern>/serverProxy</url-pattern>
+	</servlet-mapping> -->
+
+	<!-- Default page to serve --> 
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
 
 </web-app>
