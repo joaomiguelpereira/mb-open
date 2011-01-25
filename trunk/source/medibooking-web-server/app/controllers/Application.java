@@ -24,15 +24,14 @@ public class Application extends BaseController {
 			case BUSINESS_ADMIN:
 			case ADMIN:
 				flash.keep();
-				Admin.index();
-				/*if (Play.configuration.getProperty("application.mode").equals(
+				//Businesses.list();
+				if (Play.configuration.getProperty("application.mode").equals(
 						"dev")) {
 					String url = Router.reverse("Admin.index").url;
 					redirect(url+"?gwt.codesvr=127.0.0.1:9997");
 				} else {
 					Admin.index();
-				}*/
-
+				}
 				break;
 			default:
 				render();
