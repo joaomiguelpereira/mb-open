@@ -28,7 +28,7 @@ public class JsonResult {
 	private String errorMessage;
 	private String successMessage;
 	private String warningMessage;
-	private Integer status = new Integer(-1); // -1 did not receive nothing
+	private Integer status = new Integer(-1); // -1 did not receive anything
 												// useful
 	private HashMap<String, List<String>> fieldErrors = new HashMap<String, List<String>>();
 
