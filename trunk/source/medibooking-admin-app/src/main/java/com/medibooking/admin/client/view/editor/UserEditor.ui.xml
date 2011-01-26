@@ -38,24 +38,7 @@
 				</td>
 			</tr>
 
-			<tr>
-				<td class="{res.editorCss.labelContainer}">
-					<g:Label>Morada:</g:Label>
-				</td>
-				<td class="{res.editorCss.leftAligned}">
-					<mbw:TextAreaEditor ui:field="address" />
-				</td>
-			</tr>
 
-
-			<tr>
-				<td class="{res.editorCss.labelContainer}">
-					<g:Label>Telefone:</g:Label>
-				</td>
-				<td class="{res.editorCss.leftAligned}">
-					<mbw:TextBoxEditor ui:field="phone" />
-				</td>
-			</tr>
 
 			<tr>
 				<td class="{res.editorCss.labelContainer}">

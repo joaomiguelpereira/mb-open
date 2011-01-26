@@ -4,6 +4,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
+import com.medibooking.admin.client.rest.UserRestService;
 import com.medibooking.admin.client.view.IRegisterUserView;
 import com.medibooking.admin.shared.entity.User;
 
@@ -31,6 +32,9 @@ public class RegisterUserActivity extends WebAppActivity implements IRegisterUse
 
 	@Override
 	public void saveUser(User user) {
+		//get RESTService
+		UserRestService service = new UserRestService(); 
+		service.createUser(user);
 		
 	}
 

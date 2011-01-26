@@ -32,12 +32,6 @@ public class UserEditor extends Composite implements Editor<User> {
 	TextBoxEditor emailConfirmation;
 
 	@UiField
-	TextBoxEditor phone;
-
-	@UiField
-	TextAreaEditor address;
-
-	@UiField
 	PasswordTextBoxEditor password;
 
 	@UiField
@@ -80,8 +74,6 @@ public class UserEditor extends Composite implements Editor<User> {
 		emailConfirmation.clearErrors();
 		password.clearErrors();
 		passwordConfirmation.clearErrors();
-		address.clearErrors();
-		phone.clearErrors();
 		termsAgreement.clearErrors();
 	}
 

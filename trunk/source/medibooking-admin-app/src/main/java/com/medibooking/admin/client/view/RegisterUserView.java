@@ -7,12 +7,10 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.medibooking.admin.client.view.editor.UserEditor;
 import com.medibooking.admin.shared.entity.User;
-import com.medibooking.admin.shared.entity.UserValidator;
 
 public class RegisterUserView extends Composite implements IRegisterUserView{
 
@@ -35,28 +33,11 @@ public class RegisterUserView extends Composite implements IRegisterUserView{
 
 	}
 	
-	private void handleSubmitUser() {
-		
-		//Delegate validation, save, etc to presenter
-		//presenter.saveUser(driver.flush());
-		
-		//IValidator<User> userValidator = GWT.create(User.class);
-		
-		
-		
+	private void handleSubmitUser() {		
 		User edited = driver.flush();
-		//Set<InvalidConstraint<User>> violations = userValidator.validate(edited);
-		//Window.alert(violations.size()+"");
-		
-		///START UGLY VALIDATION
-		UserValidator uv = new UserValidator();
-		if ( uv.validate(edited, this.userEditor) ) {
-			presenter.saveUser(edited);
-		}
-		
-		//END UGLY VALIDATION
-		
+		presenter.saveUser(edited);
 	}
+	
 	@Override
 	public void setPresenter(Presenter presenter) {
 		this.presenter = presenter;

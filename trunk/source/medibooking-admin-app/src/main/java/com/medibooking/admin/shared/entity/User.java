@@ -1,19 +1,39 @@
 package com.medibooking.admin.shared.entity;
 
+import com.google.gwt.core.client.GWT;
+
+import name.pehl.piriti.client.json.Json;
+import name.pehl.piriti.client.json.JsonReader;
+import name.pehl.piriti.client.json.JsonWriter;
+
 
 public class User implements ValueObject{
 
+	public interface UserReader extends JsonReader<User>{}
+	public static final UserReader READER = GWT.create(UserReader.class);
+
+	public interface UserWriter extends JsonWriter<User>{}
+	public static final UserWriter WRITER = GWT.create(UserWriter.class);
+
 	
 	
-	String name;
-	String email;
-	String emailConfirmation;
-	String phone;
-	String password;
-	String passwordConfirmation;
-	String address;
-	Boolean termsAgreement;
+	@Json Long id;
 	
+	@Json String name;
+	@Json String email;
+	@Json String emailConfirmation;
+	//@Json String phone;
+	@Json String password;
+	@Json String passwordConfirmation;
+	//@Json String address;
+	@Json Boolean termsAgreement;
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	public String getName() {
 		return name;
 	}
@@ -32,12 +52,7 @@ public class User implements ValueObject{
 	public void setEmailConfirmation(String emailConfirmation) {
 		this.emailConfirmation = emailConfirmation;
 	}
-	public String getPhone() {
-		return phone;
-	}
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+	
 	public String getPassword() {
 		return password;
 	}
@@ -49,12 +64,6 @@ public class User implements ValueObject{
 	}
 	public void setPasswordConfirmation(String passwordConfirmation) {
 		this.passwordConfirmation = passwordConfirmation;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
 	}
 	public Boolean getTermsAgreement() {
 		return termsAgreement;
