@@ -1,5 +1,6 @@
 package binding;
 
+import json.JsonObjectWrapper;
 import models.Business;
 import models.User;
 
@@ -10,7 +11,6 @@ import static org.junit.Assert.*;
 import com.google.gson.Gson;
 
 import data.binding.JsonObjectBinder;
-import data.binding.JsonObjectWrapper;
 
 public class JsonObjectWrapperTest extends UnitTest {
 
