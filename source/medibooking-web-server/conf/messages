@@ -41,6 +41,7 @@ user.activate = Active a sua conta.
 # Validation messages (custom)
 validation.passwords.notMatch = As passwords não coincidem
 validation.emails.notMatch = Os emails não coincidem
+
 validation.accept.termsAndConditions = Tem de aceitar os termos e condições
 
 
