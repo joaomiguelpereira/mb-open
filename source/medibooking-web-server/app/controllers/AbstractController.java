@@ -5,15 +5,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import json.JSONUtils;
+
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import play.Logger;
 import play.data.validation.Error;
 import play.data.validation.Validation;
+import play.db.jpa.Model;
 import play.i18n.Messages;
 import play.mvc.Controller;
 import play.mvc.Scope.Params;
-import utils.JSONUtils;
 
 public abstract class AbstractController extends Controller {
 
@@ -57,8 +60,10 @@ public abstract class AbstractController extends Controller {
 		}
 
 		Map<String, Object> jsonOutMap = new HashMap<String, Object>();
-		jsonOutMap.put(JSONUtils.MESSAGE_ERROR, Messages.get(i18nKey));
-		jsonOutMap.put("errors", jsonErrors);
+		jsonOutMap.put(JSONUtils.ERROR_MESSAGE_PROP, Messages.get(i18nKey));
+		jsonOutMap.put(JSONUtils.STATUS_PROP, JSONUtils.Status.FAIL);
+		jsonOutMap.put(JSONUtils.ERRORS_PROP, jsonErrors);
+		
 		String json = new Gson().toJson(jsonOutMap);
 		Logger.debug(json);
 		renderJSON(json);
@@ -84,10 +89,30 @@ public abstract class AbstractController extends Controller {
 		renderJSON(JSONUtils.warningMessage(i18nKey));
 	}
 
-	protected static void jsonSuccess(String i18nKey) {
+	protected static void renderJsonSuccess(String i18nKey) {
 		renderJSON(JSONUtils.successMessage(i18nKey));
 	}
 
+	
+	protected static <T extends Model> void renderJsonSuccess(String i18nKey, Object obj, String modelName) {
+		
+		
+		Map<String, Object> jsonOut = new HashMap<String, Object>();
+		jsonOut.put(JSONUtils.SUCCESS_MESSAGE_PROP, Messages.get(i18nKey));
+		jsonOut.put(JSONUtils.STATUS_PROP, JSONUtils.Status.SUCCESS);
+		//add id 
+		if ( obj instanceof Model ) {
+			jsonOut.put(JSONUtils.ID_PROP, ((Model)obj).id);
+		}
+		
+		jsonOut.put(modelName, obj);
+		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+		
+		
+		renderJSON(gson.toJson(jsonOut));
+		
+		
+	}
 	protected static void inspectParams(Params params) {
 		Map<String, String[]> mapParams = params.all();
 		Set<String> keys = mapParams.keySet();

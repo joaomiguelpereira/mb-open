@@ -1,4 +1,4 @@
-package utils;
+package json;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,26 +18,37 @@ import play.mvc.Scope.Params;
 
 public class JSONUtils {
 
-	public static final String MESSAGE_ERROR = "error";
-	public static final String MESSAGE_WARNING = "warning";
-	public static final String MESSAGE_SUCCESS = "success";
+	public static final String ERROR_MESSAGE_PROP = "__errorMessage";
+	public static final String WARNING_MESSAGE_PROP = "__warningMessage";
+	public static final String SUCCESS_MESSAGE_PROP = "__successMessage";
+	public static final String STATUS_PROP = "__status";
+	public static final String ID_PROP = "__id";
+	public static final String ERRORS_PROP = "__errors";
+	
+	public static class Status {
+		
+		//not related with http status codes
+		public static final Integer SUCCESS = 200;
+		public static final Integer FAIL = 500;
+		
+	}
 	
 	public static String successMessage(String i18nKey) {
 		Map<String, String> jsonOut = new HashMap<String, String>();
-		jsonOut.put(MESSAGE_SUCCESS, Messages.get(i18nKey));
+		jsonOut.put(SUCCESS_MESSAGE_PROP, Messages.get(i18nKey));
 		return new Gson().toJson(jsonOut);
 	}
 	
 	
 	public static String errorMessage(String i18nKey) {
 		Map<String, String> jsonOut = new HashMap<String, String>();
-		jsonOut.put(MESSAGE_ERROR, Messages.get(i18nKey));
+		jsonOut.put(ERROR_MESSAGE_PROP, Messages.get(i18nKey));
 		return new Gson().toJson(jsonOut);
 	}
 	
 	public static String warningMessage(String i18nKey) {
 		Map<String, String> jsonOut = new HashMap<String, String>();
-		jsonOut.put(MESSAGE_WARNING, Messages.get(i18nKey));
+		jsonOut.put(WARNING_MESSAGE_PROP, Messages.get(i18nKey));
 		return new Gson().toJson(jsonOut);
 	}
 	
@@ -73,7 +84,7 @@ public class JSONUtils {
 
 	public static String createRedirectionTo(String url, String i18nKey) {
 		Map<String, String> jsonOut = new HashMap<String, String>();
-		jsonOut.put(MESSAGE_ERROR, Messages.get(i18nKey));
+		jsonOut.put(ERROR_MESSAGE_PROP, Messages.get(i18nKey));
 		ActionDefinition ad = Router.reverse(url);
 		ad.absolute();
 		jsonOut.put("redirectTo",ad.url);

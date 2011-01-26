@@ -5,6 +5,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import json.JsonObjectWrapper;
+
+import notifiers.UserMailer;
+
+import models.BusinessAdministrator;
 import models.User;
 import models.enums.UserType;
 
@@ -14,7 +19,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import data.binding.JsonObjectWrapper;
 
 import play.Logger;
 import play.data.validation.Valid;
@@ -23,6 +27,8 @@ import play.mvc.Scope.Params;
 
 public class BusinessAdmin extends RESTController {
 
+	
+	
 	private static void create(User user, String passwordConfirmation,
 			String emailConfirmation, Boolean termsAgreement) {
 		String password = user.getPassword();
@@ -30,7 +36,8 @@ public class BusinessAdmin extends RESTController {
 		validation.valid(user);
 		
 		validation.required("password",password);
-		validation.range("password",password, 6,24);
+		validation.minSize("password",password, 6);
+		validation.maxSize("password",password, 24);
 		
 		validation.equals("emailConfirmation",emailConfirmation, "email",user.getEmail()).message(
 				Messages.get("validation.emails.notMatch"));
@@ -48,9 +55,21 @@ public class BusinessAdmin extends RESTController {
 		}
 		
 		//save the user
-		
-		
-		
+		User savedUser = null;
+		switch (user.getUserType()) {
+
+		case BUSINESS_ADMIN:
+			savedUser = new BusinessAdministrator(user).save();
+			break;
+
+		default:
+			savedUser = user.save();
+			break;
+		}
+		// send activation email to user's email
+		UserMailer.activateAccount(savedUser);
+		//Render json success stuff
+		renderJsonSuccess("user.register.success", savedUser, "user");
 	}
 
 	public static void create(JsonObjectWrapper body) {
@@ -64,8 +83,6 @@ public class BusinessAdmin extends RESTController {
 		String emailConfirmation = body.getStringProperty("emailConfirmation");
 		boolean termsAgreement = body.getBooleanProperty("termsAgreement");
 		
-		//UserType userType = body.getEnumProperty("userType", UserType.class);
-		Logger.debug("User Type is:" +user.getUserType()+ "-- class "+user.getClass().getName());
 		
 		create(user, passwordConfirmation, emailConfirmation, termsAgreement);
 		

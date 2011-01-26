@@ -8,6 +8,8 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import json.JSONUtils;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -38,7 +40,6 @@ import play.mvc.Scope;
 import play.mvc.Scope.Params;
 
 import play.mvc.With;
-import utils.JSONUtils;
 
 public class Businesses extends BaseController {
 
@@ -170,7 +171,7 @@ public class Businesses extends BaseController {
 		}
 		business.getPhones().remove(phone);
 		business.save();
-		jsonSuccess("business.phone.removed.success");
+		renderJsonSuccess("business.phone.removed.success");
 	}
 	
 	@RequiresUserSession(userTypes = { UserType.BUSINESS_ADMIN })
@@ -185,7 +186,7 @@ public class Businesses extends BaseController {
 		if (!business.validateAndSave()) {
 			renderJsonValidationErrors("business.save.fail", "business");
 		} else {
-			jsonSuccess("business.save.success");
+			renderJsonSuccess("business.save.success");
 		}
 	}
 	

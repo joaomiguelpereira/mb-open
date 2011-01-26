@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import json.JSONUtils;
+
 import com.google.gson.Gson;
 
 import annotations.authorization.RequiresEmptyUserSession;
@@ -34,7 +36,6 @@ import play.mvc.Scope;
 import play.mvc.Scope.Params;
 import play.mvc.With;
 import play.mvc.Http.Cookie;
-import utils.JSONUtils;
 
 public class BaseController extends AbstractController {
 
