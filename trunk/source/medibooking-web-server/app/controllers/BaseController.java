@@ -36,7 +36,7 @@ import play.mvc.With;
 import play.mvc.Http.Cookie;
 import utils.JSONUtils;
 
-public class BaseController extends Controller {
+public class BaseController extends AbstractController {
 
 	// private static final int NUMBER_ROWS_PER_PAGE = 5;
 	/**
@@ -44,53 +44,11 @@ public class BaseController extends Controller {
 	 */
 	protected static ThreadLocal<User> currentUser = new ThreadLocal<User>();
 
-	protected static void logValidationErrors() {
+	
 
-		Map<String, List<play.data.validation.Error>> errors = Validation
-				.current().errorsMap();
+	
 
-		for (List<play.data.validation.Error> theErrors : errors.values()) {
-			for (Error error : theErrors) {
-				Logger.debug("Error on " + error.getKey() + ":"
-						+ error.message());
-			}
-		}
-
-	}
-
-	protected static void inspectParams(Params params) {
-		Map<String, String[]> mapParams = params.all();
-		Set<String> keys = mapParams.keySet();
-
-		for (String key : keys) {
-			String[] vals = mapParams.get(key);
-			for (String value : vals) {
-				System.err.println("Key: " + key + " -> " + value);
-			}
-		}
-
-	}
-
-	protected static void jsonValidationErrors(String i18nKey, String varName) {
-		Map<String, List<Error>> validations = Validation.current().errorsMap();
-
-		Map<String, String[]> jsonErrors = new HashMap<String, String[]>();
-
-		for (String field : validations.keySet()) {
-			String errors[] = new String[validations.get(field).size()];
-			int i = 0;
-			for (Error error : validations.get(field)) {
-				errors[i++] = error.message();
-			}
-			jsonErrors.put(field, errors);
-		}
-
-		Map<String, Object> jsonOutMap = new HashMap<String, Object>();
-		jsonOutMap.put(JSONUtils.MESSAGE_ERROR, Messages.get(i18nKey));
-		jsonOutMap.put("errors", jsonErrors);
-		String json = new Gson().toJson(jsonOutMap);
-		renderJSON(json);
-	}
+	
 
 	/**
 	 * Check if a valid session exists
@@ -293,17 +251,7 @@ public class BaseController extends Controller {
 
 	}
 
-	protected static void jsonError(String i18nKey) {
-		renderJSON(JSONUtils.errorMessage(i18nKey));
-	}
-
-	protected static void warningSuccess(String i18nKey) {
-		renderJSON(JSONUtils.warningMessage(i18nKey));
-	}
-
-	protected static void jsonSuccess(String i18nKey) {
-		renderJSON(JSONUtils.successMessage(i18nKey));
-	}
+	
 
 	/**
 	 * Remove all auto login cookies from client and clear current user

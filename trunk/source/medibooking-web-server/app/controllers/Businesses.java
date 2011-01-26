@@ -183,7 +183,7 @@ public class Businesses extends BaseController {
 		}
 		// Validate
 		if (!business.validateAndSave()) {
-			jsonValidationErrors("business.save.fail", "business");
+			renderJsonValidationErrors("business.save.fail", "business");
 		} else {
 			jsonSuccess("business.save.success");
 		}

@@ -24,6 +24,7 @@ import play.mvc.Scope.Flash;
 import play.test.FunctionalTest;
 import constants.SessionValuesConstants;
 import controllers.Users;
+import data.binding.JsonObjectWrapper;
 
 @Ignore
 public class ApplicationFunctionalTest extends FunctionalTest {
@@ -39,9 +40,40 @@ public class ApplicationFunctionalTest extends FunctionalTest {
 
 	}
 
+	protected void assertJsonValidationError(JsonObjectWrapper jsObj,
+			String i18n) {
+
+		String error = jsObj.getStringProperty("error");
+		assertNotNull(error);
+		assertEquals(error, Messages.get(i18n));
+
+	}
+
+	protected void assertNoJsonValidationErrors(JsonObjectWrapper errosJsObj,
+			String propName) {
+		// check errors on name
+		List<String> errorsList = errosJsObj.getStringArrayProperty(propName);
+		assertNull(errorsList);
+	}
+
+	protected void assertJsonValidationErrors(JsonObjectWrapper errosJsObj,
+			String propName, String[] expectedi18nErrorsArray) {
+
+		// check errors on name
+		List<String> errorsList = errosJsObj.getStringArrayProperty(propName);
+		assertNotNull(errorsList);
+		assertEquals(expectedi18nErrorsArray.length, errorsList.size());
+
+		for (String expectedMessage : expectedi18nErrorsArray) {
+
+			assertTrue(errorsList.contains(Messages.get(expectedMessage)));
+		}
+
+	}
+
 	protected <T extends Model> void assertBindedModel(String key, T model) {
-		
-		T bindedModel = (T)Scope.RenderArgs.current().data.get(key);
+
+		T bindedModel = (T) Scope.RenderArgs.current().data.get(key);
 		assertEquals(model.id, bindedModel.id);
 	}
 
@@ -97,14 +129,14 @@ public class ApplicationFunctionalTest extends FunctionalTest {
 	}
 
 	protected void logoutCurrentUser() {
-		if ( Scope.Session.current() != null ) {
+		if (Scope.Session.current() != null) {
 			Scope.Session.current().clear();
 		}
-		
-		if (Flash.current()!=null ) {
+
+		if (Flash.current() != null) {
 			Flash.current().clear();
 		}
-		
+
 	}
 
 	protected void authenticateUser(String email, String password,
@@ -130,25 +162,23 @@ public class ApplicationFunctionalTest extends FunctionalTest {
 	}
 
 	protected void assertJSONResponse(Response response, String json) {
-		//Assert is JSON Response
+		// Assert is JSON Response
 		assertTrue(response.contentType.contains("application/json"));
 		assertTrue(response.out.toString().contains(json));
-		
-		
-	}
 
+	}
 
 	protected void assertJSONSuccess(Response response, String i18n) {
 		Map<String, String> expectedMap = new HashMap<String, String>();
 		expectedMap.put("success", Messages.get(i18n));
 		assertJSONResponse(response, new Gson().toJson(expectedMap));
-		
+
 	}
 
 	protected void assertJSONError(Response response, String il18nKey) {
-		//Assert is JSON Response
+		// Assert is JSON Response
 		assertTrue(response.contentType.contains("application/json"));
-		Map<String,String> jsonMap = new HashMap<String, String>();
+		Map<String, String> jsonMap = new HashMap<String, String>();
 		jsonMap.put("error", Messages.get(il18nKey));
 		String jsonString = new Gson().toJson(jsonMap);
 		assertTrue(response.out.toString().contains(jsonString));
