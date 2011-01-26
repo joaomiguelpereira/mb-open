@@ -4,11 +4,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import json.JSONUtils;
+import json.JsonObjectWrapper;
+
 import models.User;
 
 import org.junit.Ignore;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
 import play.Logger;
 import play.data.validation.Error;
@@ -24,7 +29,6 @@ import play.mvc.Scope.Flash;
 import play.test.FunctionalTest;
 import constants.SessionValuesConstants;
 import controllers.Users;
-import data.binding.JsonObjectWrapper;
 
 @Ignore
 public class ApplicationFunctionalTest extends FunctionalTest {
@@ -170,16 +174,30 @@ public class ApplicationFunctionalTest extends FunctionalTest {
 
 	protected void assertJSONSuccess(Response response, String i18n) {
 		Map<String, String> expectedMap = new HashMap<String, String>();
-		expectedMap.put("success", Messages.get(i18n));
+		expectedMap.put(JSONUtils.ERROR_MESSAGE_PROP, Messages.get(i18n));
 		assertJSONResponse(response, new Gson().toJson(expectedMap));
 
 	}
+	
 
+	protected void assertNoJSONError(Response response) {
+		// Assert is JSON Response
+		assertTrue(response.contentType.contains("application/json"));
+		//convert thhe response out to obj
+		Logger.debug("Cheching if erros exist in response: "+response.out.toString());
+		JsonElement jsElement = new JsonParser().parse(response.out.toString());
+		if ( jsElement.isJsonObject() ) {
+			JsonObjectWrapper jsWrapper = new JsonObjectWrapper(jsElement.getAsJsonObject());
+			assertNull(jsWrapper.getStringProperty(JSONUtils.ERROR_MESSAGE_PROP));
+		} 
+		
+	}
+	
 	protected void assertJSONError(Response response, String il18nKey) {
 		// Assert is JSON Response
 		assertTrue(response.contentType.contains("application/json"));
 		Map<String, String> jsonMap = new HashMap<String, String>();
-		jsonMap.put("error", Messages.get(il18nKey));
+		jsonMap.put(JSONUtils.ERROR_MESSAGE_PROP, Messages.get(il18nKey));
 		String jsonString = new Gson().toJson(jsonMap);
 		assertTrue(response.out.toString().contains(jsonString));
 	}
