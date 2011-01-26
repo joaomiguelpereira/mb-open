@@ -86,3 +86,5 @@ views.businesses.options.delete.confirmation = Tem a certeza que quer remover o 
 views.businesses.phones.delete.confirmation = Tem a certeza que quer remover o telefone: :phone
 
 
+controllers.users.create.error = Não foi possível registar o utilizador!
+
