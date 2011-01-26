@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.PrePersist;
 import javax.persistence.Transient;
 
+import com.google.gson.annotations.Expose;
+
+
 import models.enums.UserType;
 
 import play.Logger;
@@ -32,6 +35,7 @@ public class User extends Model {
 	
 	private String resetPasswordSecret;
 	
+	@Expose
 	@Required
 	@MaxSize(60)
 	@MinSize(6)
@@ -40,9 +44,11 @@ public class User extends Model {
 	@Embedded
 	private LoginInformation loginInformation;
 
+	@Expose
 	@Required
 	private Boolean active;
 
+	@Expose
 	@Required
 	@Email
 	@Unique(message = "validation.email.unique")
@@ -54,12 +60,16 @@ public class User extends Model {
 
 	private String passwordHash;
 
+	
+	@Expose
 	@PhoneNumber
 	private String phone;
 
+	@Expose
 	@PhoneNumber
 	private String mobile;
 
+	@Expose
 	private UserType userType;
 
 	private String activationUUID;

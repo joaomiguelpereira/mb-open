@@ -3,6 +3,8 @@ package data.binding;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 
+import json.JsonObjectWrapper;
+
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;

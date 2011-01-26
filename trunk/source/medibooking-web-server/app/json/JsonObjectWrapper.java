@@ -1,4 +1,4 @@
-package data.binding;
+package json;
 
 import java.util.ArrayList;
 import java.util.List;

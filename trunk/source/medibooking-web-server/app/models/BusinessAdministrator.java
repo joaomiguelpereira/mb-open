@@ -30,7 +30,7 @@ public class BusinessAdministrator extends User{
 	}
 	public BusinessAdministrator(User user) {
 		this.setEmail(user.getEmail());
-		this.setMobile(user.getEmail());
+		this.setMobile(user.getMobile());
 		this.setName(user.getName());
 		this.setPassword(user.getPassword());
 		this.setPhone(user.getPhone());
