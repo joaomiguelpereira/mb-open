@@ -9,31 +9,32 @@ import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.medibooking.admin.client.rest.JsonResult;
 
-public class CreateUserResultAvailableEvent extends GwtEvent<CreateUserResultAvailableEvent.Handler>{
+public class CreateUserResultAvailableEvent extends
+		GwtEvent<CreateUserResultAvailableEvent.Handler> {
 
-	private static Map<CreateUserResultAvailableEvent.Handler, HandlerRegistration> handlers = new HashMap<CreateUserResultAvailableEvent.Handler,HandlerRegistration>();
 	private JsonResult jsonResult;
 	public static Type<Handler> TYPE = new Type<CreateUserResultAvailableEvent.Handler>();
-	
+
 	public interface Handler extends EventHandler {
 
 		public void onResultAvailable(CreateUserResultAvailableEvent event);
 
 	}
+
 	public CreateUserResultAvailableEvent(JsonResult jsonResult) {
 		this.jsonResult = jsonResult;
 	}
 
 	@Override
 	public com.google.gwt.event.shared.GwtEvent.Type<Handler> getAssociatedType() {
-		
+
 		return CreateUserResultAvailableEvent.TYPE;
 	}
 
 	@Override
 	protected void dispatch(Handler handler) {
 		handler.onResultAvailable(this);
-		
+
 	}
 
 	public void setJsonResult(JsonResult jsonResult) {
@@ -43,15 +44,12 @@ public class CreateUserResultAvailableEvent extends GwtEvent<CreateUserResultAva
 	public JsonResult getJsonResult() {
 		return jsonResult;
 	}
-	
-	//ASSUME ONLY ONE EVENT BUS
-	public static HandlerRegistration register(EventBus eventBus, CreateUserResultAvailableEvent.Handler handler) {
-		if ( !handlers.containsKey(handler) ) {
-			HandlerRegistration hr = eventBus.addHandler(TYPE, handler);
-			
-			handlers.put(handler, hr);
-		} 
-		return handlers.get(handler);
+
+	// ASSUME ONLY ONE EVENT BUS
+	public static HandlerRegistration register(EventBus eventBus,
+			CreateUserResultAvailableEvent.Handler handler) {
+		return eventBus.addHandler(TYPE, handler);
+
 	}
 
 }
