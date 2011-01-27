@@ -36,13 +36,42 @@ a.messageClose {
 	font-size: 1.3em;
 	padding: 2px;
 }
-.messageWithError  {
+
+.messageWithError,.messageWithWarning,.messageWithSuccess,.messageWithInfo
+	{
 	font-size: 1.2em;
-	background: red;
 	border: none;
 	text-align: center;
 	margin: 0px;
-	padding:0px;
+	padding: 0px;
 	height: 2em;
 }
-	
+
+.messageWithError {
+	background: red;
+}
+
+.messageWithWarning {
+	background: yellow;
+}
+
+.messageWithSuccess {
+	background: green;
+	color: white;
+}
+
+
+.messageWithSuccess a.messageClose {
+	color: white;
+	border: dotted 1px white;
+}
+
+.messageWithInfo {
+	color: white;
+	background: navy;
+}
+
+.messageWithInfo a.messageClose {
+	color: white;
+	border: dotted 1px white;
+}

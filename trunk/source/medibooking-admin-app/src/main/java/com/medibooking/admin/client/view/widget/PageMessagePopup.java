@@ -12,20 +12,20 @@ import com.medibooking.admin.client.view.MessageType;
 import com.medibooking.admin.client.view.resources.GlobalResources;
 
 public class PageMessagePopup extends PopupPanel {
-	
+
 	private static final String DEFAULT_HEIGH = "2em";
 	private String message;
 	private MessageType type;
 	private Composite parent;
+
 	public PageMessagePopup(String message, MessageType type, Composite parent) {
 		super(true);
 		this.message = message;
 		this.type = type;
 		this.parent = parent;
-		
+
 	}
-	
-	
+
 	@Override
 	public void show() {
 		StringBuilder sb = new StringBuilder();
@@ -33,57 +33,60 @@ public class PageMessagePopup extends PopupPanel {
 		sb.append("<div>");
 		sb.append(message);
 		sb.append("</div>");
-		
-		
-		//final PopupPanel messagePopup = new PopupPanel(true);
+
+		// final PopupPanel messagePopup = new PopupPanel(true);
 		HTML messageHtml = new HTML(sb.toString());
-		
+
 		Anchor closeLink = new Anchor("X");
 		closeLink.addStyleName(GlobalResources.INSTANCE.css().messageClose());
 		AbsolutePanel absPanel = new AbsolutePanel();
-		
+
 		absPanel.add(messageHtml);
-		absPanel.add(closeLink);		
-		
-		
+		absPanel.add(closeLink);
+
 		this.add(absPanel);
 		this.setAnimationEnabled(true);
-		
-		
+
 		// get parent width
 
 		this.setWidth(parent.getOffsetWidth() + "px");
-		//Calculate the center just to adjust the left
-		
+		// Calculate the center just to adjust the left
 
-		
 		this.setPopupPosition(0, 0);
-		absPanel.insert(closeLink, parent.getOffsetWidth()-30, 0, 0);
+		absPanel.insert(closeLink, parent.getOffsetWidth() - 30, 0, 0);
 		absPanel.setHeight(DEFAULT_HEIGH);
-		
 
 		switch (type) {
 		case ERROR:
-			this.addStyleName(GlobalResources.INSTANCE.css()
-					.messageWithError());
+			this.addStyleName(GlobalResources.INSTANCE.css().messageWithError());
 			break;
+		case WARNING:
+			this.addStyleName(GlobalResources.INSTANCE.css()
+					.messageWithWarning());
+			break;
+		case SUCCESS:
+			this.addStyleName(GlobalResources.INSTANCE.css()
+					.messageWithSuccess());
+			break;
+		default:
+			this.addStyleName(GlobalResources.INSTANCE.css().messageWithInfo());
 
 		}
-		
-		//register handler 
-		
+
+		// register handler
+
 		closeLink.addClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent event) {
 				hide();
-				
+
 			}
 		});
 		// Create a new timer that calls Window.alert().
 		Timer t = new Timer() {
 			public void run() {
-				
+
 				hide();
 				this.cancel();
 			}
@@ -92,7 +95,7 @@ public class PageMessagePopup extends PopupPanel {
 		super.show();
 		// Schedule the timer to run once in 4 seconds.
 		t.schedule(5000);
-		
+
 	}
 
 }
