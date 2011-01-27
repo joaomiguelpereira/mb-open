@@ -56,7 +56,7 @@ public class DesktopWebAppShell extends Composite implements IMainView {
 	RegisterUserView registerUserView;
 	
 	@UiField
-	LayoutPanel messages;
+	AbsolutePanel messages;
 	
 
 	private Presenter presenter;
@@ -77,6 +77,7 @@ public class DesktopWebAppShell extends Composite implements IMainView {
 	private void init() {
 		initWidget(BINDER.createAndBindUi(this));
 		contentPanel.setAnimationSpeed(100);
+		this.messages.setVisible(false);
 		
 		
 		//Register handlers for userSessionWidget
@@ -150,7 +151,7 @@ public class DesktopWebAppShell extends Composite implements IMainView {
 		sb.append("<div>");
 		sb.append(message);
 		sb.append("</div>");
-		
+		this.messages.clear();
 		this.messages.add(new HTML(sb.toString()));
 		
 		switch (type) {
