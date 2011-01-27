@@ -28,7 +28,21 @@ a {
 	font-size: 1em;
 }
 
+a.messageClose {
+	display: block;
+	border: dotted 1px black;
+	cursor: pointer;
+	text-decoration: none;
+	font-size: 1.3em;
+	padding: 2px;
+}
 .messageWithError  {
-	background: red;	
+	font-size: 1.2em;
+	background: red;
+	border: none;
+	text-align: center;
+	margin: 0px;
+	padding:0px;
+	height: 2em;
 }
 	

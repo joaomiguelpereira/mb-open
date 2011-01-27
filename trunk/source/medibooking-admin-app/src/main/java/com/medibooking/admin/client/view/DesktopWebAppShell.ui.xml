@@ -48,11 +48,7 @@
 		<g:north size='5'>
 			
 			<g:HTMLPanel styleName='{style.header}'>
-				<g:AbsolutePanel styleName="{style.message}" ui:field="messages" >
-					
-					
-					
-				</g:AbsolutePanel> 
+				
 				<div class="{style.logoHeader}">
 					<g:Image ui:field="logo" resource='{res.logoHeader}' />
 				</div>
