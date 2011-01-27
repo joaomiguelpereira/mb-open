@@ -14,6 +14,9 @@ public class CreateUserResultAvailableEvent extends GwtEvent<CreateUserResultAva
 		public void onResultAvailable(CreateUserResultAvailableEvent event);
 
 	}
+	public CreateUserResultAvailableEvent(JsonResult jsonResult) {
+		this.jsonResult = jsonResult;
+	}
 
 	@Override
 	public com.google.gwt.event.shared.GwtEvent.Type<Handler> getAssociatedType() {

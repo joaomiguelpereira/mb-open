@@ -39,6 +39,7 @@ public class WebAppGinModule extends AbstractGinModule {
 		
 		bind(UserService.class).to(UserRestService.class);
 		
+		//Reusable activities (must care with state in the activities)
 		bind(HomeActivity.class).in(Singleton.class);
 		bind(LoginActivity.class).in(Singleton.class);
 		bind(RegisterUserActivity.class).in(Singleton.class);
@@ -47,7 +48,7 @@ public class WebAppGinModule extends AbstractGinModule {
 		bind(IMainView.class).to(DesktopWebAppShell.class).in(Singleton.class);
 		
 		
-		//bind Views
+		//bind Views, reusable
 		bind(IHomeView.class).to(HomeView.class).in(Singleton.class);
 		bind(ILoginView.class).to(LoginView.class).in(Singleton.class);
 		bind(IRegisterUserView.class).to(RegisterUserView.class).in(Singleton.class);

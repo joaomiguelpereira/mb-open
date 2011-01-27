@@ -5,6 +5,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
@@ -23,14 +24,21 @@ public class RegisterUserView extends Composite implements IRegisterUserView{
 	private static final Binder BINDER = GWT.create(Binder.class);
 	private Presenter presenter;
 	private User user;
-	
+
 	public UserEditor getUserEditor() {
 		return this.userEditor;
 	}
 	
 	public RegisterUserView() {
 		initWidget(BINDER.createAndBindUi(this));
-
+		this.userEditor.getSubmit().addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				handleSubmitUser();
+				
+			}
+		});
 	}
 	
 	private void handleSubmitUser() {		
@@ -55,13 +63,7 @@ public class RegisterUserView extends Composite implements IRegisterUserView{
 		driver.edit(this.user);
 		userEditor.clearErrors();
 		//register submit handle
-		this.userEditor.getSubmit().addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				handleSubmitUser();
-			}
-		});
+		
 		
 		
 	}
