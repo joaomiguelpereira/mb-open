@@ -1,11 +1,17 @@
 package com.medibooking.admin.client.event;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.medibooking.admin.client.rest.JsonResult;
 
 public class CreateUserResultAvailableEvent extends GwtEvent<CreateUserResultAvailableEvent.Handler>{
 
+	private static Map<CreateUserResultAvailableEvent.Handler, HandlerRegistration> handlers = new HashMap<CreateUserResultAvailableEvent.Handler,HandlerRegistration>();
 	private JsonResult jsonResult;
 	public static Type<Handler> TYPE = new Type<CreateUserResultAvailableEvent.Handler>();
 	
@@ -36,6 +42,16 @@ public class CreateUserResultAvailableEvent extends GwtEvent<CreateUserResultAva
 
 	public JsonResult getJsonResult() {
 		return jsonResult;
+	}
+	
+	//ASSUME ONLY ONE EVENT BUS
+	public static HandlerRegistration register(EventBus eventBus, CreateUserResultAvailableEvent.Handler handler) {
+		if ( !handlers.containsKey(handler) ) {
+			HandlerRegistration hr = eventBus.addHandler(TYPE, handler);
+			
+			handlers.put(handler, hr);
+		} 
+		return handlers.get(handler);
 	}
 
 }

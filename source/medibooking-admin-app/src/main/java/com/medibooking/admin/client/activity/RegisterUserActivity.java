@@ -15,6 +15,7 @@ public class RegisterUserActivity extends WebAppActivity implements
 
 	private IRegisterUserView view;
 	private UserService service;
+	private CreateUserResultAvailableEvent.Handler createUserResultEventHandler;
 
 	@Inject
 	public RegisterUserActivity(PlaceController placeController,
@@ -23,7 +24,15 @@ public class RegisterUserActivity extends WebAppActivity implements
 		this.placeController = placeController;
 		this.view.setPresenter(this);
 		this.service = userService;
-
+		
+		this.createUserResultEventHandler = new CreateUserResultAvailableEvent.Handler() {
+			
+			@Override
+			public void onResultAvailable(CreateUserResultAvailableEvent event) {
+				Window.alert(event.getJsonResult().getJsonString());
+				
+			}
+		};
 	}
 
 	@Override
@@ -32,16 +41,11 @@ public class RegisterUserActivity extends WebAppActivity implements
 		panel.setWidget(this.view);
 		this.view.setUser(new User());
 		this.view.initialize();
-		eventBus.addHandler(CreateUserResultAvailableEvent.TYPE,
-				new CreateUserResultAvailableEvent.Handler() {
-
-					@Override
-					public void onResultAvailable(
-							CreateUserResultAvailableEvent event) {
-						Window.alert(event.getJsonResult().getJsonString());
-
-					}
-				});
+		//if this event is registers, then it's ignored
+		CreateUserResultAvailableEvent.register(eventBus, this.createUserResultEventHandler).hashCode();
+		
+		
+				
 	}
 
 	@Override
