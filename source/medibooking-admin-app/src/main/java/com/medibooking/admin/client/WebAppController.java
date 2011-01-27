@@ -8,11 +8,13 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
 import com.medibooking.admin.client.activity.WebAppActivity;
+import com.medibooking.admin.client.event.JsonResultAvailableEvent;
 import com.medibooking.admin.client.event.LogoutRequestedEvent;
 import com.medibooking.admin.client.place.HomePlace;
 import com.medibooking.admin.client.place.LoginPlace;
 import com.medibooking.admin.client.place.RegisterUserPlace;
 import com.medibooking.admin.client.view.IMainView;
+import com.medibooking.admin.client.view.MessageType;
 
 public class WebAppController extends WebAppActivity implements
 		IMainView.Presenter, PlaceChangeEvent.Handler {
@@ -29,6 +31,9 @@ public class WebAppController extends WebAppActivity implements
 		this.placeController = placeController;
 		eventBus.addHandler(PlaceChangeEvent.TYPE, this);
 		eventBus.addHandler(LogoutRequestedEvent.TYPE, new LogoutHandler());
+		eventBus.addHandler(JsonResultAvailableEvent.TYPE,
+				new JsonResultAvailableResultHandler(this.view));
+
 	}
 
 	@Override
@@ -60,13 +65,48 @@ public class WebAppController extends WebAppActivity implements
 	/**
 	 * 
 	 * @author jpereira
-	 *
+	 * 
 	 */
 	private static class LogoutHandler implements LogoutRequestedEvent.Handler {
 
 		@Override
 		public void onLogoutRequested(LogoutRequestedEvent event) {
 			Window.alert("Logout requested");
+
+		}
+
+	}
+
+	/**
+	 * 
+	 * @author jpereira
+	 * 
+	 */
+	private static class JsonResultAvailableResultHandler implements
+			JsonResultAvailableEvent.Handler {
+
+		private IMainView view;
+
+		public JsonResultAvailableResultHandler(IMainView view) {
+			this.view = view;
+		}
+
+		@Override
+		public void onResultAvailable(JsonResultAvailableEvent event) {
+
+			MessageType type = null;
+			String message = null;
+			if ((message = event.getJsonResult().getErrorMessage()) != null) {
+				type = MessageType.ERROR;
+			} else if ((message = event.getJsonResult().getWarningMessage()) != null) {
+				type = MessageType.WARNING;
+			} else if ((message = event.getJsonResult().getSuccessMessage()) != null) {
+				type = MessageType.SUCCESS;
+			}
+			
+			if ( message!=null) {
+				view.showMessage(message, type);
+			}
 
 		}
 

@@ -3,19 +3,27 @@ package com.medibooking.admin.client.view;
 import java.util.logging.Logger;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.LayoutPanel;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.inject.Inject;
 import com.medibooking.admin.client.place.HomePlace;
 import com.medibooking.admin.client.place.LoginPlace;
 import com.medibooking.admin.client.place.RegisterUserPlace;
+import com.medibooking.admin.client.view.resources.GlobalResources;
 import com.medibooking.admin.client.view.widget.UserSessionOptionsWidget;
 
 public class DesktopWebAppShell extends Composite implements IMainView {
@@ -46,6 +54,10 @@ public class DesktopWebAppShell extends Composite implements IMainView {
 
 	@UiField(provided = true)
 	RegisterUserView registerUserView;
+	
+	@UiField
+	LayoutPanel messages;
+	
 
 	private Presenter presenter;
 
@@ -128,6 +140,42 @@ public class DesktopWebAppShell extends Composite implements IMainView {
 	public void revealRegisterUserView() {
 		contentPanel.setWidget(registerUserView);
 
+	}
+
+	@Override
+	public void showMessage(String message, MessageType type) {
+		//create an panel to show the message, if it does not exists yet
+		StringBuilder sb =  new StringBuilder();
+		
+		sb.append("<div>");
+		sb.append(message);
+		sb.append("</div>");
+		
+		this.messages.add(new HTML(sb.toString()));
+		
+		switch (type) {
+		case ERROR:
+			this.messages.addStyleName(GlobalResources.INSTANCE.css().messageWithError());
+			break;
+		}
+		messages.setVisible(true);
+		// Create a new timer that calls Window.alert().
+	    Timer t = new Timer() {
+	      public void run() {
+	       messages.clear();
+	       messages.setVisible(false);
+	       this.cancel();
+	      }
+	    };
+
+	    // Schedule the timer to run once in 4 seconds.
+	    t.schedule(3000);
+		
+		
+		
+		
+		
+		
 	}
 
 }

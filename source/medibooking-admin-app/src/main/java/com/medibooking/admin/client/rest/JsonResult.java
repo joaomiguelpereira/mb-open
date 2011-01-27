@@ -12,7 +12,7 @@ import com.google.gwt.json.client.JSONObject;
 
 public class JsonResult {
 
-
+	
 	public static final String ERROR_MESSAGE_PROP = "__errorMessage";
 	public static final String WARNING_MESSAGE_PROP = "__warningMessage";
 	public static final String SUCCESS_MESSAGE_PROP = "__successMessage";
@@ -121,5 +121,7 @@ public class JsonResult {
 		
 		return this.jsonString;
 	}
+
+	
 
 }

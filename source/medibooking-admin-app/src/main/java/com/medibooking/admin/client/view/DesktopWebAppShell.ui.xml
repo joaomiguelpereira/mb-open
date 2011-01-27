@@ -30,15 +30,30 @@
 		.content {
 			background-color: #red;
 		}
+		
+		.message {
+			width: 100%;
+			height: 2em;
+			text-align:center;
+			font-size: 1.2em;
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			
+			
+		}
 	</ui:style>
 
 	<g:DockLayoutPanel unit='EM'>
 		<g:north size='5'>
 
 			<g:HTMLPanel styleName='{style.header}'>
-
+				<g:LayoutPanel styleName="{style.message}" ui:field="messages" >
+					
+					
+					
+				</g:LayoutPanel> 
 				<div class="{style.logoHeader}">
-					<div>HELLO</div>
 					<g:Image ui:field="logo" resource='{res.logoHeader}' />
 				</div>
 				<div class="{style.userSession}">
@@ -63,7 +78,7 @@
 
 				<b:RegisterUserView ui:field="registerUserView" />
 
-			</b:SlidingPanel >
+			</b:SlidingPanel>
 		</g:center>
 
 
