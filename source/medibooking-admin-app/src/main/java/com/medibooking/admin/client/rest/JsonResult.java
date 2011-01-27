@@ -116,4 +116,10 @@ public class JsonResult {
 		return id;
 	}
 
+	public String getJsonString() {
+		
+		
+		return this.jsonString;
+	}
+
 }

@@ -4,7 +4,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
-import com.medibooking.admin.client.rest.UserRestService;
+import com.medibooking.admin.client.rest.service.UserService;
 import com.medibooking.admin.client.view.IRegisterUserView;
 import com.medibooking.admin.shared.entity.User;
 
@@ -12,12 +12,15 @@ import com.medibooking.admin.shared.entity.User;
 public class RegisterUserActivity extends WebAppActivity implements IRegisterUserView.Presenter{
 
 	private IRegisterUserView view;
+	private UserService service;
 		
 	@Inject
-	public RegisterUserActivity(PlaceController placeController, IRegisterUserView view) {
+	public RegisterUserActivity(PlaceController placeController, IRegisterUserView view, UserService userService) {
 		this.view = view;
 		this.placeController = placeController;
 		this.view.setPresenter(this);
+		this.service = userService;
+		
 	}
 	
 	
@@ -32,9 +35,8 @@ public class RegisterUserActivity extends WebAppActivity implements IRegisterUse
 
 	@Override
 	public void saveUser(User user) {
-		//get RESTService
-		UserRestService service = new UserRestService(); 
-		service.createUser(user);
+		//delegate to the service
+		this.service.createUser(user);
 		
 	}
 
