@@ -27,3 +27,8 @@ a {
 .gwt-Label {
 	font-size: 1em;
 }
+
+.messageWithError  {
+	background: red;	
+}
+	

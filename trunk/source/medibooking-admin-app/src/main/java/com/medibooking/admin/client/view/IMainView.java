@@ -13,6 +13,8 @@ public interface IMainView extends IsWidget {
 		
 	}
 
+	public void showMessage(String message, MessageType type);
+	
 	public void revealLoginView();
 
 	public void revealHomeView();

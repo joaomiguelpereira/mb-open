@@ -7,6 +7,7 @@ import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.RequestException;
 import com.google.gwt.http.client.Response;
 import com.google.gwt.user.client.Window;
+import com.medibooking.admin.client.event.JsonResultAvailableEvent;
 import com.medibooking.admin.client.rest.JsonResult;
 
 public class RestService {
@@ -77,7 +78,7 @@ public class RestService {
 	 * event bus
 	 */
 	protected void handleJSONResult() {
-		Window.alert("OK: " + jsonResult.getJsonString());
+		eventBus.fireEvent(new JsonResultAvailableEvent(this.jsonResult));
 
 		// get the jsonResult back to the presenter... use
 		// the event bus for this
