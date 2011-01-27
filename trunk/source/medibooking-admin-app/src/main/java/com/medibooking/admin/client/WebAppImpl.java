@@ -44,6 +44,7 @@ public class WebAppImpl implements WebApp {
 		this.userSessionManager = userSessionManager;
 		this.mainView = shell;
 		this.placeHistoryMapper = placeHistoryMapper;
+		
 
 		this.activityMapper = activityMapper;
 		this.webAppController = webAppController;

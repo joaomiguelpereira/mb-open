@@ -10,10 +10,10 @@ import com.google.gwt.user.client.Window;
 import com.medibooking.admin.client.event.JsonResultAvailableEvent;
 import com.medibooking.admin.client.rest.JsonResult;
 
-public class RestService {
+public abstract class RestService {
 
-	private EventBus eventBus;
-	private JsonResult jsonResult;
+	protected EventBus eventBus;
+	protected JsonResult jsonResult;
 
 	/**
 	 * POST jsonData to the url
@@ -73,12 +73,15 @@ public class RestService {
 		this.eventBus = eventBus;
 	}
 
+	protected abstract void onResultAvailable();
+
 	/**
 	 * Check global status for JSON Result and propagate the status thorugh
 	 * event bus
 	 */
 	protected void handleJSONResult() {
 		eventBus.fireEvent(new JsonResultAvailableEvent(this.jsonResult));
+		onResultAvailable();
 
 		// get the jsonResult back to the presenter... use
 		// the event bus for this

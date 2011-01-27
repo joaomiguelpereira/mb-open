@@ -1,7 +1,9 @@
 package com.medibooking.admin.client.rest.service;
 
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
+import com.medibooking.admin.client.event.CreateUserResultAvailableEvent;
 import com.medibooking.admin.client.rest.ServerRouteResolver;
 import com.medibooking.admin.shared.entity.User;
 
@@ -23,6 +25,11 @@ public class UserRestService extends RestService implements UserService {
 		
 		
 
+	}
+
+	@Override
+	protected void onResultAvailable() {
+		eventBus.fireEvent(new CreateUserResultAvailableEvent(this.jsonResult));
 	}
 
 	
