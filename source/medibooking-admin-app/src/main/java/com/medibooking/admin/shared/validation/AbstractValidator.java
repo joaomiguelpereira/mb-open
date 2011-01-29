@@ -12,7 +12,7 @@ public abstract class AbstractValidator {
 	protected void flushErrors(Errorable erroable) {
 		
 		if (!errors.isEmpty()) {
-			erroable.setErrors(errors.toArray(new String[errors.size()]));
+			erroable.setErrors(errors);
 			isValid = false;
 		}
 		

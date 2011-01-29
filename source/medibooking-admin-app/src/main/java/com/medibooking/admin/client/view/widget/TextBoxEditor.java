@@ -1,8 +1,7 @@
 package com.medibooking.admin.client.view.widget;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.editor.ui.client.adapters.ValueBoxEditor;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.user.client.ui.HTMLPanel;
 

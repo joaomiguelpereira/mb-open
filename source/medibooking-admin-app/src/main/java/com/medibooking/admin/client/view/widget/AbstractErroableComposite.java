@@ -1,5 +1,7 @@
 package com.medibooking.admin.client.view.widget;
 
+import java.util.List;
+
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.uibinder.client.UiField;
@@ -38,8 +40,9 @@ public abstract class AbstractErroableComposite extends Composite implements Err
 
 	}
 
+	
 	@Override
-	public void setErrors(String[] messages) {
+	public void setErrors(List<String> messages) {
 		this.setError();
 		StringBuilder innerHtml = new StringBuilder();
 
