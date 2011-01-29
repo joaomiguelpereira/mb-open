@@ -1,9 +1,11 @@
 package com.medibooking.admin.client.view.editor;
 
-
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.editor.client.Editor;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -13,11 +15,10 @@ import com.google.gwt.user.client.ui.Widget;
 import com.medibooking.admin.client.view.widget.CheckBoxEditor;
 import com.medibooking.admin.client.view.widget.Errorable;
 import com.medibooking.admin.client.view.widget.PasswordTextBoxEditor;
-import com.medibooking.admin.client.view.widget.TextAreaEditor;
 import com.medibooking.admin.client.view.widget.TextBoxEditor;
 import com.medibooking.admin.shared.entity.User;
 
-public class UserEditor extends Composite implements Editor<User> {
+public class UserEditor extends Composite implements CompositeEditor<User> {
 
 	private static UserEditorUiBinder uiBinder = GWT
 			.create(UserEditorUiBinder.class);
@@ -75,9 +76,25 @@ public class UserEditor extends Composite implements Editor<User> {
 		password.clearErrors();
 		passwordConfirmation.clearErrors();
 		termsAgreement.clearErrors();
+
 	}
 
 	interface UserEditorUiBinder extends UiBinder<Widget, UserEditor> {
 	}
 
+	private native void addFieldErros(String field, List<String> errorList) /*-{
+		
+		
+		//var fieldName = eval("this.@com.medibooking.admin.client.view.editor.UserEditor::"+field);
+		//$wnd.alert(name);
+		
+		
+	}-*/;
+
+	public void setFieldErrors(Map<String, List<String>> fieldErrors) {
+
+		for (String field : fieldErrors.keySet()) {
+			this.addFieldErros(field, fieldErrors.get(field));
+		}
+	}
 }

@@ -6,16 +6,16 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
 import com.medibooking.admin.client.event.CreateUserResultAvailableEvent;
+import com.medibooking.admin.client.rest.JsonResult;
 import com.medibooking.admin.client.rest.service.UserService;
 import com.medibooking.admin.client.view.IRegisterUserView;
 import com.medibooking.admin.shared.entity.User;
 
 public class RegisterUserActivity extends WebAppActivity implements
-		IRegisterUserView.Presenter {
+		IRegisterUserView.Presenter, CreateUserResultAvailableEvent.Handler {
 
 	private IRegisterUserView view;
 	private UserService service;
-	private CreateUserResultAvailableEvent.Handler createUserResultEventHandler;
 
 	@Inject
 	public RegisterUserActivity(PlaceController placeController,
@@ -24,15 +24,7 @@ public class RegisterUserActivity extends WebAppActivity implements
 		this.placeController = placeController;
 		this.view.setPresenter(this);
 		this.service = userService;
-		
-		this.createUserResultEventHandler = new CreateUserResultAvailableEvent.Handler() {
-			
-			@Override
-			public void onResultAvailable(CreateUserResultAvailableEvent event) {
-				Window.alert(event.getJsonResult().getJsonString());
-				
-			}
-		};
+
 	}
 
 	@Override
@@ -41,11 +33,9 @@ public class RegisterUserActivity extends WebAppActivity implements
 		panel.setWidget(this.view);
 		this.view.setUser(new User());
 		this.view.initialize();
-		//if this event is registers, then it's ignored
-		CreateUserResultAvailableEvent.register(eventBus, this.createUserResultEventHandler).hashCode();
-		
-		
-				
+		// if this event is registers, then it's ignored
+		CreateUserResultAvailableEvent.register(eventBus, this);
+
 	}
 
 	@Override
@@ -53,6 +43,16 @@ public class RegisterUserActivity extends WebAppActivity implements
 		// delegate to the service
 		this.service.createUser(user);
 		// Register for event
+
+	}
+
+	@Override
+	public void onResultAvailable(CreateUserResultAvailableEvent event) {
+		JsonResult jsonResult = event.getJsonResult();
+		//if has errors
+		if ( jsonResult.hasErrors() ) {
+			this.view.onErrors(jsonResult);
+		}
 
 	}
 

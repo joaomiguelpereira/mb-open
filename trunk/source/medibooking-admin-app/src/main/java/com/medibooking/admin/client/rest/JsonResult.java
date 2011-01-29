@@ -3,6 +3,7 @@ package com.medibooking.admin.client.rest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import name.pehl.totoe.json.client.JsonParser;
@@ -120,6 +121,15 @@ public class JsonResult {
 		
 		
 		return this.jsonString;
+	}
+
+	public boolean hasErrors() {
+		return this.errorMessage!=null;
+	}
+
+	public Map<String, List<String>> getFieldErrors() {
+		// TODO Auto-generated method stub
+		return this.fieldErrors;
 	}
 
 	
