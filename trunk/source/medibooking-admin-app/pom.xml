@@ -16,17 +16,51 @@
 		<!-- GWT needs at least java 1.5 -->
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
-		
+
 		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
 
 
 		<webappDirectory>src/main/webapp</webappDirectory>
-		
-		
+
+
 
 	</properties>
+	<repositories>
+		<repository>
+			<id>pehl-parent</id>
+			<url>http://pehl-parent.googlecode.com/svn/repository</url>
+		</repository>
+		<repository>
+			<id>totoe-repo</id>
+			<name>Totoe Repository</name>
+			<url>http://totoe.googlecode.com/svn/repository</url>
+		</repository>
+		<repository>
+			<id>piriti-repo</id>
+			<name>Piriti Repository</name>
+			<url>http://piriti.googlecode.com/svn/repository</url>
+		</repository>
+	</repositories>
 
 	<dependencies>
+		<!-- JSON Serializing/deserializing -->
+		<dependency>
+			<groupId>name.pehl.piriti</groupId>
+			<artifactId>piriti-core</artifactId>
+			<version>0.6.3</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>name.pehl</groupId>
+			<artifactId>totoe</artifactId>
+			<version>0.2.1</version>
+			<scope>provided</scope>
+		</dependency>
+
+
+
+
+
 		<!-- Start GWT Deps -->
 		<!-- GWT Stuff -->
 		<dependency>
@@ -66,53 +100,20 @@
 
 
 		<!-- Pesristence stuff -->
-
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>3.6.0.Final</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<version>3.6.0.Final</version>
-			<exclusions>
-				<exclusion>
-					<groupId>cglib</groupId>
-					<artifactId>cglib</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>dom4j</groupId>
-					<artifactId>dom4j</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate.javax.persistence</groupId>
-			<artifactId>hibernate-jpa-2.0-api</artifactId>
-			<version>1.0.0.Final</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>4.1.0.Final</version>
-			<exclusions>
-				<exclusion>
-					<groupId>javax.xml.bind</groupId>
-					<artifactId>jaxb-api</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.sun.xml.bind</groupId>
-					<artifactId>jaxb-impl</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
-			<version>1.0.0.GA</version>
-		</dependency>
-
+		<!-- <dependency> <groupId>org.hibernate</groupId> <artifactId>hibernate-core</artifactId> 
+			<version>3.6.0.Final</version> </dependency> <dependency> <groupId>org.hibernate</groupId> 
+			<artifactId>hibernate-entitymanager</artifactId> <version>3.6.0.Final</version> 
+			<exclusions> <exclusion> <groupId>cglib</groupId> <artifactId>cglib</artifactId> 
+			</exclusion> <exclusion> <groupId>dom4j</groupId> <artifactId>dom4j</artifactId> 
+			</exclusion> </exclusions> </dependency> <dependency> <groupId>org.hibernate.javax.persistence</groupId> 
+			<artifactId>hibernate-jpa-2.0-api</artifactId> <version>1.0.0.Final</version> 
+			</dependency> <dependency> <groupId>org.hibernate</groupId> <artifactId>hibernate-validator</artifactId> 
+			<version>4.1.0.Final</version> <exclusions> <exclusion> <groupId>javax.xml.bind</groupId> 
+			<artifactId>jaxb-api</artifactId> </exclusion> <exclusion> <groupId>com.sun.xml.bind</groupId> 
+			<artifactId>jaxb-impl</artifactId> </exclusion> </exclusions> </dependency> 
+			<dependency> <groupId>javax.validation</groupId> <artifactId>validation-api</artifactId> 
+			<version>1.0.0.GA</version> </dependency> <dependency> <groupId>hsqldb</groupId> 
+			<artifactId>hsqldb</artifactId> <version>1.8.0.7</version> </dependency> -->
 		<!-- Unit Testing stuff -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -172,9 +173,9 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
-					<packagingExcludes>**/*hosted*,**/.svn/</packagingExcludes>
-
+					<packagingExcludes>**/*hosted*,**/.svn/,**/*AppJUnit/</packagingExcludes>
 					<webappDirectory>src/main/webapp</webappDirectory>
+
 					<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
 				</configuration>
 			</plugin>
@@ -190,14 +191,9 @@
 				<goals> <goal>exploded</goal> </goals> </execution> </executions> <configuration> 
 				<webappDirectory>${webappDirectory}</webappDirectory> </configuration> </plugin> -->
 
-			<!--  <plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<configuration>
-					<webappDirectory>${webappDirectory}</webappDirectory>
-					 <webXml>${webappDirectory}/WEB-INF/web.xml</webXml> 
-				</configuration>
-			</plugin>-->
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-war-plugin</artifactId> 
+				<configuration> <webappDirectory>${webappDirectory}</webappDirectory> <webXml>${webappDirectory}/WEB-INF/web.xml</webXml> 
+				</configuration> </plugin> -->
 		</plugins>
 	</build>
 
