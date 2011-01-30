@@ -122,8 +122,6 @@ public class ErrorBinderGenerator extends Generator {
 
 				if (classType.isAssignableTo(erroableType)) {
 
-					sourceWriter
-							.println("  System.out.println(\"Implement it now:)\");");
 					sourceWriter.println("if (errors.containsKey(\""
 							+ field.getName() + "\")){");
 					sourceWriter.println("object." + field.getName()
