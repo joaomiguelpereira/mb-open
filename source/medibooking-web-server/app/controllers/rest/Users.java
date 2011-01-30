@@ -25,7 +25,7 @@ import play.data.validation.Valid;
 import play.i18n.Messages;
 import play.mvc.Scope.Params;
 
-public class BusinessAdmin extends RESTController {
+public class Users extends RESTController {
 
 	
 	
