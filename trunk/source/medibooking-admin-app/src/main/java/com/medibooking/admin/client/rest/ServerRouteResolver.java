@@ -7,6 +7,10 @@ public class ServerRouteResolver {
 		public static native String getCreate() /*-{
 			return $wnd.userRoutes.create;
 		}-*/;
+
+		public static native String getLogin() /*-{
+			return $wnd.sessionRoutes.create;
+		}-*/;
 	}
 	
 }

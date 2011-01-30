@@ -46,9 +46,7 @@ public class UserEditor extends Composite implements CompositeEditor<User> {
 	@UiField
 	HasClickHandlers submit;
 
-	public Errorable getName() {
-		return this.name;
-	}
+	
 
 	/**
 	 * Const.

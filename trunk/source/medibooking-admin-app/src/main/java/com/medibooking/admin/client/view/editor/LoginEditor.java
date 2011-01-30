@@ -64,7 +64,8 @@ public class LoginEditor extends Composite implements CompositeEditor<User> {
 
 	@Override
 	public void clearErrors() {
-		// TODO Auto-generated method stub
+		email.clearErrors();
+		password.clearErrors();
 		
 	}
 
