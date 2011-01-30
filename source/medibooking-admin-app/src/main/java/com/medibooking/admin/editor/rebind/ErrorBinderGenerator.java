@@ -9,6 +9,7 @@ import com.google.gwt.core.ext.GeneratorContext;
 import com.google.gwt.core.ext.TreeLogger;
 import com.google.gwt.core.ext.UnableToCompleteException;
 import com.google.gwt.core.ext.typeinfo.JClassType;
+import com.google.gwt.core.ext.typeinfo.JField;
 import com.google.gwt.core.ext.typeinfo.JParameterizedType;
 
 import com.google.gwt.core.ext.typeinfo.TypeOracle;
@@ -16,6 +17,7 @@ import com.google.gwt.core.ext.typeinfo.TypeOracle;
 import com.google.gwt.user.rebind.ClassSourceFileComposerFactory;
 import com.google.gwt.user.rebind.SourceWriter;
 import com.medibooking.admin.client.view.editor.ErrorBinder;
+import com.medibooking.admin.client.view.widget.Errorable;
 
 public class ErrorBinderGenerator extends Generator {
 
@@ -94,20 +96,46 @@ public class ErrorBinderGenerator extends Generator {
 			SourceWriter sourceWriter = composerFactory.createSourceWriter(
 					context, printWriter);
 
-			composeBindErrorsMethod(sourceWriter);
+			composeBindErrorsMethod(logger, sourceWriter, typeOracle);
 			sourceWriter.commit(logger);
 
 		}
 		return implPackageName + "." + implTypeName;
 	}
 
-	private void composeBindErrorsMethod(SourceWriter sourceWriter) {
+	private void composeBindErrorsMethod(TreeLogger logger,
+			SourceWriter sourceWriter, TypeOracle typeOracle) {
 
-		sourceWriter.print("public void bindErrors("
+		sourceWriter.println("public void bindErrors("
 				+ parameterizedType.getQualifiedSourceName()
-				+ " erroable, Map<String, List<String>> errors) {");
-		sourceWriter.print("  System.out.println(\"Implement it now:)\");");
-		sourceWriter.print("}");
+				+ " object, Map<String, List<String>> errors) {");
+
+		// Get the fields declared in the parameterized type
+		JField[] fields = parameterizedType.getFields();
+		for (JField field : fields) {
+
+			JClassType classType = field.getType().isClass();
+			if (classType != null) {
+
+				JClassType erroableType = typeOracle.findType(Errorable.class
+						.getName());
+
+				if (classType.isAssignableTo(erroableType)) {
+
+					sourceWriter
+							.println("  System.out.println(\"Implement it now:)\");");
+					sourceWriter.println("if (errors.containsKey(\""
+							+ field.getName() + "\")){");
+					sourceWriter.println("object." + field.getName()
+							+ ".setErrors(errors.get(\"" + field.getName()
+							+ "\"));");
+					sourceWriter.println("}");
+
+				}
+			}
+
+		}
+		sourceWriter.println("}");
 
 	}
 }
