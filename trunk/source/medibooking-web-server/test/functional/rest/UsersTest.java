@@ -27,7 +27,7 @@ import play.test.Fixtures;
 
 import functional.ApplicationFunctionalTest;
 
-public class BusinessAdminTest extends ApplicationFunctionalTest {
+public class UsersTest extends ApplicationFunctionalTest {
 
 	@Before
 	public void setup() {
@@ -46,7 +46,7 @@ public class BusinessAdminTest extends ApplicationFunctionalTest {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("body", "invalid json");
 
-		Response res = POST(Router.reverse("rest.BusinessAdmin.create", params));
+		Response res = POST(Router.reverse("rest.Users.create", params));
 
 		assertJSONError(res, "invalid.request.format.error");
 	}
@@ -57,13 +57,13 @@ public class BusinessAdminTest extends ApplicationFunctionalTest {
 		Map<String, Object> params = new HashMap<String, Object>();
 		// params.put("body", "invalid json");
 
-		Response res = POST(Router.reverse("rest.BusinessAdmin.create", params));
+		Response res = POST(Router.reverse("rest.Users.create", params));
 
 		assertJSONError(res, "invalid.request.format.error");
 
 		params.put("body", null);
 
-		res = POST(Router.reverse("rest.BusinessAdmin.create", params));
+		res = POST(Router.reverse("rest.Users.create", params));
 
 		assertJSONError(res, "invalid.request.format.error");
 	}
@@ -74,13 +74,13 @@ public class BusinessAdminTest extends ApplicationFunctionalTest {
 		Map<String, Object> params = new HashMap<String, Object>();
 		// params.put("body", "invalid json");
 
-		Response res = POST(Router.reverse("rest.BusinessAdmin.create", params));
+		Response res = POST(Router.reverse("rest.Users.create", params));
 
 		assertJSONError(res, "invalid.request.format.error");
 
 		params.put("body", "{\"key1\":\"val1\"}");
 
-		res = POST(Router.reverse("rest.BusinessAdmin.create", params));
+		res = POST(Router.reverse("rest.Users.create", params));
 		// assert errors object exist in the response as Json
 		JsonElement jsEl = new JsonParser().parse(res.out.toString());
 		// check if it's an object
@@ -119,7 +119,7 @@ public class BusinessAdminTest extends ApplicationFunctionalTest {
 				"body",
 				"{\"userType\":\"BUSINESS_ADMIN\",\"password\":\"12345\",\"name\":\"joao pereira\", \"email\":\"email@gmail.com\",\"emailConfirmation\":\"emailconf\",\"termsAgreement\":\"true\"}");
 
-		Response res = POST(Router.reverse("rest.BusinessAdmin.create", params));
+		Response res = POST(Router.reverse("rest.Users.create", params));
 		// assert errors object exist in the response as Json
 		JsonElement jsEl = new JsonParser().parse(res.out.toString());
 		// check if it's an object
@@ -157,7 +157,7 @@ public class BusinessAdminTest extends ApplicationFunctionalTest {
 				"body",
 				"{\"userType\":\"BUSINESS_ADMIN\",\"password\":\"123456\",\"passwordConfirmation\":\"123456\",\"name\":\"joao pereira\", \"email\":\"email@gmail.com\",\"emailConfirmation\":\"email@gmail.com\",\"termsAgreement\":\"true\",\"phone\":\"123456789\"}");
 
-		Response res = POST(Router.reverse("rest.BusinessAdmin.create", params));
+		Response res = POST(Router.reverse("rest.Users.create", params));
 		// assert errors object exist in the response as Json
 		assertNoJSONError(res);
 		
@@ -188,7 +188,7 @@ public class BusinessAdminTest extends ApplicationFunctionalTest {
 				"body",
 				"{\"userType\":\"USER\",\"password\":\"123456\",\"passwordConfirmation\":\"123456\",\"name\":\"joao pereira\", \"email\":\"email@gmail.com\",\"emailConfirmation\":\"email@gmail.com\",\"termsAgreement\":\"true\",\"phone\":\"123456789\"}");
 
-		Response res = POST(Router.reverse("rest.BusinessAdmin.create", params));
+		Response res = POST(Router.reverse("rest.Users.create", params));
 		// assert errors object exist in the response as Json
 		assertNoJSONError(res);
 		
