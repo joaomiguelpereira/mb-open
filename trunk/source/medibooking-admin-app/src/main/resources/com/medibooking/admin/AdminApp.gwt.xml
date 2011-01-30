@@ -16,11 +16,11 @@
 	<inherits name="com.google.gwt.inject.Inject" />
 	<inherits name='com.google.gwt.logging.Logging' />
 	<inherits name="com.google.gwt.resources.Resources" />
-	<inherits name="com.google.gwt.http.HTTP"/>
+	<inherits name="com.google.gwt.http.HTTP" />
 	<inherits name="name.pehl.piriti.Piriti" />
 	<!-- <inherits name="com.google.gwt.validation.Validation"/> -->
-	
-	
+
+
 	<!-- Specify the app entry point class. -->
 	<entry-point class='com.medibooking.admin.client.AdminApp' />
 
@@ -53,5 +53,9 @@
 	<set-configuration-property name="compiler.emulatedStack.recordFileNames"
 		value="true" />
 
+
+	<generate-with class="com.medibooking.admin.editor.rebind.ErrorBinderGenerator">
+		<when-type-assignable class="com.medibooking.admin.client.view.editor.ErrorBinder" />
+	</generate-with>
 
 </module>
