@@ -21,7 +21,7 @@
 
 			<tr>
 				<td class="{res.editorCss.labelContainer}">
-					<g:Label>Email:</g:Label>
+					<g:Label>Email:*</g:Label>
 				</td>
 				<td class="{res.editorCss.leftAligned}">
 					<mbw:TextBoxEditor ui:field="email" />
@@ -30,7 +30,7 @@
 
 			<tr>
 				<td class="{res.editorCss.labelContainer}">
-					<g:Label>Confirmação do email:</g:Label>
+					<g:Label>Confirmação do email:*</g:Label>
 				</td>
 				<td class="{res.editorCss.leftAligned}">
 
@@ -42,7 +42,7 @@
 
 			<tr>
 				<td class="{res.editorCss.labelContainer}">
-					<g:Label>Password:</g:Label>
+					<g:Label>Password:*</g:Label>
 				</td>
 				<td class="{res.editorCss.leftAligned}">
 
@@ -51,7 +51,7 @@
 			</tr>
 			<tr>
 				<td class="{res.editorCss.labelContainer}">
-					<g:Label>Confirmação de password:</g:Label>
+					<g:Label>Confirmação de password:*</g:Label>
 				</td>
 				<td class="{res.editorCss.leftAligned}">
 					<mbw:PasswordTextBoxEditor ui:field="passwordConfirmation" />
@@ -64,7 +64,7 @@
 				</td>
 				<td class="{res.editorCss.leftAligned}">
 					<mbw:CheckBoxEditor ui:field="termsAgreement">
-						Concordo com os termos e condições 
+						Concordo com os termos e condições
 					</mbw:CheckBoxEditor>
 				</td>
 			</tr>
