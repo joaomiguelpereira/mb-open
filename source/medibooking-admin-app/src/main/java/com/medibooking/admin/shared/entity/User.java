@@ -27,7 +27,15 @@ public class User implements ValueObject{
 	@Json String passwordConfirmation;
 	//@Json String address;
 	@Json Boolean termsAgreement;
+	@Json UserType userType;
 	
+	
+	public UserType getUserType() {
+		return userType;
+	}
+	public void setUserType(UserType userType) {
+		this.userType = userType;
+	}
 	public Long getId() {
 		return id;
 	}
