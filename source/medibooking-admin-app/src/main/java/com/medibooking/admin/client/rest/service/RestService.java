@@ -23,7 +23,7 @@ public abstract class RestService {
 	 * @param jsonData
 	 *            json to send to server
 	 */
-	protected void post(String url, String jsonData) {
+	protected void post(String url, String jsonData, final JsonResultAvailableCallback callback) {
 
 		RequestBuilder builder = new RequestBuilder(RequestBuilder.POST, url);
 
@@ -42,6 +42,7 @@ public abstract class RestService {
 					jsonResult = new JsonResult(response.getText()).parse();
 
 					handleJSONResult();
+					callback.onJsonResultAvaialble(jsonResult);
 				}
 
 				@Override
@@ -73,7 +74,7 @@ public abstract class RestService {
 		this.eventBus = eventBus;
 	}
 
-	protected abstract void onResultAvailable();
+
 
 	/**
 	 * Check global status for JSON Result and propagate the status thorugh
@@ -81,7 +82,7 @@ public abstract class RestService {
 	 */
 	protected void handleJSONResult() {
 		eventBus.fireEvent(new JsonResultAvailableEvent(this.jsonResult));
-		onResultAvailable();
+		
 
 		// get the jsonResult back to the presenter... use
 		// the event bus for this
