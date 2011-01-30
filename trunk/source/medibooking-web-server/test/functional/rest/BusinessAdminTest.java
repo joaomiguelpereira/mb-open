@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import json.JSONUtils;
 import json.JsonObjectWrapper;
 
 import models.User;
@@ -89,7 +90,7 @@ public class BusinessAdminTest extends ApplicationFunctionalTest {
 		// create a wrapper
 		JsonObjectWrapper jsObj = new JsonObjectWrapper(jsEl.getAsJsonObject());
 
-		JsonObjectWrapper errosJsObj = jsObj.getPropertyAsJsonObject("errors");
+		JsonObjectWrapper errosJsObj = jsObj.getPropertyAsJsonObject(JSONUtils.ERRORS_PROP);
 		// Assert exists a prop name errors
 		assertNotNull(errosJsObj);
 
@@ -128,7 +129,7 @@ public class BusinessAdminTest extends ApplicationFunctionalTest {
 		// create a wrapper
 		JsonObjectWrapper jsObj = new JsonObjectWrapper(jsEl.getAsJsonObject());
 
-		JsonObjectWrapper errosJsObj = jsObj.getPropertyAsJsonObject("errors");
+		JsonObjectWrapper errosJsObj = jsObj.getPropertyAsJsonObject(JSONUtils.ERRORS_PROP);
 		// Assert exists a prop name errors
 		assertNotNull(errosJsObj);
 
@@ -148,7 +149,7 @@ public class BusinessAdminTest extends ApplicationFunctionalTest {
 	}
 
 	@Test
-	public void createUser() {
+	public void createBusinessAdminUser() {
 
 		Map<String, Object> params = new HashMap<String, Object>();
 
@@ -168,12 +169,48 @@ public class BusinessAdminTest extends ApplicationFunctionalTest {
 		// create a wrapper
 		JsonObjectWrapper jsObj = new JsonObjectWrapper(jsEl.getAsJsonObject());
 
-		JsonObjectWrapper errosJsObj = jsObj.getPropertyAsJsonObject("errors");
+		JsonObjectWrapper errosJsObj = jsObj.getPropertyAsJsonObject(JSONUtils.ERRORS_PROP);
 		// Assert exists a prop name errors
 		assertNull(errosJsObj);
 		
 		assertNotNull(User.find("byEmail", "email@gmail.com"));
+		User u = User.find("byEmail", "email@gmail.com").first();
+		assertEquals(u.getUserType(), UserType.BUSINESS_ADMIN);
 
 	}
+	
+	@Test
+	public void createUser() {
+
+		Map<String, Object> params = new HashMap<String, Object>();
+
+		params.put(
+				"body",
+				"{\"userType\":\"USER\",\"password\":\"123456\",\"passwordConfirmation\":\"123456\",\"name\":\"joao pereira\", \"email\":\"email@gmail.com\",\"emailConfirmation\":\"email@gmail.com\",\"termsAgreement\":\"true\",\"phone\":\"123456789\"}");
+
+		Response res = POST(Router.reverse("rest.BusinessAdmin.create", params));
+		// assert errors object exist in the response as Json
+		assertNoJSONError(res);
+		
+		JsonElement jsEl = new JsonParser().parse(res.out.toString());
+		// check if it's an object
+		assertNotNull(jsEl);
+		assertTrue(jsEl.isJsonObject());
+
+		// create a wrapper
+		JsonObjectWrapper jsObj = new JsonObjectWrapper(jsEl.getAsJsonObject());
+
+		JsonObjectWrapper errosJsObj = jsObj.getPropertyAsJsonObject(JSONUtils.ERRORS_PROP);
+		// Assert exists a prop name errors
+		assertNull(errosJsObj);
+		
+		assertNotNull(User.find("byEmail", "email@gmail.com"));
+		User u = User.find("byEmail", "email@gmail.com").first();
+		assertEquals(u.getUserType(), UserType.USER);
+		
+
+	}
+
+
 
 }

@@ -63,7 +63,7 @@ public class BusinessAdmin extends RESTController {
 			break;
 
 		default:
-			savedUser = user.save();
+			savedUser = new User(user).save();
 			break;
 		}
 		// send activation email to user's email

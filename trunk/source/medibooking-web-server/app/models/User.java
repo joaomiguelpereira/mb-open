@@ -74,6 +74,18 @@ public class User extends Model {
 
 	private String activationUUID;
 
+	public User() {
+		
+	}
+	public User(User user) {
+		this.setEmail(user.getEmail());
+		this.setMobile(user.getMobile());
+		this.setName(user.getName());
+		this.setPassword(user.getPassword());
+		this.setPhone(user.getPhone());
+		
+	}
+
 	@SuppressWarnings("unused")
 	@PrePersist
 	private void prepareNewUser() {

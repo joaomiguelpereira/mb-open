@@ -47,7 +47,7 @@ public class ApplicationFunctionalTest extends FunctionalTest {
 	protected void assertJsonValidationError(JsonObjectWrapper jsObj,
 			String i18n) {
 
-		String error = jsObj.getStringProperty("error");
+		String error = jsObj.getStringProperty(JSONUtils.ERROR_MESSAGE_PROP);
 		assertNotNull(error);
 		assertEquals(error, Messages.get(i18n));
 
