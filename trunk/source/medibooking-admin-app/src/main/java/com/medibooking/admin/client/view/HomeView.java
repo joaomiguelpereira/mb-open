@@ -39,7 +39,7 @@ public class HomeView extends Composite implements IHomeView {
 	
 	@UiHandler("loginLink")
 	void onLoginCliked(ClickEvent event) {
-		presenter.goTo(new LoginPlace());
+		presenter.goTo(new LoginPlace(false));
 	}
 	
 	

@@ -2,10 +2,11 @@ package com.medibooking.admin.client.activity;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.PlaceController;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
 import com.medibooking.admin.client.event.CreateUserResultAvailableEvent;
+import com.medibooking.admin.client.place.HomePlace;
+import com.medibooking.admin.client.place.LoginPlace;
 import com.medibooking.admin.client.rest.JsonResult;
 import com.medibooking.admin.client.rest.service.UserService;
 import com.medibooking.admin.client.view.IRegisterUserView;
@@ -42,7 +43,8 @@ public class RegisterUserActivity extends WebAppActivity implements
 	@Override
 	public void saveUser(User user) {
 		// delegate to the service
-		//user.setUserType(UserType.BUSINESS_ADMIN);
+		//This interface is used only to create new BUSINESS_ADMINs
+		user.setUserType(UserType.BUSINESS_ADMIN);
 		this.service.createUser(user);
 		// Register for event
 
@@ -54,6 +56,8 @@ public class RegisterUserActivity extends WebAppActivity implements
 		//if has errors
 		if ( jsonResult.hasErrors() ) {
 			this.view.onErrors(jsonResult);
+		} else {
+			this.placeController.goTo(new LoginPlace(true));
 		}
 
 	}
