@@ -1,9 +1,9 @@
 package com.medibooking.admin.client.view.editor;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+
+import javax.print.attribute.standard.Fidelity;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -22,6 +22,9 @@ public class UserEditor extends Composite implements CompositeEditor<User> {
 
 	private static UserEditorUiBinder uiBinder = GWT
 			.create(UserEditorUiBinder.class);
+
+	private static UserEditorErrorBinder errorBinder = GWT
+			.create(UserEditorErrorBinder.class);
 
 	@UiField
 	TextBoxEditor name;
@@ -79,22 +82,15 @@ public class UserEditor extends Composite implements CompositeEditor<User> {
 
 	}
 
+	
+	public void setFieldErrors(Map<String, List<String>> fieldErrors) {
+		errorBinder.bindErrors(this, fieldErrors);
+	}
+
 	interface UserEditorUiBinder extends UiBinder<Widget, UserEditor> {
 	}
 
-	private native void addFieldErros(String field, List<String> errorList) /*-{
-		
-		
-		//var fieldName = eval("this.@com.medibooking.admin.client.view.editor.UserEditor::"+field);
-		//$wnd.alert(name);
-		
-		
-	}-*/;
+	interface UserEditorErrorBinder extends ErrorBinder<UserEditor> {
 
-	public void setFieldErrors(Map<String, List<String>> fieldErrors) {
-
-		for (String field : fieldErrors.keySet()) {
-			this.addFieldErros(field, fieldErrors.get(field));
-		}
 	}
 }
