@@ -109,6 +109,8 @@ public abstract class AbstractController extends Controller {
 		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 		
 		
+		String json = gson.toJson(jsonOut);
+		Logger.debug(json);
 		renderJSON(gson.toJson(jsonOut));
 		
 		
