@@ -1,28 +1,41 @@
 package com.medibooking.admin.client.place;
 
-import java.util.logging.Logger;
-
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;
 import com.google.gwt.place.shared.Prefix;
 
 public class LoginPlace extends Place {
 	
-	private static final Logger log = Logger.getLogger(LoginPlace.class.getName());
+	private boolean registeredBefore = false;
 	
+	public LoginPlace(boolean registeredBefore) {
+		this.registeredBefore = registeredBefore; 
+	}
+	
+	
+	public boolean isRegisteredBefore() {
+		return registeredBefore;
+	}
+
+
+	public void setRegisteredBefore(boolean registeredBefore) {
+		this.registeredBefore = registeredBefore;
+	}
+
+
 	@Prefix("!login")
 	public static class Tokenizer implements PlaceTokenizer<LoginPlace> {
 
 		@Override
 		public LoginPlace getPlace(String token) {
-			log.fine("CAlled getPlace for token "+token);
-			return new LoginPlace();
+			
+			return new LoginPlace(token.contains("?justArrived")?true:false);
 		}
 
 		@Override
 		public String getToken(LoginPlace place) {
-			log.fine("CAlled getToken for place "+place);
-			return "startSession";
+			return "startSession" + (place.registeredBefore?"?justArrived":"");
+			
 		}
 		
 	}

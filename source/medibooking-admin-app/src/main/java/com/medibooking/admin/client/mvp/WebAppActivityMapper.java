@@ -38,6 +38,11 @@ public class WebAppActivityMapper implements ActivityMapper {
 
 	@Override
 	public Activity getActivity(Place place) {
+		if (place instanceof LoginPlace ) {
+			LoginActivity activity = (LoginActivity)this.placeActivityMappings.get(place.getClass()); 
+			activity.setRegisteredBefore(((LoginPlace)place).isRegisteredBefore());
+			return activity; 
+		}//Fall into others
 		return this.placeActivityMappings.get(place.getClass());
 	}
 

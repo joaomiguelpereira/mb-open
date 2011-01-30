@@ -13,6 +13,7 @@ public class LoginActivity extends WebAppActivity implements
 
 
 	private final ILoginView view;
+	private boolean registeredBefore;
 
 	@Inject
 	public LoginActivity(ILoginView view, PlaceController placeController) {
@@ -25,6 +26,15 @@ public class LoginActivity extends WebAppActivity implements
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
 		this.eventBus = eventBus;
 		panel.setWidget(view);
+		
+	}
+
+	public void setRegisteredBefore(boolean registeredBefore) {
+		this.registeredBefore = registeredBefore;
+	}
+
+	public boolean isRegisteredBefore() {
+		return registeredBefore;
 	}
 
 }

@@ -72,7 +72,7 @@ public class DesktopWebAppShell extends Composite implements IMainView {
 
 					@Override
 					public void onClick(ClickEvent event) {
-						presenter.goTo(new LoginPlace());
+						presenter.goTo(new LoginPlace(false));
 					}
 				});
 
