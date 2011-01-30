@@ -10,6 +10,7 @@ import com.medibooking.admin.client.rest.JsonResult;
 import com.medibooking.admin.client.rest.service.UserService;
 import com.medibooking.admin.client.view.IRegisterUserView;
 import com.medibooking.admin.shared.entity.User;
+import com.medibooking.admin.shared.entity.UserType;
 
 public class RegisterUserActivity extends WebAppActivity implements
 		IRegisterUserView.Presenter, CreateUserResultAvailableEvent.Handler {
@@ -41,6 +42,7 @@ public class RegisterUserActivity extends WebAppActivity implements
 	@Override
 	public void saveUser(User user) {
 		// delegate to the service
+		//user.setUserType(UserType.BUSINESS_ADMIN);
 		this.service.createUser(user);
 		// Register for event
 
