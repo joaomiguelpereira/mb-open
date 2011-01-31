@@ -7,7 +7,12 @@ public class Sessions extends RESTController {
 
 	
 	public static void create(JsonObjectWrapper body) {
-		Logger.debug(body.getValue().toString());
-		renderJsonSuccess("OK.hh");
+		
+		validation.required("password",body.getStringProperty("password"));
+		validation.required("email",body.getStringProperty("email"));
+		
+		if ( validation.hasErrors() ) {
+			renderJsonValidationErrors("controllers.rest.session.invaliddata", "user", true);
+		}
 	}
 }
