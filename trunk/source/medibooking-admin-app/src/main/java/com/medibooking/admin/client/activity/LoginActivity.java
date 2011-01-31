@@ -7,20 +7,22 @@ import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
-import com.medibooking.admin.client.rest.service.UserRestService;
+import com.medibooking.admin.client.event.AbstractJsonResultAvailableEvent;
+import com.medibooking.admin.client.event.CreateSessionResultAvailableEvent;
+import com.medibooking.admin.client.rest.service.UserSessionService;
 import com.medibooking.admin.client.view.ILoginView;
 import com.medibooking.admin.shared.entity.User;
 
 public class LoginActivity extends WebAppActivity implements
-		ILoginView.Presenter {
+		ILoginView.Presenter,CreateSessionResultAvailableEvent.Handler {
 
-
+	
 	private final ILoginView view;
 	private boolean registeredBefore;
-	private UserRestService service;
+	private UserSessionService service;
 
 	@Inject
-	public LoginActivity(UserRestService service, ILoginView view, PlaceController placeController) {
+	public LoginActivity(UserSessionService service, ILoginView view, PlaceController placeController) {
 		this.placeController = placeController;
 		this.view = view;
 		this.service = service;
@@ -33,6 +35,8 @@ public class LoginActivity extends WebAppActivity implements
 		panel.setWidget(view);
 		this.view.setUser(new User());
 		this.view.initialize();
+		CreateSessionResultAvailableEvent.register(eventBus,this);
+		
 	}
 
 	public void setRegisteredBefore(boolean registeredBefore) {
@@ -45,7 +49,13 @@ public class LoginActivity extends WebAppActivity implements
 
 	@Override
 	public void loginUser(User user) {
-		service.loginUser(user);
+		service.create(user);
+		
+	}
+
+	@Override
+	public void onJsonResultAvailable(AbstractJsonResultAvailableEvent<?> event) {
+		Window.alert(event.getJsonResult().getJsonString());
 		
 	}
 

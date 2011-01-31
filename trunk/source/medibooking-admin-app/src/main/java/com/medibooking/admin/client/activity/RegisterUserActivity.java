@@ -4,6 +4,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
+import com.medibooking.admin.client.event.AbstractJsonResultAvailableEvent;
 import com.medibooking.admin.client.event.CreateUserResultAvailableEvent;
 import com.medibooking.admin.client.place.HomePlace;
 import com.medibooking.admin.client.place.LoginPlace;
@@ -43,7 +44,7 @@ public class RegisterUserActivity extends WebAppActivity implements
 	@Override
 	public void saveUser(User user) {
 		// delegate to the service
-		//This interface is used only to create new BUSINESS_ADMINs
+		// This interface is used only to create new BUSINESS_ADMINs
 		user.setUserType(UserType.BUSINESS_ADMIN);
 		this.service.createUser(user);
 		// Register for event
@@ -51,10 +52,10 @@ public class RegisterUserActivity extends WebAppActivity implements
 	}
 
 	@Override
-	public void onResultAvailable(CreateUserResultAvailableEvent event) {
+	public void onJsonResultAvailable(AbstractJsonResultAvailableEvent<?> event) {
 		JsonResult jsonResult = event.getJsonResult();
-		//if has errors
-		if ( jsonResult.hasErrors() ) {
+		// if has errors
+		if (jsonResult.hasErrors()) {
 			this.view.onErrors(jsonResult);
 		} else {
 			this.placeController.goTo(new LoginPlace(true));
