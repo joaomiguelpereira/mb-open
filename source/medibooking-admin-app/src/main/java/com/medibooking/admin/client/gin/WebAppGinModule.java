@@ -18,6 +18,8 @@ import com.medibooking.admin.client.mvp.WebAppActivityMapper;
 import com.medibooking.admin.client.mvp.WebAppPlaceHistoryMapper;
 import com.medibooking.admin.client.rest.service.UserRestService;
 import com.medibooking.admin.client.rest.service.UserService;
+import com.medibooking.admin.client.rest.service.UserSessionRestService;
+import com.medibooking.admin.client.rest.service.UserSessionService;
 import com.medibooking.admin.client.view.DesktopWebAppShell;
 import com.medibooking.admin.client.view.HomeView;
 import com.medibooking.admin.client.view.IHomeView;
@@ -38,6 +40,7 @@ public class WebAppGinModule extends AbstractGinModule {
 		
 		
 		bind(UserService.class).to(UserRestService.class);
+		bind(UserSessionService.class).to(UserSessionRestService.class);
 		
 		//Reusable activities (must care with state in the activities)
 		bind(HomeActivity.class).in(Singleton.class);

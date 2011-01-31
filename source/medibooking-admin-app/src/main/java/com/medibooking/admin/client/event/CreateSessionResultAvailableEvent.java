@@ -4,32 +4,26 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.medibooking.admin.client.rest.JsonResult;
 
-public class CreateUserResultAvailableEvent extends
+public class CreateSessionResultAvailableEvent extends AbstractJsonResultAvailableEvent<CreateSessionResultAvailableEvent.Handler> {
 
-AbstractJsonResultAvailableEvent<CreateUserResultAvailableEvent.Handler> {
-
-	
-	public static Type<Handler> TYPE = new Type<CreateUserResultAvailableEvent.Handler>();
+	public static Type<Handler> TYPE = new Type<CreateSessionResultAvailableEvent.Handler>();
 
 	public interface Handler extends JsonResultAvailableEventHandler {
-
 	}
 
-	public CreateUserResultAvailableEvent(JsonResult jsonResult) {
-		super(jsonResult);
-
+	public CreateSessionResultAvailableEvent(JsonResult result) {
+		super(result);
 	}
+
 
 	@Override
 	public com.google.gwt.event.shared.GwtEvent.Type<Handler> getAssociatedType() {
-
-		return CreateUserResultAvailableEvent.TYPE;
+		return TYPE;
 	}
+
 	
 	public static HandlerRegistration register(EventBus eventBus,
-			CreateUserResultAvailableEvent.Handler handler) {
+			CreateSessionResultAvailableEvent.Handler handler) {
 		return eventBus.addHandler(TYPE, handler);
-
 	}
-
 }
