@@ -8,9 +8,8 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.ScrollPanel;
-import com.medibooking.admin.client.view.RegisterUserView.Driver;
+import com.medibooking.admin.client.rest.JsonResult;
 import com.medibooking.admin.client.view.editor.LoginEditor;
-import com.medibooking.admin.client.view.editor.UserEditor;
 import com.medibooking.admin.shared.entity.User;
 
 public class LoginView extends Composite implements ILoginView {
@@ -43,10 +42,7 @@ public class LoginView extends Composite implements ILoginView {
 			@Override
 			public void onClick(ClickEvent event) {
 				handleSubmit();
-				
 			}
-
-			
 		});
 	}
 
@@ -76,6 +72,16 @@ public class LoginView extends Composite implements ILoginView {
 		driver.initialize(loginEditor);
 		driver.edit(this.user);
 		loginEditor.clearErrors();
+		
+	}
+
+	@Override
+	public void onErrors(JsonResult jsonResult) {
+		// Bind validation errors on the editor
+		if ( jsonResult.getFieldErrors() != null && !jsonResult.getFieldErrors().isEmpty()) {
+			
+			this.loginEditor.setFieldErrors(jsonResult.getFieldErrors());
+		}
 		
 	}
 

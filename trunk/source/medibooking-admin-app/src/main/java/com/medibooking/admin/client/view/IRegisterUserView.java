@@ -5,7 +5,7 @@ import com.medibooking.admin.client.mvp.WebAppPresenter;
 import com.medibooking.admin.client.rest.JsonResult;
 import com.medibooking.admin.shared.entity.User;
 
-public interface IRegisterUserView extends IsWidget {
+public interface IRegisterUserView extends ErrorableView {
 
 	public void setPresenter(Presenter presenter);
 
@@ -19,5 +19,5 @@ public interface IRegisterUserView extends IsWidget {
 
 	public void initialize();
 
-	public void onErrors(JsonResult jsonResult);
+
 }
