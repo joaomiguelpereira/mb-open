@@ -2,7 +2,10 @@ package com.medibooking.admin.client.view.widget;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
@@ -13,16 +16,45 @@ import com.medibooking.admin.client.view.resources.GlobalResources;
 
 public class PageMessagePopup extends PopupPanel {
 
+	//Singleton, Only one message of this at a time....
+	private static PageMessagePopup INSTANCE = null;
+
 	private static final String DEFAULT_HEIGH = "2em";
 	private String message;
 	private MessageType type;
 	private Composite parent;
+	private AbsolutePanel closeButtonPanel;
+	private Anchor closeLink;
+	
 
-	public PageMessagePopup(String message, MessageType type, Composite parent) {
+	public static void show(String message, MessageType type, Composite parent) {
+		if ( INSTANCE == null ) {
+			INSTANCE = new PageMessagePopup();
+			//Handle resize events from parent
+			Window.addResizeHandler(new ResizeHandler() {
+				
+				@Override
+				public void onResize(ResizeEvent event) {
+					if ( INSTANCE.isVisible() ) {
+						INSTANCE.setWidth(event.getWidth()+ "px");
+						INSTANCE.closeButtonPanel.insert(INSTANCE.closeLink, event.getWidth() - 30, 0, 0);
+						
+					}
+					
+				}
+			});
+		}
+		INSTANCE.message = message;
+		INSTANCE.type = type;
+		INSTANCE.parent = parent;
+		INSTANCE.clear();
+		INSTANCE.show();
+	}
+	private PageMessagePopup() {
 		super(true);
-		this.message = message;
-		this.type = type;
-		this.parent = parent;
+		
+		
+		
 
 	}
 
@@ -37,14 +69,14 @@ public class PageMessagePopup extends PopupPanel {
 		// final PopupPanel messagePopup = new PopupPanel(true);
 		HTML messageHtml = new HTML(sb.toString());
 
-		Anchor closeLink = new Anchor("X");
+		closeLink = new Anchor("X");
 		closeLink.addStyleName(GlobalResources.INSTANCE.css().messageClose());
-		AbsolutePanel absPanel = new AbsolutePanel();
+		closeButtonPanel = new AbsolutePanel();
 
-		absPanel.add(messageHtml);
-		absPanel.add(closeLink);
+		closeButtonPanel.add(messageHtml);
+		closeButtonPanel.add(closeLink);
 
-		this.add(absPanel);
+		this.add(closeButtonPanel);
 		this.setAnimationEnabled(true);
 
 		// get parent width
@@ -53,8 +85,8 @@ public class PageMessagePopup extends PopupPanel {
 		// Calculate the center just to adjust the left
 
 		this.setPopupPosition(0, 0);
-		absPanel.insert(closeLink, parent.getOffsetWidth() - 30, 0, 0);
-		absPanel.setHeight(DEFAULT_HEIGH);
+		closeButtonPanel.insert(closeLink, parent.getOffsetWidth() - 30, 0, 0);
+		closeButtonPanel.setHeight(DEFAULT_HEIGH);
 
 		switch (type) {
 		case ERROR:

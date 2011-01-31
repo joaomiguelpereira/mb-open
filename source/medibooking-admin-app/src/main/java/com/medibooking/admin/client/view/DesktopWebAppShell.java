@@ -135,7 +135,7 @@ public class DesktopWebAppShell extends Composite implements IMainView {
 	@Override
 	public void showMessage(String message, MessageType type) {
 		// create an panel to show the message, if it does not exists yet
-		new PageMessagePopup(message, type, this).show();
+		PageMessagePopup.show(message, type, this);
 	}
 
 }
