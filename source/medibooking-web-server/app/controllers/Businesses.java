@@ -158,16 +158,16 @@ public class Businesses extends BaseController {
 		//Find the phone
 		Phone phone = Phone.findById(phoneId);
 		if ( phone == null ) {
-			jsonError("business.phone.removed.fail.phone.not.found");
+			renderJsonError("business.phone.removed.fail.phone.not.found");
 		}
 		//Find the bussiness
 		Business business = Business.findById(id);
 		if (business == null ) {
-			jsonError("business.phone.removed.fail.business.not.found");
+			renderJsonError("business.phone.removed.fail.business.not.found");
 		}
 		
 		if ( !business.getPhones().contains(phone)) {
-			jsonError("business.phone.removed.fail.phone.invalid.parent");
+			renderJsonError("business.phone.removed.fail.phone.invalid.parent");
 		}
 		business.getPhones().remove(phone);
 		business.save();
@@ -180,7 +180,7 @@ public class Businesses extends BaseController {
 		// Check if the business exists
 		Business business = Business.findById(id);
 		if (!JSONUtils.mergeFromJson(business, "business", params)) {
-			jsonError("model.business.not.found");
+			renderJsonError("model.business.not.found");
 		}
 		// Validate
 		if (!business.validateAndSave()) {

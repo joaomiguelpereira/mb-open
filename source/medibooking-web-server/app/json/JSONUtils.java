@@ -40,9 +40,9 @@ public class JSONUtils {
 	}
 	
 	
-	public static String errorMessage(String i18nKey) {
+	public static String errorMessage(String i18nKey, Object...params) {
 		Map<String, String> jsonOut = new HashMap<String, String>();
-		jsonOut.put(ERROR_MESSAGE_PROP, Messages.get(i18nKey));
+		jsonOut.put(ERROR_MESSAGE_PROP, Messages.get(i18nKey, params));
 		return new Gson().toJson(jsonOut);
 	}
 	
