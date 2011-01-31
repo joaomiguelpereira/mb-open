@@ -74,7 +74,7 @@ public class Users extends RESTController {
 
 	public static void create(JsonObjectWrapper body) {
 		if (body == null) {
-			jsonError("invalid.request.format.error");
+			renderJsonError("invalid.request.format.error");
 		}
 
 		User user = body.getAs(User.class);

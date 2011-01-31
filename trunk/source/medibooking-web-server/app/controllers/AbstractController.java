@@ -81,8 +81,14 @@ public abstract class AbstractController extends Controller {
 
 	}
 
-	protected static void jsonError(String i18nKey) {
-		renderJSON(JSONUtils.errorMessage(i18nKey));
+	
+	/*private static void renderJsonError(String string, String email) {
+		// TODO Auto-generated method stub
+		
+	}*/
+	
+	protected static void renderJsonError(String i18nKey, Object...params) {
+		renderJSON(JSONUtils.errorMessage(i18nKey, params));
 	}
 
 	protected static void warningSuccess(String i18nKey) {
