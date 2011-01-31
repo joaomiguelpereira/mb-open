@@ -6,7 +6,6 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
 import com.medibooking.admin.client.event.AbstractJsonResultAvailableEvent;
 import com.medibooking.admin.client.event.CreateUserResultAvailableEvent;
-import com.medibooking.admin.client.place.HomePlace;
 import com.medibooking.admin.client.place.LoginPlace;
 import com.medibooking.admin.client.rest.JsonResult;
 import com.medibooking.admin.client.rest.service.UserService;

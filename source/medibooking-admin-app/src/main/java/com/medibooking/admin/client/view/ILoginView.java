@@ -1,10 +1,9 @@
 package com.medibooking.admin.client.view;
 
-import com.google.gwt.user.client.ui.IsWidget;
 import com.medibooking.admin.client.mvp.WebAppPresenter;
 import com.medibooking.admin.shared.entity.User;
 
-public interface ILoginView extends IsWidget {
+public interface ILoginView extends ErrorableView {
 	
 	public void setPresenter(Presenter presenter);
 	public void setRegisteredBefore(boolean registeredBefore);

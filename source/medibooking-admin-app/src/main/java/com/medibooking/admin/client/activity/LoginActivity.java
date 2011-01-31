@@ -55,7 +55,9 @@ public class LoginActivity extends WebAppActivity implements
 
 	@Override
 	public void onJsonResultAvailable(AbstractJsonResultAvailableEvent<?> event) {
-		Window.alert(event.getJsonResult().getJsonString());
+		if ( event.getJsonResult().hasErrors() ) {
+			this.view.onErrors(event.getJsonResult());
+		}
 		
 	}
 
