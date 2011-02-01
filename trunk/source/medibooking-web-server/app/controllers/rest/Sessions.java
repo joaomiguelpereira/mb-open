@@ -38,7 +38,7 @@ public class Sessions extends RESTController {
 		if ( loginToken==null ) {
 			renderJsonError("controllers.rest.session.create.fail");
 		}
-		UserSessionUtils.createAuthenticateUserSessionData(user, session);
+		
 		renderJsonSuccess("controllers.rest.session.create.success");
 		
 	}
