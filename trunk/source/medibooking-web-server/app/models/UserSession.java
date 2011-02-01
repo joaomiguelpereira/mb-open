@@ -72,7 +72,6 @@ public class UserSession extends BaseModel {
 		this.startTimeStamp = System.currentTimeMillis();
 		this.lastActivityTimeStamp = System.currentTimeMillis();
 		this.endTimeStamp = this.lastActivityTimeStamp+duration*24*60*60*1000;
-		Logger.debug("Session duration in days is: "+duration);
 		this.userId = userId;
 		this.ipAddress = ipAddress;
 	
