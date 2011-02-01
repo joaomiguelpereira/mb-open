@@ -23,4 +23,8 @@ public interface IMainView extends IsWidget {
 
 	public void revealRegisterUserView();
 
+	public void showRequestIndicator();
+
+	public void hideRequestIndicator();
+
 }

@@ -8,12 +8,22 @@ import com.google.gwt.http.client.RequestException;
 import com.google.gwt.http.client.Response;
 import com.google.gwt.user.client.Window;
 import com.medibooking.admin.client.event.JsonResultAvailableEvent;
+import com.medibooking.admin.client.event.RequestEvent;
 import com.medibooking.admin.client.rest.JsonResult;
 
 public abstract class RestService {
 
 	protected EventBus eventBus;
 	protected JsonResult jsonResult;
+
+	private void startRequest() {
+
+		this.eventBus.fireEvent(new RequestEvent(RequestEvent.State.START));
+	}
+
+	private void endRequest() {
+		this.eventBus.fireEvent(new RequestEvent(RequestEvent.State.END));
+	}
 
 	/**
 	 * POST jsonData to the url
@@ -23,8 +33,9 @@ public abstract class RestService {
 	 * @param jsonData
 	 *            json to send to server
 	 */
-	protected void post(String url, String jsonData, final JsonResultAvailableCallback callback) {
-
+	protected void post(String url, String jsonData,
+			final JsonResultAvailableCallback callback) {
+		startRequest();
 		RequestBuilder builder = new RequestBuilder(RequestBuilder.POST, url);
 
 		builder.setHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -43,16 +54,19 @@ public abstract class RestService {
 
 					handleJSONResult();
 					callback.onJsonResultAvaialble(jsonResult);
+					endRequest();
 				}
 
 				@Override
 				public void onError(Request request, Throwable exception) {
 					handleError(exception);
+					endRequest();
 				}
 
 			});
 		} catch (RequestException e) {
 			handleError(e);
+			endRequest();
 		}
 	}
 
@@ -74,26 +88,12 @@ public abstract class RestService {
 		this.eventBus = eventBus;
 	}
 
-
-
 	/**
 	 * Check global status for JSON Result and propagate the status thorugh
 	 * event bus
 	 */
 	protected void handleJSONResult() {
 		eventBus.fireEvent(new JsonResultAvailableEvent(this.jsonResult));
-		
-
-		// get the jsonResult back to the presenter... use
-		// the event bus for this
-		// before sending the result back to the presenter,
-		// send also to some activiy, or something, to show
-		// the general statis (if error show in header
-		// something like "ooops! error..." adn same as
-		// succes and warnign
-		// check if errors exist in the responseindex
-		// Configure the event bus so that a waiting mole is
-		// show in every event. See expenses project...
 
 	}
 }
