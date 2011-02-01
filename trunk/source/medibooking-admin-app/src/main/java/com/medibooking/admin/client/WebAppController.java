@@ -2,14 +2,11 @@ package com.medibooking.admin.client;
 
 
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.event.shared.GwtEvent;
-import com.google.gwt.event.shared.GwtEvent.Type;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceChangeEvent;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
-import com.google.gwt.user.client.ui.NotificationMole;
 import com.google.inject.Inject;
 import com.medibooking.admin.client.activity.WebAppActivity;
 import com.medibooking.admin.client.event.JsonResultAvailableEvent;

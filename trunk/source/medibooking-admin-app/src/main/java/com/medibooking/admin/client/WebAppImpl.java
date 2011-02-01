@@ -17,6 +17,8 @@ import com.medibooking.admin.client.mvp.WebAppPlaceHistoryMapper;
 import com.medibooking.admin.client.place.HomePlace;
 import com.medibooking.admin.client.view.IMainView;
 import com.medibooking.admin.client.view.resources.GlobalResources;
+import com.medibooking.admin.client.view.widget.ErrorWindow;
+import com.medibooking.admin.client.view.widget.ProcessingIndicator;
 
 public class WebAppImpl implements WebApp {
 	// Logger
@@ -78,7 +80,11 @@ public class WebAppImpl implements WebApp {
 		log.fine("Initializing the application...");
 		GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler() {
 			public void onUncaughtException(Throwable e) {
-				Window.alert("Error: " + e.getMessage());
+				//In the event that the Processing Indicator is working, just stop it
+				ProcessingIndicator.stop();
+				ErrorWindow.show(e);
+				
+				//Window.alert("Error: " + e.getMessage());
 				log.log(Level.SEVERE, e.getMessage(), e);
 			}
 		});

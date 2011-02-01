@@ -1,7 +1,6 @@
 package com.medibooking.admin.client.rest.service;
 
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 import com.medibooking.admin.client.event.CreateUserResultAvailableEvent;
 import com.medibooking.admin.client.rest.JsonResult;

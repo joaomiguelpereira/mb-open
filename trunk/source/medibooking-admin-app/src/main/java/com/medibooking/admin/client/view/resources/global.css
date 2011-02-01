@@ -83,5 +83,31 @@ a.messageClose {
 
 .glass {
 	background-color: white;
-	opacity: 0.3
+	opacity: 0.3;
 }
+.glassDark {
+	background-color: black;
+	opacity: 0.4;
+}
+
+.errorWindow {
+	border: solid 1px #F89321;
+	background: #fff;
+}
+.errorWindowTitle {
+	font-size: 1.2em;
+	padding:3px;
+}
+	
+.errorWindowContent {
+	padding:3px;
+}
+
+.errorWindowClose { 
+	cursor: pointer;
+	text-align: right;
+	font-size: 1.2em;
+	padding: 3px;
+	
+}
+	
