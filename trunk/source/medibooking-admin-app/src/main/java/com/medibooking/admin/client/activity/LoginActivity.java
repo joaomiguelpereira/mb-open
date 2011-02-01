@@ -2,8 +2,11 @@ package com.medibooking.admin.client.activity;
 
 
 
+import java.util.logging.Logger;
+
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.PlaceController;
+import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
@@ -16,7 +19,7 @@ import com.medibooking.admin.shared.entity.User;
 public class LoginActivity extends WebAppActivity implements
 		ILoginView.Presenter,CreateSessionResultAvailableEvent.Handler {
 
-	
+	private static Logger log = Logger.getLogger(LoginActivity.class.getName());
 	private final ILoginView view;
 	private boolean registeredBefore;
 	private UserSessionService service;
@@ -49,6 +52,7 @@ public class LoginActivity extends WebAppActivity implements
 
 	@Override
 	public void loginUser(User user) {
+
 		service.create(user);
 		
 	}
@@ -57,6 +61,11 @@ public class LoginActivity extends WebAppActivity implements
 	public void onJsonResultAvailable(AbstractJsonResultAvailableEvent<?> event) {
 		if ( event.getJsonResult().hasErrors() ) {
 			this.view.onErrors(event.getJsonResult());
+		} else {
+			//EXPERIMENT
+			Window.alert(Cookies.getCookie("PLAY_SESSION"));
+			log.info(Cookies.getCookie("PLAY_SESSION"));
+				
 		}
 		
 	}

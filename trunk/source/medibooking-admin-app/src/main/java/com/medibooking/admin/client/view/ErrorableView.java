@@ -7,4 +7,5 @@ public interface ErrorableView extends IsWidget {
 
 	
 	public void onErrors(JsonResult jsonResult);
+	public void clearErrors();
 }
