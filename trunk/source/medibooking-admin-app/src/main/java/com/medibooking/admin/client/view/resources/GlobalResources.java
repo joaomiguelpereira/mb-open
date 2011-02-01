@@ -21,6 +21,11 @@ public interface GlobalResources extends ClientBundle {
 	@Source("list-warning-icon.png")
 	ImageResource warningIcon();
 
+	@Source("processing.gif")
+	ImageResource processingImage();
+	
+	
+	
 	@NotStrict
 	@Source("global.css")
 	GlobalCss css();

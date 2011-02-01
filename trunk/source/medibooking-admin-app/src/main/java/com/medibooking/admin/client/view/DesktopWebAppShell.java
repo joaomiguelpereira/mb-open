@@ -12,11 +12,13 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.NotificationMole;
 import com.google.inject.Inject;
 import com.medibooking.admin.client.place.HomePlace;
 import com.medibooking.admin.client.place.LoginPlace;
 import com.medibooking.admin.client.place.RegisterUserPlace;
 import com.medibooking.admin.client.view.widget.PageMessagePopup;
+import com.medibooking.admin.client.view.widget.ProcessingIndicator;
 import com.medibooking.admin.client.view.widget.UserSessionOptionsWidget;
 
 public class DesktopWebAppShell extends Composite implements IMainView {
@@ -31,10 +33,6 @@ public class DesktopWebAppShell extends Composite implements IMainView {
 
 	@UiField
 	SlidingPanel contentPanel;
-
-	// @UiField
-	// SlidingPanel contentPanel;
-	// ScrollPanel scrollablePanel;
 
 	@UiField(provided = true)
 	LoginView loginView;
@@ -65,7 +63,8 @@ public class DesktopWebAppShell extends Composite implements IMainView {
 	private void init() {
 		initWidget(BINDER.createAndBindUi(this));
 		contentPanel.setAnimationSpeed(100);
-
+		
+		
 		// Register handlers for userSessionWidget
 		userSessionOptionsWidget.getLoginLink().addClickHandler(
 				new ClickHandler() {
@@ -136,6 +135,18 @@ public class DesktopWebAppShell extends Composite implements IMainView {
 	public void showMessage(String message, MessageType type) {
 		// create an panel to show the message, if it does not exists yet
 		PageMessagePopup.show(message, type, this);
+	}
+
+	@Override
+	public void showRequestIndicator() {
+		ProcessingIndicator.start();
+
+	}
+
+	@Override
+	public void hideRequestIndicator() {
+		ProcessingIndicator.stop();
+
 	}
 
 }

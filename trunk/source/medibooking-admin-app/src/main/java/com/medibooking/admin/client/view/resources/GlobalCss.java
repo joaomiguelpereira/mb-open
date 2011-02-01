@@ -13,4 +13,8 @@ public interface GlobalCss extends CssResource {
 	public String messageWithSuccess();
 
 	public String messageWithInfo();
+	
+	public String processingIndicator();
+	
+	public String glass();
 }

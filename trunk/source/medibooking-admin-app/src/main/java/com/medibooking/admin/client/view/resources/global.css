@@ -45,7 +45,6 @@ a.messageClose {
 	margin: 0px;
 	padding: 0px;
 	height: 2em;
-	
 }
 
 .messageWithError {
@@ -61,7 +60,6 @@ a.messageClose {
 	color: white;
 }
 
-
 .messageWithSuccess a.messageClose {
 	color: white;
 	border: dotted 1px white;
@@ -75,4 +73,15 @@ a.messageClose {
 .messageWithInfo a.messageClose {
 	color: white;
 	border: dotted 1px white;
+}
+
+.processingIndicator {
+	border: none;
+	background: #F89321;
+	text-align: center;
+}
+
+.glass {
+	background-color: white;
+	opacity: 0.3
 }

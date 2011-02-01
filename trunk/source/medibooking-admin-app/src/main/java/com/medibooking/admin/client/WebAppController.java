@@ -1,15 +1,20 @@
 package com.medibooking.admin.client;
 
+
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.event.shared.GwtEvent;
+import com.google.gwt.event.shared.GwtEvent.Type;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceChangeEvent;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
+import com.google.gwt.user.client.ui.NotificationMole;
 import com.google.inject.Inject;
 import com.medibooking.admin.client.activity.WebAppActivity;
 import com.medibooking.admin.client.event.JsonResultAvailableEvent;
 import com.medibooking.admin.client.event.LogoutRequestedEvent;
+import com.medibooking.admin.client.event.RequestEvent;
 import com.medibooking.admin.client.place.HomePlace;
 import com.medibooking.admin.client.place.LoginPlace;
 import com.medibooking.admin.client.place.RegisterUserPlace;
@@ -17,7 +22,7 @@ import com.medibooking.admin.client.view.IMainView;
 import com.medibooking.admin.client.view.MessageType;
 
 public class WebAppController extends WebAppActivity implements
-		IMainView.Presenter, PlaceChangeEvent.Handler {
+		IMainView.Presenter, PlaceChangeEvent.Handler, RequestEvent.Handler {
 
 	private final IMainView view;
 
@@ -33,6 +38,9 @@ public class WebAppController extends WebAppActivity implements
 		eventBus.addHandler(LogoutRequestedEvent.TYPE, new LogoutHandler());
 		eventBus.addHandler(JsonResultAvailableEvent.TYPE,
 				new JsonResultAvailableResultHandler(this.view));
+		//Configure loading 
+		RequestEvent.register(this.eventBus, this);
+		
 
 	}
 
@@ -110,6 +118,21 @@ public class WebAppController extends WebAppActivity implements
 
 		}
 
+	}
+
+	@Override
+	public void onRequest(RequestEvent event) {
+		
+		
+		
+		if ( event.getState() == RequestEvent.State.START ) {
+			view.showRequestIndicator();
+		} else {
+			view.hideRequestIndicator();
+		}
+		
+		
+		
 	}
 
 }

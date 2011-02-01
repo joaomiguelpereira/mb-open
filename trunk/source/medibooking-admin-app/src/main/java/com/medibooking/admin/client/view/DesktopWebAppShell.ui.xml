@@ -47,8 +47,7 @@
 	<g:DockLayoutPanel unit='EM'>
 		<g:north size='5'>
 			
-			<g:HTMLPanel styleName='{style.header}'>
-				
+			<g:HTMLPanel styleName='{style.header}'>	
 				<div class="{style.logoHeader}">
 					<g:Image ui:field="logo" resource='{res.logoHeader}' />
 				</div>
