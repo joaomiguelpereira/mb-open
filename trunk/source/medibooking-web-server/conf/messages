@@ -7,8 +7,15 @@
 active = Activo
 inactive = Inactivo
 
-
+controllers.rest.session.create.invalid.email = Email inválido!
+controllers.rest.session.create.invalid.password = Password inválida!
+controllers.rest.session.create.fail = Não foi possível autenticar o utilizador! Verifique que o os dados estão correctos.
+controllers.rest.session.create.fail.email.not.found = Não existe nenhum resgisto com o email: %s
+controllers.rest.session.create.fail.user.not.registered = O utilizador com o email %s não concluiu o processo de activação da conta. Verifique o seu email.
+controllers.rest.session.create.success = Sessão iniciada com sucesso!
 # For use in JavaExtensions.since tag
+
+
 since.seconds = %s second%s ago
 since.minutes = %s minute%s ago
 since.hours   = %s hour%s ago
