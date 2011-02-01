@@ -13,7 +13,6 @@ import com.google.gwt.json.client.JSONObject;
 
 public class JsonResult {
 
-	
 	public static final String ERROR_MESSAGE_PROP = "__errorMessage";
 	public static final String WARNING_MESSAGE_PROP = "__warningMessage";
 	public static final String SUCCESS_MESSAGE_PROP = "__successMessage";
@@ -21,17 +20,16 @@ public class JsonResult {
 	public static final String ID_PROP = "__id";
 	public static final String ERRORS_PROP = "__errors";
 
-	
-	
-
 	private Long id;
 	private String jsonString;
 	private String errorMessage;
 	private String successMessage;
 	private String warningMessage;
-	private Integer status = new Integer(-1); // -1 did not receive anything
+	private Integer status = new Integer(-1); // -1 did not receive anything //
 												// useful
+	private JSONObject jsObj;
 	private HashMap<String, List<String>> fieldErrors = new HashMap<String, List<String>>();
+	private boolean parsed = false;
 
 	public JsonResult(String jsonString) {
 		this.jsonString = jsonString;
@@ -42,7 +40,7 @@ public class JsonResult {
 			throw new IllegalStateException(
 					"The json string is null. Please provid a not null string in the constructor");
 		}
-		JSONObject jsObj = new JsonParser().parse(this.jsonString);
+		jsObj = new JsonParser().parse(this.jsonString);
 
 		// handle status
 		if (jsObj.get(STATUS_PROP) != null
@@ -57,7 +55,8 @@ public class JsonResult {
 
 		// handle error_message
 		if (jsObj.get(ERROR_MESSAGE_PROP) != null) {
-			this.errorMessage = jsObj.get(ERROR_MESSAGE_PROP).isString().stringValue();
+			this.errorMessage = jsObj.get(ERROR_MESSAGE_PROP).isString()
+					.stringValue();
 		}
 
 		// handle warning
@@ -70,30 +69,28 @@ public class JsonResult {
 			this.successMessage = jsObj.get(SUCCESS_MESSAGE_PROP).isString()
 					.stringValue();
 		}
-		
-		
-		//now handle errors
-		if (jsObj.get(ERRORS_PROP) != null ) {
-			JSONObject fieldErrosObj =  jsObj.get(ERRORS_PROP).isObject();
-			if ( fieldErrosObj!=null ) {
-				Set<String> props =  fieldErrosObj.keySet();
-				for (String prop : props ) {
+
+		// now handle errors
+		if (jsObj.get(ERRORS_PROP) != null) {
+			JSONObject fieldErrosObj = jsObj.get(ERRORS_PROP).isObject();
+			if (fieldErrosObj != null) {
+				Set<String> props = fieldErrosObj.keySet();
+				for (String prop : props) {
 					JSONArray objArray = fieldErrosObj.get(prop).isArray();
-					
-					if ( objArray != null ) {
-						
+
+					if (objArray != null) {
+
 						List<String> erroList = new ArrayList<String>();
-						for (int i=0; i < objArray.size() ; i++ ) {
-							erroList.add(objArray.get(i).isString().stringValue());
+						for (int i = 0; i < objArray.size(); i++) {
+							erroList.add(objArray.get(i).isString()
+									.stringValue());
 						}
 						this.fieldErrors.put(prop, erroList);
 					}
 				}
 			}
 		}
-		
-		
-
+		parsed = true;
 		return this;
 	}
 
@@ -118,20 +115,34 @@ public class JsonResult {
 	}
 
 	public String getJsonString() {
-		
-		
+
 		return this.jsonString;
 	}
 
 	public boolean hasErrors() {
-		return this.errorMessage!=null;
+		return this.errorMessage != null;
 	}
 
 	public Map<String, List<String>> getFieldErrors() {
-		// TODO Auto-generated method stub
 		return this.fieldErrors;
 	}
 
-	
+	@Override
+	public String toString() {
+		return this.jsonString;
+	}
+
+	public String getStringProperty(String propKey) {
+		String value = null;
+		if ( !parsed ) {
+			parse();
+		}
+		if (jsObj.get(propKey) != null) {
+			value = jsObj.get(propKey).isString()
+					.stringValue();
+		}
+
+		return value;
+	}
 
 }

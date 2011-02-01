@@ -15,13 +15,14 @@ public class ErrorWindow extends PopupPanel {
 
 	private static final ErrorWindow INSTANCE = new ErrorWindow();
 	private static final String WIDTH = "400px";
-	private static final String HEIGHT = "200ps";
-	
+	private static final String HEIGHT = "200px";
+
 	private ScrollPanel scrollPanel;
 	private VerticalPanel verticalPanel;
 	private Anchor closeLink;
 
 	private ErrorWindow() {
+
 		this.setAnimationEnabled(false);
 		this.setAutoHideEnabled(false);
 		this.setGlassEnabled(true);
@@ -31,18 +32,17 @@ public class ErrorWindow extends PopupPanel {
 		this.verticalPanel = new VerticalPanel();
 		this.scrollPanel = new ScrollPanel();
 		this.closeLink = new Anchor("Fechar");
-		closeLink.addStyleName(GlobalResources.INSTANCE.css().errorWindowClose());
-		
+		closeLink.addStyleName(GlobalResources.INSTANCE.css()
+				.errorWindowClose());
 		HTML title = new HTML("Ocorreu um erro na Aplicação!");
-
 		title.addStyleName(GlobalResources.INSTANCE.css().errorWindowTitle());
-		scrollPanel.addStyleName(GlobalResources.INSTANCE.css().errorWindowContent());
+		scrollPanel.addStyleName(GlobalResources.INSTANCE.css()
+				.errorWindowContent());
 		this.verticalPanel.add(title);
-
 		this.verticalPanel.add(this.scrollPanel);
-
 		this.verticalPanel.add(this.closeLink);
-		this.verticalPanel.setCellHorizontalAlignment(this.closeLink,HasHorizontalAlignment.ALIGN_RIGHT);
+		this.verticalPanel.setCellHorizontalAlignment(this.closeLink,
+				HasHorizontalAlignment.ALIGN_RIGHT);
 		this.add(verticalPanel);
 		this.closeLink.addClickHandler(new ClickHandler() {
 

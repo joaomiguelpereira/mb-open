@@ -62,9 +62,7 @@ public class LoginActivity extends WebAppActivity implements
 		if ( event.getJsonResult().hasErrors() ) {
 			this.view.onErrors(event.getJsonResult());
 		} else {
-			//EXPERIMENT
-			Window.alert(Cookies.getCookie("PLAY_SESSION"));
-			log.info(Cookies.getCookie("PLAY_SESSION"));
+			Window.alert(event.getJsonResult().getStringProperty("sessionId"));
 				
 		}
 		
