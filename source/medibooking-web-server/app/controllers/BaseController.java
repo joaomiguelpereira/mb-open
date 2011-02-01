@@ -36,6 +36,7 @@ import play.mvc.Scope;
 import play.mvc.Scope.Params;
 import play.mvc.With;
 import play.mvc.Http.Cookie;
+import utils.UserSessionUtils;
 
 public class BaseController extends AbstractController {
 
@@ -123,7 +124,7 @@ public class BaseController extends AbstractController {
 							&& user.getLoginInformation().getLoginToken() != null
 							&& user.getLoginInformation().getLoginToken()
 									.equals(lgToken)) {
-						createAuthenticateUserSessionData(user);
+						UserSessionUtils.createAuthenticateUserSessionData(user, session);
 						authenticationSuccessfull = true;
 
 					}
@@ -282,7 +283,7 @@ public class BaseController extends AbstractController {
 	 * 
 	 * @param user
 	 */
-	protected static void createAuthenticateUserSessionData(User user) {
+	/*protected static void createAuthenticateUserSessionData(User user) {
 		// set user login in session
 		session.put(SessionValuesConstants.LOGIN_TOKEN, user
 				.getLoginInformation().getLoginToken());
@@ -290,7 +291,7 @@ public class BaseController extends AbstractController {
 		session.put(SessionValuesConstants.USER_TYPE, user.getUserType()
 				.toString());
 
-	}
+	}*/
 
 	/**
 	 * Shortcut to put a message into error flash

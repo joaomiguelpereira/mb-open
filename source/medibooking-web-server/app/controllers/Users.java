@@ -21,6 +21,7 @@ import play.libs.Codec;
 import play.libs.Crypto;
 
 import services.UserService;
+import utils.UserSessionUtils;
 import models.Business;
 import models.BusinessAdministrator;
 import models.User;
@@ -281,7 +282,7 @@ public class Users extends BaseController {
 				flash.keep(Constants.FLASH_LAST_URL);
 				render("@login", email);
 			} else {
-				createAuthenticateUserSessionData(user);
+				UserSessionUtils.createAuthenticateUserSessionData(user, session);
 
 				if (keepLogged) {
 
