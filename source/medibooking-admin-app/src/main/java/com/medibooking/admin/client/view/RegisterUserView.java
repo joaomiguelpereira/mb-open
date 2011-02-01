@@ -84,4 +84,10 @@ public class RegisterUserView extends Composite implements IRegisterUserView {
 
 	}
 
+	@Override
+	public void clearErrors() {
+		this.userEditor.clearErrors();
+		
+	}
+
 }

@@ -16,7 +16,7 @@ import com.medibooking.admin.client.view.resources.GlobalResources;
 
 public class PageMessagePopup extends PopupPanel {
 
-	//Singleton, Only one message of this at a time....
+	// Singleton, Only one message of this at a time....
 	private static PageMessagePopup INSTANCE = null;
 
 	private static final String DEFAULT_HEIGH = "2em";
@@ -25,36 +25,47 @@ public class PageMessagePopup extends PopupPanel {
 	private Composite parent;
 	private AbsolutePanel closeButtonPanel;
 	private Anchor closeLink;
-	
 
 	public static void show(String message, MessageType type, Composite parent) {
-		if ( INSTANCE == null ) {
+
+		if (INSTANCE == null) {
 			INSTANCE = new PageMessagePopup();
-			//Handle resize events from parent
+			// Handle resize events from parent
 			Window.addResizeHandler(new ResizeHandler() {
-				
+
 				@Override
 				public void onResize(ResizeEvent event) {
-					if ( INSTANCE.isVisible() ) {
-						INSTANCE.setWidth(event.getWidth()+ "px");
-						INSTANCE.closeButtonPanel.insert(INSTANCE.closeLink, event.getWidth() - 30, 0, 0);
-						
+					if (INSTANCE.isVisible()) {
+						INSTANCE.setWidth(event.getWidth() + "px");
+						INSTANCE.closeButtonPanel.insert(INSTANCE.closeLink,
+								event.getWidth() - 30, 0, 0);
+
 					}
-					
+
 				}
 			});
 		}
 		INSTANCE.message = message;
 		INSTANCE.type = type;
 		INSTANCE.parent = parent;
+		//Clear style names
+		INSTANCE.removeStyleName(GlobalResources.INSTANCE.css()
+				.messageWithError());
+		INSTANCE.removeStyleName(GlobalResources.INSTANCE.css()
+				.messageWithWarning());
+		INSTANCE.removeStyleName(GlobalResources.INSTANCE.css()
+				.messageWithSuccess());
+
+		INSTANCE.removeStyleName(GlobalResources.INSTANCE.css()
+				.messageWithInfo());
+
 		INSTANCE.clear();
 		INSTANCE.show();
+
 	}
+
 	private PageMessagePopup() {
 		super(true);
-		
-		
-		
 
 	}
 

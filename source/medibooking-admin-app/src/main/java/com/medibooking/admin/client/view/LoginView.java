@@ -47,6 +47,8 @@ public class LoginView extends Composite implements ILoginView {
 	}
 
 	private void handleSubmit() {
+		//Clear erros
+		clearErrors();
 		user = driver.flush();
 		presenter.loginUser(user);
 		
@@ -82,6 +84,12 @@ public class LoginView extends Composite implements ILoginView {
 			
 			this.loginEditor.setFieldErrors(jsonResult.getFieldErrors());
 		}
+		
+	}
+
+	@Override
+	public void clearErrors() {
+		this.loginEditor.clearErrors();
 		
 	}
 
