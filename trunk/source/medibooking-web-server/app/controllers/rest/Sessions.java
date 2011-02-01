@@ -3,6 +3,7 @@ package controllers.rest;
 import models.User;
 import play.Logger;
 import play.i18n.Messages;
+import utils.UserSessionUtils;
 import json.JsonObjectWrapper;
 
 public class Sessions extends RESTController {
@@ -35,9 +36,10 @@ public class Sessions extends RESTController {
 
 		//If found, but not active
 		if ( loginToken==null ) {
-			renderJsonError("controllers.rest.session.create.fail.user.not.registered");
+			renderJsonError("controllers.rest.session.create.fail");
 		}
-		
+		UserSessionUtils.createAuthenticateUserSessionData(user, session);
+		renderJsonSuccess("controllers.rest.session.create.success");
 		
 	}
 
