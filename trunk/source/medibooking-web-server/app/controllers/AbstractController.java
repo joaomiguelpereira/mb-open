@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 import json.JSONUtils;
+import json.JsonPropHolder;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -89,6 +90,12 @@ public abstract class AbstractController extends Controller {
 	
 	protected static void renderJsonError(String i18nKey, Object...params) {
 		renderJSON(JSONUtils.errorMessage(i18nKey, params));
+	}
+
+	protected static void renderJsonSuccess(String i18nKey, JsonPropHolder props) {
+		props.add(JSONUtils.SUCCESS_MESSAGE_PROP, Messages.get(i18nKey));
+		renderJSON(props.toJson());
+		
 	}
 
 	protected static void warningSuccess(String i18nKey) {
