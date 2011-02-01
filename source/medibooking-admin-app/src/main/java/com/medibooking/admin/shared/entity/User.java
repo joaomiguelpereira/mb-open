@@ -28,8 +28,15 @@ public class User implements ValueObject{
 	//@Json String address;
 	@Json Boolean termsAgreement;
 	@Json UserType userType;
+	@Json Boolean keepLogged;
 	
 	
+	public Boolean getKeepLogged() {
+		return keepLogged;
+	}
+	public void setKeepLogged(Boolean keepLogged) {
+		this.keepLogged = keepLogged;
+	}
 	public UserType getUserType() {
 		return userType;
 	}

@@ -10,6 +10,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
+import com.medibooking.admin.client.view.widget.CheckBoxEditor;
 import com.medibooking.admin.client.view.widget.PasswordTextBoxEditor;
 import com.medibooking.admin.client.view.widget.TextBoxEditor;
 import com.medibooking.admin.shared.entity.User;
@@ -27,6 +28,9 @@ public class LoginEditor extends Composite implements CompositeEditor<User> {
 	
 	@UiField
 	PasswordTextBoxEditor password;
+	
+	@UiField
+	CheckBoxEditor keepLogged;
 	
 	@UiField
 	HasClickHandlers submit;
