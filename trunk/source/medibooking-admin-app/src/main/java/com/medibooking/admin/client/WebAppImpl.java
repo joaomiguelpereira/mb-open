@@ -9,10 +9,10 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.inject.Inject;
-import com.medibooking.admin.client.manager.UserSessionManager;
+import com.medibooking.admin.client.controller.UserSessionController;
+import com.medibooking.admin.client.controller.WebAppController;
 import com.medibooking.admin.client.mvp.WebAppPlaceHistoryMapper;
 import com.medibooking.admin.client.place.HomePlace;
 import com.medibooking.admin.client.view.IMainView;
@@ -28,28 +28,28 @@ public class WebAppImpl implements WebApp {
 
 	private final EventBus eventBus;
 	private final PlaceController placeController;
-	private final UserSessionManager userSessionManager;
 	private final IMainView mainView;
 	private final WebAppPlaceHistoryMapper placeHistoryMapper;
-
 	private final ActivityMapper activityMapper;
+	
+	
+	@SuppressWarnings("unused")
 	private final WebAppController webAppController;
+	@SuppressWarnings("unused")
+	private final UserSessionController sessionController;
 
 	@Inject
 	public WebAppImpl(IMainView shell, EventBus eventBus,
 			PlaceController placeController,
-			UserSessionManager userSessionManager,
 			WebAppPlaceHistoryMapper placeHistoryMapper,
-			ActivityMapper activityMapper, WebAppController webAppController) {
+			ActivityMapper activityMapper, WebAppController webAppController, UserSessionController sessionController) {
 		this.eventBus = eventBus;
 		this.placeController = placeController;
-		this.userSessionManager = userSessionManager;
 		this.mainView = shell;
 		this.placeHistoryMapper = placeHistoryMapper;
-		
-
 		this.activityMapper = activityMapper;
 		this.webAppController = webAppController;
+		this.sessionController = sessionController;
 	}
 
 	/**
@@ -80,11 +80,12 @@ public class WebAppImpl implements WebApp {
 		log.fine("Initializing the application...");
 		GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler() {
 			public void onUncaughtException(Throwable e) {
-				//In the event that the Processing Indicator is working, just stop it
+				// In the event that the Processing Indicator is working, just
+				// stop it
 				ProcessingIndicator.stop();
 				ErrorWindow.show(e);
-				
-				//Window.alert("Error: " + e.getMessage());
+
+				// Window.alert("Error: " + e.getMessage());
 				log.log(Level.SEVERE, e.getMessage(), e);
 			}
 		});

@@ -1,16 +1,12 @@
-package com.medibooking.admin.client;
+package com.medibooking.admin.client.controller;
 
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceChangeEvent;
 import com.google.gwt.place.shared.PlaceController;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
-import com.medibooking.admin.client.activity.WebAppActivity;
 import com.medibooking.admin.client.event.JsonResultAvailableEvent;
-import com.medibooking.admin.client.event.LogoutRequestedEvent;
 import com.medibooking.admin.client.event.RequestEvent;
 import com.medibooking.admin.client.place.HomePlace;
 import com.medibooking.admin.client.place.LoginPlace;
@@ -18,26 +14,25 @@ import com.medibooking.admin.client.place.RegisterUserPlace;
 import com.medibooking.admin.client.view.IMainView;
 import com.medibooking.admin.client.view.MessageType;
 
-public class WebAppController extends WebAppActivity implements
-		IMainView.Presenter, PlaceChangeEvent.Handler, RequestEvent.Handler {
+public class WebAppController extends AbstractPresenter implements
+		IMainView.Presenter, PlaceChangeEvent.Handler, RequestEvent.Handler{
 
-	private final IMainView view;
+	private IMainView view = null;
 
 	@Inject
-	public WebAppController(IMainView view, EventBus eventBus,
-			PlaceController placeController) {
+	public WebAppController(EventBus eventBus,
+			PlaceController placeController, IMainView view) {
 		super();
-		this.view = view;
-		this.view.setPresenter(this);
 		this.eventBus = eventBus;
 		this.placeController = placeController;
+		this.view = view;
+		this.view.setPresenter(this);
+		
 		eventBus.addHandler(PlaceChangeEvent.TYPE, this);
-		eventBus.addHandler(LogoutRequestedEvent.TYPE, new LogoutHandler());
 		eventBus.addHandler(JsonResultAvailableEvent.TYPE,
 				new JsonResultAvailableResultHandler(this.view));
 		//Configure loading 
 		RequestEvent.register(this.eventBus, this);
-		
 
 	}
 
@@ -55,29 +50,6 @@ public class WebAppController extends WebAppActivity implements
 			view.revealHomeView();
 		} else if (event.getNewPlace() instanceof RegisterUserPlace) {
 			view.revealRegisterUserView();
-		}
-
-	}
-
-	@Override
-	public void start(AcceptsOneWidget panel, EventBus eventBus) {
-		// This will never be called, because it's the main controller that is
-		// initialized once
-		this.eventBus = eventBus;
-		panel.setWidget(this.view);
-	}
-
-	/**
-	 * 
-	 * @author jpereira
-	 * 
-	 */
-	private static class LogoutHandler implements LogoutRequestedEvent.Handler {
-
-		@Override
-		public void onLogoutRequested(LogoutRequestedEvent event) {
-			Window.alert("Logout requested");
-
 		}
 
 	}
@@ -119,8 +91,6 @@ public class WebAppController extends WebAppActivity implements
 
 	@Override
 	public void onRequest(RequestEvent event) {
-		
-		
 		
 		if ( event.getState() == RequestEvent.State.START ) {
 			view.showRequestIndicator();

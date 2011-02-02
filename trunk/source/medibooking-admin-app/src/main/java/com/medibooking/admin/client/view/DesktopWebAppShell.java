@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -12,14 +11,12 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.NotificationMole;
 import com.google.inject.Inject;
 import com.medibooking.admin.client.place.HomePlace;
-import com.medibooking.admin.client.place.LoginPlace;
-import com.medibooking.admin.client.place.RegisterUserPlace;
+import com.medibooking.admin.client.view.region.IUserSessionOptionsRegion;
+import com.medibooking.admin.client.view.region.UserSessionOptionsRegionImpl;
 import com.medibooking.admin.client.view.widget.PageMessagePopup;
 import com.medibooking.admin.client.view.widget.ProcessingIndicator;
-import com.medibooking.admin.client.view.widget.UserSessionOptionsWidget;
 
 public class DesktopWebAppShell extends Composite implements IMainView {
 
@@ -37,8 +34,8 @@ public class DesktopWebAppShell extends Composite implements IMainView {
 	@UiField(provided = true)
 	LoginView loginView;
 
-	@UiField
-	UserSessionOptionsWidget userSessionOptionsWidget;
+	@UiField(provided=true)
+	UserSessionOptionsRegionImpl userSessionOptionsViewRegion;
 
 	@UiField(provided = true)
 	HomeView homeView;
@@ -46,18 +43,17 @@ public class DesktopWebAppShell extends Composite implements IMainView {
 	@UiField(provided = true)
 	RegisterUserView registerUserView;
 
-	private Presenter presenter;
+	private IMainView.Presenter presenter;
 
 	@Inject
 	public DesktopWebAppShell(ILoginView loginView, IHomeView homeView,
-			IRegisterUserView registerUserView) {
+			IRegisterUserView registerUserView, IUserSessionOptionsRegion userSessionOptionsViewRegion) {
 		log.fine("Home view: " + homeView.hashCode());
 		this.loginView = (LoginView) loginView;
 		this.homeView = (HomeView) homeView;
-
+		this.userSessionOptionsViewRegion = (UserSessionOptionsRegionImpl)userSessionOptionsViewRegion;
 		this.registerUserView = (RegisterUserView) registerUserView;
 		init();
-
 	}
 
 	private void init() {
@@ -66,6 +62,7 @@ public class DesktopWebAppShell extends Composite implements IMainView {
 		
 		
 		// Register handlers for userSessionWidget
+		/*
 		userSessionOptionsWidget.getLoginLink().addClickHandler(
 				new ClickHandler() {
 
@@ -90,10 +87,10 @@ public class DesktopWebAppShell extends Composite implements IMainView {
 
 					@Override
 					public void onClick(ClickEvent event) {
-						presenter.logoutRequested();
+						presenter.DestroyUserSessionRequested();
 
 					}
-				});
+				});*/
 	}
 
 	interface Binder extends UiBinder<DockLayoutPanel, DesktopWebAppShell> {
@@ -121,11 +118,6 @@ public class DesktopWebAppShell extends Composite implements IMainView {
 	}
 
 	@Override
-	public void setPresenter(Presenter presenter) {
-		this.presenter = presenter;
-	}
-
-	@Override
 	public void revealRegisterUserView() {
 		contentPanel.setWidget(registerUserView);
 
@@ -147,6 +139,12 @@ public class DesktopWebAppShell extends Composite implements IMainView {
 	public void hideRequestIndicator() {
 		ProcessingIndicator.stop();
 
+	}
+
+	@Override
+	public void setPresenter(Presenter presenter) {
+		this.presenter = presenter;
+		
 	}
 
 }
