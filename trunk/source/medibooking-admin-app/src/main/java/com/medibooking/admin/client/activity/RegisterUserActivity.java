@@ -6,6 +6,7 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
 import com.medibooking.admin.client.event.AbstractJsonResultAvailableEvent;
 import com.medibooking.admin.client.event.CreateUserResultAvailableEvent;
+import com.medibooking.admin.client.mvp.AbstractWebAppActivity;
 import com.medibooking.admin.client.place.LoginPlace;
 import com.medibooking.admin.client.rest.JsonResult;
 import com.medibooking.admin.client.rest.service.UserService;
@@ -13,7 +14,7 @@ import com.medibooking.admin.client.view.IRegisterUserView;
 import com.medibooking.admin.shared.entity.User;
 import com.medibooking.admin.shared.entity.UserType;
 
-public class RegisterUserActivity extends WebAppActivity implements
+public class RegisterUserActivity extends AbstractWebAppActivity implements
 		IRegisterUserView.Presenter, CreateUserResultAvailableEvent.Handler {
 
 	private IRegisterUserView view;
