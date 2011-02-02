@@ -11,12 +11,13 @@ import com.google.inject.Inject;
 import com.medibooking.admin.client.event.AbstractJsonResultAvailableEvent;
 import com.medibooking.admin.client.event.CreateSessionResultAvailableEvent;
 import com.medibooking.admin.client.manager.UserSessionManager;
+import com.medibooking.admin.client.mvp.AbstractWebAppActivity;
 import com.medibooking.admin.client.place.HomePlace;
 import com.medibooking.admin.client.rest.service.UserSessionService;
 import com.medibooking.admin.client.view.ILoginView;
 import com.medibooking.admin.shared.entity.User;
 
-public class LoginActivity extends WebAppActivity implements
+public class LoginActivity extends AbstractWebAppActivity implements
 		ILoginView.Presenter, CreateSessionResultAvailableEvent.Handler {
 
 	private static Logger log = Logger.getLogger(LoginActivity.class.getName());

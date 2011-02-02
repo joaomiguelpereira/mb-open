@@ -5,6 +5,8 @@ import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 
+import com.medibooking.admin.client.mvp.AbstractController;
+import com.medibooking.admin.client.mvp.AbstractWebAppActivity;
 import com.medibooking.admin.client.view.region.IUserSessionOptionsRegion;
 
 /**
@@ -13,7 +15,7 @@ import com.medibooking.admin.client.view.region.IUserSessionOptionsRegion;
  * @author jpereira
  * 
  */
-public class UserSessionController extends AbstractPresenter implements IUserSessionOptionsRegion.Presenter {
+public class UserSessionController extends AbstractController implements IUserSessionOptionsRegion.Presenter {
 
 	//This is injected in the reverse as compared with views
 	private IUserSessionOptionsRegion view;

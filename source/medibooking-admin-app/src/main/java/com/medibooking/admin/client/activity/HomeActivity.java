@@ -5,9 +5,10 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
+import com.medibooking.admin.client.mvp.AbstractWebAppActivity;
 import com.medibooking.admin.client.view.IHomeView;
 
-public class HomeActivity extends WebAppActivity implements
+public class HomeActivity extends AbstractWebAppActivity implements
 		IHomeView.Presenter {
 
 	private final IHomeView view;

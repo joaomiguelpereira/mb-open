@@ -8,13 +8,14 @@ import com.google.gwt.place.shared.PlaceController;
 import com.google.inject.Inject;
 import com.medibooking.admin.client.event.JsonResultAvailableEvent;
 import com.medibooking.admin.client.event.RequestEvent;
+import com.medibooking.admin.client.mvp.AbstractController;
 import com.medibooking.admin.client.place.HomePlace;
 import com.medibooking.admin.client.place.LoginPlace;
 import com.medibooking.admin.client.place.RegisterUserPlace;
 import com.medibooking.admin.client.view.IMainView;
 import com.medibooking.admin.client.view.MessageType;
 
-public class WebAppController extends AbstractPresenter implements
+public class WebAppController extends AbstractController implements
 		IMainView.Presenter, PlaceChangeEvent.Handler, RequestEvent.Handler{
 
 	private IMainView view = null;
