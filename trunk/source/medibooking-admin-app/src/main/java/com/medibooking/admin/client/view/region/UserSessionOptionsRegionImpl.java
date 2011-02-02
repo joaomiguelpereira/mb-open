@@ -9,6 +9,8 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
+import com.medibooking.admin.client.place.LoginPlace;
+import com.medibooking.admin.client.place.RegisterUserPlace;
 
 
 public class UserSessionOptionsRegionImpl extends Composite implements IUserSessionOptionsRegion {
@@ -45,6 +47,15 @@ public class UserSessionOptionsRegionImpl extends Composite implements IUserSess
 	}
 
 
+	@UiHandler("registerLink")
+	void onRegisterClicked(ClickEvent event) {
+		presenter.goTo(new RegisterUserPlace());
+	}
+	
+	@UiHandler("loginLink")
+	void onLonginClicked(ClickEvent event){
+		presenter.goTo(new LoginPlace(false));
+	}
 
 	@Override
 	public void setPresenter(Presenter presenter) {
