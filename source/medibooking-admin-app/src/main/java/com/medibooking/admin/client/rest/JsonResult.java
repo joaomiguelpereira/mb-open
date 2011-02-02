@@ -145,4 +145,16 @@ public class JsonResult {
 		return value;
 	}
 
+	public Integer getIntegerProperty(String propKey) {
+		Integer value = null;
+		if ( !parsed ) {
+			parse();
+		}
+		if (jsObj.get(propKey) != null && jsObj.get(propKey).isNumber()!=null ) {
+			value = Integer.valueOf(jsObj.get(propKey).isNumber().toString());
+					
+		}
+		return value;
+	}
+
 }
