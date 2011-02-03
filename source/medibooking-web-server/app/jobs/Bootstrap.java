@@ -14,8 +14,8 @@ import models.BusinessAdministrator;
 import models.Phone;
 import models.User;
 import models.enums.UserType;
-import models.factories.TestBusinessFactory;
 import play.Logger;
+import play.Play;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
 import play.mvc.Scope.Session;
@@ -29,7 +29,11 @@ public class Bootstrap extends Job<String> {
 
 		//loadHSQLConsole();
 		// load dummy users
-		prepareTestData();
+		//do it only if you're in dev mode
+		if (Play.configuration.get("application.mode")!= null && Play.configuration.get("application.mode").equals("dev") ) {
+			prepareTestData();
+		}
+		
 	}
 
 	private void prepareTestData() {
@@ -65,56 +69,54 @@ public class Bootstrap extends Job<String> {
 
 		// create at least two clinics for user oadmin
 
-		
 		List<Business> businesses = new ArrayList<Business>();
-		
-		for (int i=0; i<5; i++) {
-			
-			
-			Business business = createTestBusiness("my Office "+System.nanoTime());
-			
+
+		for (int i = 0; i < 5; i++) {
+
+			Business business = createTestBusiness("my Office "
+					+ System.nanoTime());
+
 			business.addAdministrator(oAdmin);
 			business.setSuperAdmin(oAdmin);
 			businesses.add(business);
-			
-			for (int j=0; j < i;j++) {
+
+			for (int j = 0; j < i; j++) {
 				Phone phone = new Phone();
-				phone.setDescription("Some description for phone "+j);
-				phone.setName("Phone"+j);
-				phone.setPhone("12345678"+j);
+				phone.setDescription("Some description for phone " + j);
+				phone.setName("Phone" + j);
+				phone.setPhone("12345678" + j);
 				business.addPhone(phone);
 			}
-			
-			
+
 			oAdmin.addAdministeredBusinesses(business);
-			
+
 		}
-		//createTestOffice(oAdmin, "Office nbr asd");
-		
-		
+		// createTestOffice(oAdmin, "Office nbr asd");
+
 		oAdmin.save();
-		
+
 		businesses = new ArrayList<Business>();
-		for (int i=0; i<1; i++) {
-			Business business = createTestBusiness("my Office nbr "+System.nanoTime());
+		for (int i = 0; i < 1; i++) {
+			Business business = createTestBusiness("my Office nbr "
+					+ System.nanoTime());
 			business.addAdministrator(oAdmin2);
 			business.setSuperAdmin(oAdmin2);
-			
+
 			business.addAdministrator(oAdmin);
-			//offices.add(office);	
+			// offices.add(office);
 			oAdmin2.addAdministeredBusinesses(business);
 			oAdmin.addAdministeredBusinesses(business);
 		}
-		
-		//createTestOffice(oAdmin, "Office nbr asd");
-		
+
+		// createTestOffice(oAdmin, "Office nbr asd");
+
 		oAdmin.save();
 		oAdmin2.save();
 
 	}
 
 	private Business createTestBusiness(String businessName) {
-		
+
 		final String addressLineOne = "Address Line ";
 		final String addressLineTwo = "Address Line 2";
 		final String addressPostalCode = "Postal Code";
@@ -126,10 +128,9 @@ public class Bootstrap extends Job<String> {
 		Business business = new Business();
 
 		business.setName(businessName);
-		
-		
+
 		Address officeAddress = new Address();
-		officeAddress.setAddressLineOne(addressLineOne+businessName);
+		officeAddress.setAddressLineOne(addressLineOne + businessName);
 		officeAddress.setAddressLineTwo(addressLineTwo);
 		officeAddress.setPostalCode(addressPostalCode);
 		officeAddress.setCity(addressCity);
@@ -138,7 +139,7 @@ public class Bootstrap extends Job<String> {
 		return business;
 
 	}
-	
+
 	private void loadHSQLConsole() {
 		org.hsqldb.util.DatabaseManagerSwing.main(new String[] { "--url",
 				"jdbc:hsqldb:mem:playembed", "--noexit" });
