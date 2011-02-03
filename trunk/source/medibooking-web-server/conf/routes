@@ -42,7 +42,8 @@ POST /user/account/saveNewPassword								Users.saveNewPassword
 
 #REST API
 POST /rest/user/create											rest.Users.create(format:'json')
-POST /rest/session/create										rest.Sessions.create(format:'json')
+POST /rest/session												rest.Sessions.create(format:'json')
+DELETE /rest/session/{sessionId}								rest.Sessions.destroy(format:'json')
 
 
 #END REST API
