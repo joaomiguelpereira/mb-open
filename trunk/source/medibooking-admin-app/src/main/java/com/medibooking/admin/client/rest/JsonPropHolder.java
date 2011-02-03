@@ -2,11 +2,9 @@ package com.medibooking.admin.client.rest;
 
 import java.util.HashMap;
 
-
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONString;
 import com.google.gwt.json.client.JSONValue;
-import com.google.gwt.user.client.Window;
 
 public class JsonPropHolder {
 
@@ -33,7 +31,6 @@ public class JsonPropHolder {
 			}
 			jsonObject.put(key, jsonVal);
 		}
-		Window.alert(jsonObject.toString());
 		return jsonObject.toString();
 	}
 

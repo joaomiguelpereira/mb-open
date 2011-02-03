@@ -3,8 +3,6 @@ package com.medibooking.admin.client.controller;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.inject.Inject;
-
-import com.medibooking.admin.client.AdminApp;
 import com.medibooking.admin.client.event.UserSessionCreatedEvent;
 import com.medibooking.admin.client.event.UserSessionDestroyedEvent;
 import com.medibooking.admin.client.manager.UserSessionManager;
