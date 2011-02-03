@@ -8,7 +8,6 @@ import com.medibooking.admin.client.gin.WebAppGinjector;
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class AdminApp implements EntryPoint {
-
 	 
 	/**
 	 * This is the entry point method.

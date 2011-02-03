@@ -5,9 +5,12 @@
 
 	<g:HTMLPanel>
 		<span ui:field="userName"></span>
+		<g:Anchor ui:field="optionsLink">opções</g:Anchor>
 		<g:Anchor ui:field="logoutLink">logout</g:Anchor>
 		<g:Anchor ui:field="loginLink">login</g:Anchor>
 		<g:Anchor ui:field="registerLink">register</g:Anchor>
+		
+		
 	</g:HTMLPanel>
 
 

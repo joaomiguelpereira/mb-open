@@ -6,4 +6,6 @@ public interface UserSessionService {
 	
 	public void create(User user);
 
+	public void destroy(String sessionId);
+
 }

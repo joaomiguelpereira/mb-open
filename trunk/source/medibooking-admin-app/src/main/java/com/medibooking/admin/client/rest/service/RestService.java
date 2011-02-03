@@ -10,6 +10,7 @@ import com.google.gwt.user.client.Window;
 import com.medibooking.admin.client.event.JsonResultAvailableEvent;
 import com.medibooking.admin.client.event.RequestEvent;
 import com.medibooking.admin.client.rest.JsonResult;
+import com.medibooking.admin.client.view.widget.ErrorWindow;
 
 public abstract class RestService {
 
@@ -25,18 +26,8 @@ public abstract class RestService {
 		this.eventBus.fireEvent(new RequestEvent(RequestEvent.State.END));
 	}
 
-	/**
-	 * POST jsonData to the url
-	 * 
-	 * @param url
-	 *            Url used to post
-	 * @param jsonData
-	 *            json to send to server
-	 */
-	protected void post(String url, String jsonData,
-			final JsonResultAvailableCallback callback) {
+	private void sendRequest(RequestBuilder builder, String jsonData, final JsonResultAvailableCallback callback) {
 		startRequest();
-		RequestBuilder builder = new RequestBuilder(RequestBuilder.POST, url);
 
 		builder.setHeader("Content-Type", "application/x-www-form-urlencoded");
 
@@ -67,7 +58,31 @@ public abstract class RestService {
 		} catch (RequestException e) {
 			handleError(e);
 			endRequest();
-		}
+		}	
+	}
+	protected void delete(String url, String jsonData,
+			final JsonResultAvailableCallback callback) {
+		
+		RequestBuilder builder = new RequestBuilder(RequestBuilder.DELETE, url);
+		sendRequest(builder, jsonData, callback);
+	}
+
+	/**
+	 * POST jsonData to the url
+	 * 
+	 * @param url
+	 *            Url used to post
+	 * @param jsonData
+	 *            json to send to server
+	 */
+	protected void post(String url, String jsonData,
+			final JsonResultAvailableCallback callback) {
+		startRequest();
+
+		RequestBuilder builder = new RequestBuilder(RequestBuilder.POST, url);
+		sendRequest(builder, jsonData, callback);
+
+
 	}
 
 	/**
@@ -76,7 +91,7 @@ public abstract class RestService {
 	 * @param e
 	 */
 	private void handleError(Throwable e) {
-		Window.alert(e.getMessage());
+		ErrorWindow.show(e);
 	}
 
 	/**

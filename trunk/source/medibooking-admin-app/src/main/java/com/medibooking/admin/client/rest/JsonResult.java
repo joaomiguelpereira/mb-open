@@ -9,6 +9,7 @@ import java.util.Set;
 import name.pehl.totoe.json.client.JsonParser;
 
 import com.google.gwt.json.client.JSONArray;
+import com.google.gwt.json.client.JSONException;
 import com.google.gwt.json.client.JSONObject;
 
 public class JsonResult {
@@ -40,9 +41,10 @@ public class JsonResult {
 			throw new IllegalStateException(
 					"The json string is null. Please provid a not null string in the constructor");
 		}
+
 		jsObj = new JsonParser().parse(this.jsonString);
 
-		// handle status
+		// hasndle status
 		if (jsObj.get(STATUS_PROP) != null
 				&& jsObj.get(STATUS_PROP).isNumber() != null) {
 			this.status = Integer.valueOf(jsObj.get(STATUS_PROP).isNumber()
@@ -134,12 +136,11 @@ public class JsonResult {
 
 	public String getStringProperty(String propKey) {
 		String value = null;
-		if ( !parsed ) {
+		if (!parsed) {
 			parse();
 		}
 		if (jsObj.get(propKey) != null) {
-			value = jsObj.get(propKey).isString()
-					.stringValue();
+			value = jsObj.get(propKey).isString().stringValue();
 		}
 
 		return value;
@@ -147,12 +148,12 @@ public class JsonResult {
 
 	public Integer getIntegerProperty(String propKey) {
 		Integer value = null;
-		if ( !parsed ) {
+		if (!parsed) {
 			parse();
 		}
-		if (jsObj.get(propKey) != null && jsObj.get(propKey).isNumber()!=null ) {
+		if (jsObj.get(propKey) != null && jsObj.get(propKey).isNumber() != null) {
 			value = Integer.valueOf(jsObj.get(propKey).isNumber().toString());
-					
+
 		}
 		return value;
 	}

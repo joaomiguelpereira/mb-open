@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.inject.Inject;
 import com.medibooking.admin.client.controller.UserSessionController;
 import com.medibooking.admin.client.controller.WebAppController;
+import com.medibooking.admin.client.manager.UserSessionManager;
 import com.medibooking.admin.client.mvp.WebAppPlaceHistoryMapper;
 import com.medibooking.admin.client.place.HomePlace;
 import com.medibooking.admin.client.view.IMainView;
@@ -31,8 +32,8 @@ public class WebAppImpl implements WebApp {
 	private final IMainView mainView;
 	private final WebAppPlaceHistoryMapper placeHistoryMapper;
 	private final ActivityMapper activityMapper;
-	
-	
+	private final UserSessionManager sessionManager;
+
 	@SuppressWarnings("unused")
 	private final WebAppController webAppController;
 	@SuppressWarnings("unused")
@@ -42,7 +43,11 @@ public class WebAppImpl implements WebApp {
 	public WebAppImpl(IMainView shell, EventBus eventBus,
 			PlaceController placeController,
 			WebAppPlaceHistoryMapper placeHistoryMapper,
-			ActivityMapper activityMapper, WebAppController webAppController, UserSessionController sessionController) {
+			ActivityMapper activityMapper, WebAppController webAppController,
+			UserSessionController sessionController,
+			UserSessionManager sessionManager) {
+		
+		
 		this.eventBus = eventBus;
 		this.placeController = placeController;
 		this.mainView = shell;
@@ -50,6 +55,7 @@ public class WebAppImpl implements WebApp {
 		this.activityMapper = activityMapper;
 		this.webAppController = webAppController;
 		this.sessionController = sessionController;
+		this.sessionManager = sessionManager;
 	}
 
 	/**
@@ -77,7 +83,7 @@ public class WebAppImpl implements WebApp {
 
 	private void init() {
 
-		log.fine("Initializing the application...");
+		
 		GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler() {
 			public void onUncaughtException(Throwable e) {
 				// In the event that the Processing Indicator is working, just
@@ -95,6 +101,12 @@ public class WebAppImpl implements WebApp {
 
 		GWT.<GlobalResources> create(GlobalResources.class).editorCss()
 				.ensureInjected();
+		
+		//check if there's a session
+		sessionManager.createSessionFromCookies();
+		
+		
+		
 		// TODO: Configure remote handler for logging. For dev, everything is
 		// dumped in jetty console
 		/**

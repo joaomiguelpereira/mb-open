@@ -9,5 +9,7 @@ public interface IUserSessionOptionsRegion {
 	public interface Presenter extends IPresenter{
 		public void destroyUserSession();		
 	}
+	public void setSessionData(String email);
+	public void clearSessionDate();
 
 }
