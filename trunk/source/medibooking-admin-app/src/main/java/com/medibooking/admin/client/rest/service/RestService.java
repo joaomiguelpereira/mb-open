@@ -6,10 +6,10 @@ import com.google.gwt.http.client.RequestBuilder;
 import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.RequestException;
 import com.google.gwt.http.client.Response;
-import com.google.gwt.user.client.Window;
 import com.medibooking.admin.client.event.JsonResultAvailableEvent;
 import com.medibooking.admin.client.event.RequestEvent;
 import com.medibooking.admin.client.rest.JsonResult;
+import com.medibooking.admin.client.rest.SimpleURL;
 import com.medibooking.admin.client.view.widget.ErrorWindow;
 
 public abstract class RestService {
@@ -26,7 +26,8 @@ public abstract class RestService {
 		this.eventBus.fireEvent(new RequestEvent(RequestEvent.State.END));
 	}
 
-	private void sendRequest(RequestBuilder builder, String jsonData, final JsonResultAvailableCallback callback) {
+	private void sendRequest(RequestBuilder builder, String jsonData,
+			final JsonResultAvailableCallback callback, final boolean silent) {
 		startRequest();
 
 		builder.setHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -43,7 +44,10 @@ public abstract class RestService {
 						Response response) {
 					jsonResult = new JsonResult(response.getText()).parse();
 
-					handleJSONResult();
+					if (!silent) {
+						handleJSONResult();
+					}
+
 					callback.onJsonResultAvaialble(jsonResult);
 					endRequest();
 				}
@@ -58,13 +62,38 @@ public abstract class RestService {
 		} catch (RequestException e) {
 			handleError(e);
 			endRequest();
-		}	
+		}
 	}
+
+	protected void put(SimpleURL url, String jsonData,
+			final JsonResultAvailableCallback callback, boolean silent) {
+		put(url.build(), jsonData, callback, silent);
+	}
+
+	protected void put(String url, String jsonData,
+			final JsonResultAvailableCallback callback, boolean silent) {
+
+		RequestBuilder builder = new RequestBuilder(RequestBuilder.PUT, url);
+		sendRequest(builder, jsonData, callback, silent);
+	}
+
+	protected void delete(SimpleURL url, String jsonData,
+			final JsonResultAvailableCallback callback, boolean silent) {
+		delete(url.build(), jsonData, callback, silent);
+	}
+
 	protected void delete(String url, String jsonData,
-			final JsonResultAvailableCallback callback) {
-		
+			final JsonResultAvailableCallback callback, boolean silent) {
+
 		RequestBuilder builder = new RequestBuilder(RequestBuilder.DELETE, url);
-		sendRequest(builder, jsonData, callback);
+		sendRequest(builder, jsonData, callback, silent);
+	}
+
+	protected void post(String url, String jsonData,
+			final JsonResultAvailableCallback callback, boolean silent) {
+		RequestBuilder builder = new RequestBuilder(RequestBuilder.DELETE, url);
+		sendRequest(builder, jsonData, callback, silent);
+
 	}
 
 	/**
@@ -75,14 +104,9 @@ public abstract class RestService {
 	 * @param jsonData
 	 *            json to send to server
 	 */
-	protected void post(String url, String jsonData,
-			final JsonResultAvailableCallback callback) {
-		startRequest();
-
-		RequestBuilder builder = new RequestBuilder(RequestBuilder.POST, url);
-		sendRequest(builder, jsonData, callback);
-
-
+	protected void post(SimpleURL url, String jsonData,
+			final JsonResultAvailableCallback callback, boolean silent) {
+		post(url.build(), jsonData, callback, silent);
 	}
 
 	/**

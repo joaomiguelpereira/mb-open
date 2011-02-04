@@ -4,11 +4,8 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.medibooking.admin.client.rest.JsonResult;
 
-public class CreateUserResultAvailableEvent extends
+public class CreateUserResultAvailableEvent extends AbstractJsonResultAvailableEvent<CreateUserResultAvailableEvent.Handler> {
 
-AbstractJsonResultAvailableEvent<CreateUserResultAvailableEvent.Handler> {
-
-	
 	public static Type<Handler> TYPE = new Type<CreateUserResultAvailableEvent.Handler>();
 
 	public interface Handler extends JsonResultAvailableEventHandler {
@@ -25,7 +22,7 @@ AbstractJsonResultAvailableEvent<CreateUserResultAvailableEvent.Handler> {
 
 		return CreateUserResultAvailableEvent.TYPE;
 	}
-	
+
 	public static HandlerRegistration register(EventBus eventBus,
 			CreateUserResultAvailableEvent.Handler handler) {
 		return eventBus.addHandler(TYPE, handler);

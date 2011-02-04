@@ -2,9 +2,6 @@ package com.medibooking.admin.client.rest.service;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.inject.Inject;
-import com.medibooking.admin.client.event.CreateSessionResultAvailableEvent;
-import com.medibooking.admin.client.event.UserSessionDestroyedEvent;
-import com.medibooking.admin.client.rest.JsonResult;
 import com.medibooking.admin.client.rest.ServerRouteResolver;
 import com.medibooking.admin.client.rest.SimpleURL;
 import com.medibooking.admin.shared.entity.User;
@@ -18,34 +15,31 @@ public class UserSessionRestService extends RestService implements
 	}
 
 	@Override
-	public void create(User user) {
+	public void create(User user, final JsonResultAvailableCallback callback) {
 		String jsonData = User.WRITER.toJson(user);
 		String url = ServerRouteResolver.SessionRoutes.getCreate();
-		post(url, jsonData, new JsonResultAvailableCallback() {
-
-			@Override
-			public void onJsonResultAvaialble(JsonResult result) {
-				eventBus.fireEvent(new CreateSessionResultAvailableEvent(result));
-
-			}
-		});
+		post(url, jsonData,callback, false);
 
 	}
 
 	@Override
-	public void destroy(String sessionId) {
+	public void destroy(String sessionId, final JsonResultAvailableCallback callback) {
 
 		SimpleURL url = new SimpleURL(
 				ServerRouteResolver.SessionRoutes.getDestroy());
 		url.addParam("sessionId", sessionId);
 
-		delete(url.build(), null, new JsonResultAvailableCallback() {
+		delete(url.build(), null, callback, true);
 
-			@Override
-			public void onJsonResultAvaialble(JsonResult result) {
-				eventBus.fireEvent(new UserSessionDestroyedEvent());
-			}
-		});
+	}
+
+	@Override
+	public void validateSession(String sessionId, final JsonResultAvailableCallback callback) {
+
+		SimpleURL url = new SimpleURL(
+				ServerRouteResolver.SessionRoutes.getValidate());
+		url.addParam("sessionId", sessionId);
+		put(url, null,callback, true);
 
 	}
 

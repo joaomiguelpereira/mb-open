@@ -4,36 +4,33 @@ import java.util.logging.Logger;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.PlaceController;
-import com.google.gwt.user.client.Cookies;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.inject.Inject;
-import com.medibooking.admin.client.event.AbstractJsonResultAvailableEvent;
-import com.medibooking.admin.client.event.CreateSessionResultAvailableEvent;
+import com.medibooking.admin.client.event.usersession.UserSessionEvent;
+import com.medibooking.admin.client.event.usersession.UserSessionEvent.Status;
+import com.medibooking.admin.client.event.usersession.UserSessionEventHandler;
 import com.medibooking.admin.client.manager.UserSessionManager;
 import com.medibooking.admin.client.mvp.AbstractWebAppActivity;
 import com.medibooking.admin.client.place.HomePlace;
-import com.medibooking.admin.client.rest.service.UserSessionService;
 import com.medibooking.admin.client.view.ILoginView;
 import com.medibooking.admin.shared.entity.User;
 
 public class LoginActivity extends AbstractWebAppActivity implements
-		ILoginView.Presenter, CreateSessionResultAvailableEvent.Handler {
+		ILoginView.Presenter, UserSessionEventHandler {
 
 	private static Logger log = Logger.getLogger(LoginActivity.class.getName());
 	private final ILoginView view;
 	private boolean registeredBefore;
-	private UserSessionService service;
-	private UserSessionManager sessionManager;
+	private UserSessionManager userSessionManager;
 
 	@Inject
 	public LoginActivity(UserSessionManager sessionManager,
-			UserSessionService service, ILoginView view,
+	/* UserSessionService service, */ILoginView view,
 			PlaceController placeController) {
 		this.placeController = placeController;
 		this.view = view;
-		this.service = service;
-		this.sessionManager = sessionManager;
+		// this.userSessionservice = service;
+		this.userSessionManager = sessionManager;
 		this.view.setPresenter(this);
 	}
 
@@ -43,7 +40,7 @@ public class LoginActivity extends AbstractWebAppActivity implements
 		panel.setWidget(view);
 		this.view.setUser(new User());
 		this.view.initialize();
-		CreateSessionResultAvailableEvent.register(eventBus, this);
+		UserSessionEvent.register(this.eventBus, this);
 
 	}
 
@@ -57,21 +54,19 @@ public class LoginActivity extends AbstractWebAppActivity implements
 
 	@Override
 	public void loginUser(User user) {
-
-		service.create(user);
+		// delegate it to the manager
+		userSessionManager.create(user);
 
 	}
 
 	@Override
-	public void onJsonResultAvailable(AbstractJsonResultAvailableEvent<?> event) {
-		if (event.getJsonResult().hasErrors()) {
-			this.view.onErrors(event.getJsonResult());
+	public void onUserSessionEvent(UserSessionEvent event) {
+
+		if (event.getStatus() == Status.FAIL
+				&& event.getJsonResult().hasFieldErrors()) {
+			this.view.onErrors(event.getJsonResult().getFieldErrors());
 		} else {
-			this.sessionManager.startSession(event.getJsonResult()
-					.getStringProperty("sessionId"), event.getJsonResult()
-					.getStringProperty("email"),
-					event.getJsonResult().getIntegerProperty("duration"));
-			this.placeController.goTo(new HomePlace());
+			placeController.goTo(new HomePlace());
 		}
 
 	}
