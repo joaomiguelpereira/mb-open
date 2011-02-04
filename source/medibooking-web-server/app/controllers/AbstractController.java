@@ -89,13 +89,17 @@ public abstract class AbstractController extends Controller {
 	}*/
 	
 	protected static void renderJsonError(String i18nKey, Object...params) {
-		renderJSON(JSONUtils.errorMessage(i18nKey, params));
+		JsonPropHolder props = new JsonPropHolder();
+		props.add(JSONUtils.ERROR_MESSAGE_PROP, Messages.get(i18nKey, params));
+		props.add(JSONUtils.STATUS_PROP, JSONUtils.Status.FAIL);
+		renderJSON(props.toJson());
+		
 	}
 
 	protected static void renderJsonSuccess(String i18nKey, JsonPropHolder props) {
 		props.add(JSONUtils.SUCCESS_MESSAGE_PROP, Messages.get(i18nKey));
+		props.add(JSONUtils.STATUS_PROP, JSONUtils.Status.SUCCESS);
 		renderJSON(props.toJson());
-		
 	}
 
 	protected static void warningSuccess(String i18nKey) {
@@ -103,7 +107,8 @@ public abstract class AbstractController extends Controller {
 	}
 
 	protected static void renderJsonSuccess(String i18nKey) {
-		renderJSON(JSONUtils.successMessage(i18nKey));
+		JsonPropHolder props = new JsonPropHolder();
+		renderJsonSuccess(i18nKey, props);
 	}
 
 	

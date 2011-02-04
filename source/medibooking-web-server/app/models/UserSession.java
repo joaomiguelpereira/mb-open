@@ -22,6 +22,7 @@ public class UserSession extends BaseModel {
 	private Long endTimeStamp;
 	private Long lastActivityTimeStamp;
 	private String ipAddress;
+	private Integer duration;
 	public UserSession() {
 		
 	}
@@ -74,6 +75,7 @@ public class UserSession extends BaseModel {
 		this.endTimeStamp = this.lastActivityTimeStamp+duration*24*60*60*1000;
 		this.userId = userId;
 		this.ipAddress = ipAddress;
+		this.duration= duration;
 	
 		//useless computation cycles?
 		this.sessionId = Crypto.sign(UUID.randomUUID()+SEPARATOR+this.startTimeStamp+PRIVATE_KEY) ;
@@ -87,6 +89,16 @@ public class UserSession extends BaseModel {
 	public String getIpAddress() {
 		return ipAddress;
 	}
+
+	public void setDuration(Integer duration) {
+		this.duration = duration;
+	}
+
+	public Integer getDuration() {
+		return duration;
+	}
+
+	
 
 	
 	
