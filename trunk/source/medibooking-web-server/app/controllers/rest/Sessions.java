@@ -14,18 +14,40 @@ public class Sessions extends RESTController {
 
 	private static final int LONG_SESSION_DURATION = 15;
 
+	public static void validate(String sessionId) {
+		Logger.debug("Validating session id: " + sessionId);
+		// find the session id
+		UserSession userSession = UserSession.find("bySessionId", sessionId)
+				.first();
+		
+		if (userSession == null) {
+			renderJsonError("Could not validate the session id");
+		}
+		User user = User.findById(userSession.getUserId());
+		if (user == null) {
+			renderJsonError("Could not validate the session id because the user referenced was not found");
+		}
+
+		renderJsonSuccess(
+				"controllers.rest.session.create.success",
+				new JsonPropHolder().add("sessionId", sessionId)
+						.add("email", user.getEmail()).add("userId", user.id).add("duration", userSession.getDuration()));
+	}
+
 	public static void destroy(String sessionId) {
 		Logger.debug("Destroying session id: " + sessionId);
 		UserSession userSession = UserSession.find("bySessionId", sessionId)
 				.first();
-		//if the session does not exists in the DB, then don't care, probably was deleted by a job, could be an old one
-		if ( userSession!= null) {
+		// if the session does not exists in the DB, then don't care, probably
+		// was deleted by a job, could be an old one
+		if (userSession != null) {
 			userSession.delete();
+			Logger.debug("Session " + sessionId
+					+ " was in database and is now destroyed...");
 		}
 		renderJsonSuccess("controllers.rest.session.destroy.success");
 	}
 
-	
 	public static void create(JsonObjectWrapper body) {
 
 		validation
@@ -83,6 +105,7 @@ public class Sessions extends RESTController {
 				new JsonPropHolder()
 						.add("sessionId", userSession.getSessionId())
 						.add("email", user.getEmail())
+						.add("userId", user.id)
 						.add("duration",
 								duration == UserSession.DEFAULT_SESSION_DURATION ? 0
 										: duration));

@@ -25,12 +25,8 @@ public class JSONUtils {
 	public static final String ID_PROP = "__id";
 	public static final String ERRORS_PROP = "__errors";
 	
-	public static class Status {
-		
-		//not related with http status codes
-		public static final Integer SUCCESS = 200;
-		public static final Integer FAIL = 500;
-		
+	public enum Status {
+		FAIL, SUCCESS, UNKNOW;
 	}
 	
 	public static String successMessage(String i18nKey) {
