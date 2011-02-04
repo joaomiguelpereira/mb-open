@@ -9,7 +9,6 @@ import java.util.Set;
 import name.pehl.totoe.json.client.JsonParser;
 
 import com.google.gwt.json.client.JSONArray;
-import com.google.gwt.json.client.JSONException;
 import com.google.gwt.json.client.JSONObject;
 
 public class JsonResult {
@@ -21,16 +20,19 @@ public class JsonResult {
 	public static final String ID_PROP = "__id";
 	public static final String ERRORS_PROP = "__errors";
 
+	public enum Status {
+		FAIL, SUCCESS, UNKNOW;
+	}
+
 	private Long id;
 	private String jsonString;
 	private String errorMessage;
 	private String successMessage;
 	private String warningMessage;
-	private Integer status = new Integer(-1); // -1 did not receive anything //
-												// useful
+	private Status status = Status.UNKNOW;
+
 	private JSONObject jsObj;
 	private HashMap<String, List<String>> fieldErrors = new HashMap<String, List<String>>();
-	private boolean parsed = false;
 
 	public JsonResult(String jsonString) {
 		this.jsonString = jsonString;
@@ -44,12 +46,15 @@ public class JsonResult {
 
 		jsObj = new JsonParser().parse(this.jsonString);
 
-		// hasndle status
-		if (jsObj.get(STATUS_PROP) != null
-				&& jsObj.get(STATUS_PROP).isNumber() != null) {
-			this.status = Integer.valueOf(jsObj.get(STATUS_PROP).isNumber()
-					.toString());
+		// handle STATUS_PROP
+		if (jsObj.get(STATUS_PROP) != null) {
+			String tmpEnumVal = jsObj.get(STATUS_PROP).isString().stringValue();
+			this.setStatus(Status.valueOf(tmpEnumVal));
+		} else {
+			throw new RuntimeException(
+					"The response from the server does not contains the STATUS code....");
 		}
+
 		// handle id
 		if (jsObj.get(ID_PROP) != null && jsObj.get(ID_PROP).isNumber() != null) {
 			this.id = Long.valueOf(jsObj.get(ID_PROP).isNumber().toString());
@@ -92,7 +97,6 @@ public class JsonResult {
 				}
 			}
 		}
-		parsed = true;
 		return this;
 	}
 
@@ -106,10 +110,6 @@ public class JsonResult {
 
 	public String getWarningMessage() {
 		return warningMessage;
-	}
-
-	public Integer getStatus() {
-		return status;
 	}
 
 	public Long getId() {
@@ -134,28 +134,65 @@ public class JsonResult {
 		return this.jsonString;
 	}
 
-	public String getStringProperty(String propKey) {
+	public String getStringProperty(String propKey, boolean required) {
 		String value = null;
-		if (!parsed) {
-			parse();
-		}
+
 		if (jsObj.get(propKey) != null) {
 			value = jsObj.get(propKey).isString().stringValue();
+		}
+
+		if (value == null && required) {
+			throw new RuntimeException("The key " + propKey
+					+ " is required from server response");
 		}
 
 		return value;
 	}
 
-	public Integer getIntegerProperty(String propKey) {
+	public Integer getIntegerProperty(String propKey, boolean required) {
 		Integer value = null;
-		if (!parsed) {
-			parse();
-		}
+
 		if (jsObj.get(propKey) != null && jsObj.get(propKey).isNumber() != null) {
 			value = Integer.valueOf(jsObj.get(propKey).isNumber().toString());
 
 		}
+		if (value == null && required) {
+			throw new RuntimeException("The key " + propKey
+					+ " is required from server response");
+		}
+
 		return value;
+	}
+
+	public Long getLongProperty(String propKey, boolean required) {
+		Long value = null;
+
+		if (jsObj.get(propKey) != null && jsObj.get(propKey).isNumber() != null) {
+			value = Long.valueOf(jsObj.get(propKey).isNumber().toString());
+
+		}
+		if (value == null && required) {
+			throw new RuntimeException("The key " + propKey
+					+ " is required from server response");
+		}
+
+		return value;
+	}
+
+	public boolean isSuccess() {
+		return this.successMessage != null;
+	}
+
+	public boolean hasFieldErrors() {
+		return this.fieldErrors != null && this.fieldErrors.size() > 0;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public Status getStatus() {
+		return status;
 	}
 
 }

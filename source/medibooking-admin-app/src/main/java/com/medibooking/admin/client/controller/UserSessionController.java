@@ -2,9 +2,11 @@ package com.medibooking.admin.client.controller;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.PlaceController;
+import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
-import com.medibooking.admin.client.event.UserSessionCreatedEvent;
-import com.medibooking.admin.client.event.UserSessionDestroyedEvent;
+import com.medibooking.admin.client.event.usersession.UserSessionEvent;
+import com.medibooking.admin.client.event.usersession.UserSessionEvent.Operation;
+import com.medibooking.admin.client.event.usersession.UserSessionEventHandler;
 import com.medibooking.admin.client.manager.UserSessionManager;
 import com.medibooking.admin.client.mvp.AbstractController;
 import com.medibooking.admin.client.view.region.IUserSessionOptionsRegion;
@@ -16,8 +18,7 @@ import com.medibooking.admin.client.view.region.IUserSessionOptionsRegion;
  * 
  */
 public class UserSessionController extends AbstractController implements
-		IUserSessionOptionsRegion.Presenter, UserSessionCreatedEvent.Handler,
-		UserSessionDestroyedEvent.Handler {
+		IUserSessionOptionsRegion.Presenter, UserSessionEventHandler {
 
 	// This is injected in the reverse as compared with views
 	private final IUserSessionOptionsRegion view;
@@ -34,8 +35,7 @@ public class UserSessionController extends AbstractController implements
 		this.userSessionManager = userSessionManager;
 
 		view.setPresenter(this);
-		UserSessionCreatedEvent.register(this.eventBus, this);
-		UserSessionDestroyedEvent.register(this.eventBus, this);
+		UserSessionEvent.register(this.eventBus, this);
 
 	}
 
@@ -46,14 +46,20 @@ public class UserSessionController extends AbstractController implements
 	}
 
 	@Override
-	public void onUserSessionCreated(UserSessionCreatedEvent event) {
-		this.view.setSessionData(this.userSessionManager.getEmail());
-	}
-
-	@Override
-	public void onSessionDestroyed(UserSessionDestroyedEvent event) {
-		this.view.clearSessionDate();
+	public void onUserSessionEvent(UserSessionEvent event) {
+		switch (event.getOperation()) {
+		case DESTROY:
+			this.view.clearSessionDate();
+			break;
+		case CREATE:
+			this.view.setSessionData(event.getEmail());
+		default:
+			break;
+		}
+		
 		
 	}
+
+	
 
 }

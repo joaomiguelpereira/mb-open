@@ -28,7 +28,7 @@ public class UserRestService extends RestService implements UserService {
 				eventBus.fireEvent(new CreateUserResultAvailableEvent(result));
 				
 			}
-		});
+		},false);
 		
 	}
 	

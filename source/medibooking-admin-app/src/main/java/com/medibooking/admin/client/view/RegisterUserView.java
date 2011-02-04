@@ -1,5 +1,8 @@
 package com.medibooking.admin.client.view;
 
+import java.util.List;
+import java.util.Map;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -74,14 +77,11 @@ public class RegisterUserView extends Composite implements IRegisterUserView {
 	}
 
 	@Override
-	public void onErrors(JsonResult jsonResult) {
-		// Bind validation errors on the editor
-		if ( jsonResult.getFieldErrors() != null && !jsonResult.getFieldErrors().isEmpty()) {
-			
-			this.userEditor.setFieldErrors(jsonResult.getFieldErrors());
-		}
+	public void onErrors(Map<String, List<String>> errors) {
 		
-
+			this.userEditor.setFieldErrors(errors);
+		
+		
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import com.medibooking.admin.client.event.CreateUserResultAvailableEvent;
 import com.medibooking.admin.client.mvp.AbstractWebAppActivity;
 import com.medibooking.admin.client.place.LoginPlace;
 import com.medibooking.admin.client.rest.JsonResult;
+import com.medibooking.admin.client.rest.JsonResult.Status;
 import com.medibooking.admin.client.rest.service.UserService;
 import com.medibooking.admin.client.view.IRegisterUserView;
 import com.medibooking.admin.shared.entity.User;
@@ -55,8 +56,8 @@ public class RegisterUserActivity extends AbstractWebAppActivity implements
 	public void onJsonResultAvailable(AbstractJsonResultAvailableEvent<?> event) {
 		JsonResult jsonResult = event.getJsonResult();
 		// if has errors
-		if (jsonResult.hasErrors()) {
-			this.view.onErrors(jsonResult);
+		if (jsonResult.getStatus() == Status.FAIL) {
+			this.view.onErrors(jsonResult.getFieldErrors());
 		} else {
 			this.placeController.goTo(new LoginPlace(true));
 		}
