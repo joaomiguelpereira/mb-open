@@ -26,6 +26,7 @@
 					<mbw:PasswordTextBoxEditor ui:field="password" />
 				</td>
 			</tr>
+
 			<tr>
 				<td class="{res.editorCss.labelContainer}">
 
@@ -33,16 +34,45 @@
 				</td>
 				<td class="{res.editorCss.leftAligned}">
 					<mbw:CheckBoxEditor ui:field="keepLogged">
-						Manter sessão activa por 15 dias
+						Manter sessão
+						activa por 15 dias
 					</mbw:CheckBoxEditor>
 				</td>
 			</tr>
+
 
 			<tr>
 				<td class="{res.editorCss.labelContainer}">
 				</td>
 				<td class="{res.editorCss.leftAligned} {res.editorCss.buttonArea} ">
 					<g:Button ui:field="submit">Autenticar</g:Button>
+				</td>
+			</tr>
+
+			<tr>
+				<td class="{res.editorCss.labelContainer}">
+
+
+				</td>
+
+				<td class="{res.editorCss.leftAligned}">
+					<g:Anchor ui:field="forgotPassword">
+						Recuperar password
+					</g:Anchor>
+
+				</td>
+			</tr>
+
+			<tr>
+				<td class="{res.editorCss.labelContainer}">
+
+
+				</td>
+
+				<td class="{res.editorCss.leftAligned}">
+					<g:Anchor ui:field="register">
+						Registar
+					</g:Anchor>
 				</td>
 			</tr>
 
